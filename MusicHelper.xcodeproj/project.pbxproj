@@ -16,6 +16,9 @@
 		B44650681C47E0440037C3D1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B44650661C47E0440037C3D1 /* LaunchScreen.storyboard */; };
 		B44650731C47E0440037C3D1 /* MusicHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44650721C47E0440037C3D1 /* MusicHelperTests.swift */; };
 		B446507E1C47E0440037C3D1 /* MusicHelperUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B446507D1C47E0440037C3D1 /* MusicHelperUITests.swift */; };
+		B446508C1C47E04F0037C3D1 /* Music.swift in Sources */ = {isa = PBXBuildFile; fileRef = B446508B1C47E04F0037C3D1 /* Music.swift */; };
+		B446508F1C47E1130037C3D1 /* AngryFlappiesGameMusic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B446508D1C47E1130037C3D1 /* AngryFlappiesGameMusic.mp3 */; };
+		B44650901C47E1130037C3D1 /* AngryFlappiesMenuMusic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B446508E1C47E1130037C3D1 /* AngryFlappiesMenuMusic.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +54,9 @@
 		B44650791C47E0440037C3D1 /* MusicHelperUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MusicHelperUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B446507D1C47E0440037C3D1 /* MusicHelperUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicHelperUITests.swift; sourceTree = "<group>"; };
 		B446507F1C47E0440037C3D1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B446508B1C47E04F0037C3D1 /* Music.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Music.swift; sourceTree = "<group>"; };
+		B446508D1C47E1130037C3D1 /* AngryFlappiesGameMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = AngryFlappiesGameMusic.mp3; sourceTree = "<group>"; };
+		B446508E1C47E1130037C3D1 /* AngryFlappiesMenuMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = AngryFlappiesMenuMusic.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +107,9 @@
 		B44650581C47E0440037C3D1 /* MusicHelper */ = {
 			isa = PBXGroup;
 			children = (
+				B446508B1C47E04F0037C3D1 /* Music.swift */,
+				B446508E1C47E1130037C3D1 /* AngryFlappiesMenuMusic.mp3 */,
+				B446508D1C47E1130037C3D1 /* AngryFlappiesGameMusic.mp3 */,
 				B44650591C47E0440037C3D1 /* AppDelegate.swift */,
 				B446505B1C47E0440037C3D1 /* GameScene.sks */,
 				B446505D1C47E0440037C3D1 /* GameScene.swift */,
@@ -237,6 +246,8 @@
 			files = (
 				B446505C1C47E0440037C3D1 /* GameScene.sks in Resources */,
 				B44650681C47E0440037C3D1 /* LaunchScreen.storyboard in Resources */,
+				B446508F1C47E1130037C3D1 /* AngryFlappiesGameMusic.mp3 in Resources */,
+				B44650901C47E1130037C3D1 /* AngryFlappiesMenuMusic.mp3 in Resources */,
 				B44650651C47E0440037C3D1 /* Assets.xcassets in Resources */,
 				B44650631C47E0440037C3D1 /* Main.storyboard in Resources */,
 			);
@@ -266,6 +277,7 @@
 				B446505E1C47E0440037C3D1 /* GameScene.swift in Sources */,
 				B44650601C47E0440037C3D1 /* GameViewController.swift in Sources */,
 				B446505A1C47E0440037C3D1 /* AppDelegate.swift in Sources */,
+				B446508C1C47E04F0037C3D1 /* Music.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

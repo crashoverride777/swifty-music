@@ -13,6 +13,9 @@ class GameViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // init music helper, not really needed but good to do ASAP
+        Music.sharedInstance
 
         if let scene = GameScene(fileNamed:"GameScene") {
             // Configure the view.
