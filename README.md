@@ -16,32 +16,32 @@ Music.sharedInstance.playMenu()
 Music.sharedInstance.playGame()
 ```
 
-- To pause music, eg for PauseMenu, Advertising etc, simply call
+- To pause music, eg game paused, advertising etc
 ```swift
 Music.sharedInstance.pause()
 ```
 
-- To resume paused music simply call
+- To resume paused music
 ```swift
 Music.sharedInstance.resume()
 ```
 
-- To stop and reset music, eg when GameOver, simply call
+- To stop and reset music, eg gameover
 ```swift
 Music.sharedInstance.stop()
 ```
 
-- To mute music simply call
+- To mute music
 ```swift
 Music.sharedInstance.mute()
 ```
 
-- To unmute music simply call
+- To unmute music
 ```swift
 Music.sharedInstance.unmute()
 ```
 
-- To check if music is muted, eg for setting up your MuteMusicButton, simply call
+- To check if music is muted, eg when setting up your mute music button
 ```swift
 if !Music.sharedInstance.isMuted() {
      // music not muted, show mute button
