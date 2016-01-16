@@ -1,6 +1,6 @@
 # Swift2 Music Helper
 
-A simple and extendable music helper class for your SpriteKit games.
+A simple and extendable music helper class.
 
 # Set-Up
 
