@@ -1,4 +1,4 @@
-# Swift2-MusicHelper
+# Swift2 Music Helper
 
 A simple and extendable music helper class for your SpriteKit games.
 
