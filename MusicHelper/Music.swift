@@ -25,6 +25,21 @@
 
 import AVFoundation
 
+/// URLs
+private struct URL {
+    static let avPlayer1 = "AngryFlappiesMenuMusic"
+    static let avPlayer2 = "AngryFlappiesGameMusic"
+    static let avPlayerExtension = "mp3"
+}
+
+/// Last played
+private enum LastPlayed {
+    case Nothing
+    case AVPlayer1
+    case AVPlayer2
+}
+
+/// Music singleton class
 class Music: NSObject {
     
     // MARK: - Static Properties
@@ -32,32 +47,20 @@ class Music: NSObject {
     /// Shared instance
     static let sharedInstance = Music()
     
-    /// URLs
-    private struct URL {
-        static let avPlayer1 = "AngryFlappiesMenuMusic"
-        static let avPlayer2 = "AngryFlappiesGameMusic"
-        static let avPlayerExtension = "mp3"
-    }
-    
     // MARK: - Properties
     
     /// Local defaults
     private let localDefaults = NSUserDefaults.standardUserDefaults()
-    
-    /// Muted
-    private let mutedKey = "MusicMuteState"
     
     /// Players
     private var avPlayer1: AVAudioPlayer!
     private var avPlayer2: AVAudioPlayer!
     
     /// Last played
-    private enum LastPlayed {
-        case Nothing
-        case AVPlayer1
-        case AVPlayer2
-    }
     private var lastPlayed = LastPlayed.Nothing
+    
+    /// Muted key
+    private let mutedKey = "MusicMuteState"
     
     // MARK: - Init
     private override init() {
