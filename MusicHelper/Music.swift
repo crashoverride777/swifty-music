@@ -21,7 +21,7 @@
 //    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //    SOFTWARE.
 
-//    v1.0
+//    v1.1
 
 import AVFoundation
 
@@ -78,27 +78,27 @@ class Music: NSObject {
     /// Play
     func playMenu() {
         lastPlayed = .AVPlayer1
-        avPlayer1.play()
+        avPlayer1?.play()
     }
     
     func playGame() {
         lastPlayed = .AVPlayer2
-        avPlayer2.play()
+        avPlayer2?.play()
     }
     
     /// Pause
     func pause() {
-        avPlayer1.pause()
-        avPlayer2.pause()
+        avPlayer1?.pause()
+        avPlayer2?.pause()
     }
     
     /// Resume
     func resume() {
         switch lastPlayed {
         case .AVPlayer1:
-            avPlayer1.play()
+            avPlayer1?.play()
         case .AVPlayer2:
-            avPlayer2.play()
+            avPlayer2?.play()
         case .Nothing:
             break
         }
@@ -106,26 +106,26 @@ class Music: NSObject {
     
     /// Stop
     func stop() {
-        avPlayer1.stop()
-        avPlayer1.currentTime = 0
-        avPlayer1.prepareToPlay()
+        avPlayer1?.stop()
+        avPlayer1?.currentTime = 0
+        avPlayer1?.prepareToPlay()
         
-        avPlayer2.stop()
-        avPlayer2.currentTime = 0
-        avPlayer2.prepareToPlay()
+        avPlayer2?.stop()
+        avPlayer2?.currentTime = 0
+        avPlayer2?.prepareToPlay()
     }
     
     /// Mute
     func mute() {
-        avPlayer1.volume = 0
-        avPlayer2.volume = 0
+        avPlayer1?.volume = 0
+        avPlayer2?.volume = 0
         localDefaults.setBool(true, forKey: mutedKey)
     }
     
     /// Unmute
     func unmute() {
-        avPlayer1.volume = 1
-        avPlayer2.volume = 1
+        avPlayer1?.volume = 1
+        avPlayer2?.volume = 1
         localDefaults.setBool(false, forKey: mutedKey)
     }
     
@@ -145,13 +145,13 @@ class Music: NSObject {
         if let avPlayer1URL = NSBundle.mainBundle().URLForResource(URL.avPlayer1, withExtension: URL.avPlayerExtension) {
             do {
                 avPlayer1 = try AVAudioPlayer(contentsOfURL: avPlayer1URL)
+                avPlayer1.delegate = self
+                avPlayer1.numberOfLoops = -1
+                avPlayer1.prepareToPlay()
             } catch {
                 print("Error finding AVAudioPlayer 1 file")
             }
         }
-        avPlayer1.delegate = self
-        avPlayer1.numberOfLoops = -1
-        avPlayer1.prepareToPlay()
     }
     
     /// Prepare player 2
@@ -159,13 +159,13 @@ class Music: NSObject {
         if let avPlayer2URL = NSBundle.mainBundle().URLForResource(URL.avPlayer2, withExtension: URL.avPlayerExtension) {
             do {
                 avPlayer2 = try AVAudioPlayer(contentsOfURL: avPlayer2URL)
+                avPlayer2.delegate = self
+                avPlayer2.numberOfLoops = -1
+                avPlayer2.prepareToPlay()
             } catch {
                 print("Error finding AVAudioPlayer 2 file")
             }
         }
-        avPlayer2.delegate = self
-        avPlayer2.numberOfLoops = -1
-        avPlayer2.prepareToPlay()
     }
 }
 
