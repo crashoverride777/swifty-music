@@ -62,13 +62,18 @@ class Music: NSObject {
     /// Muted key
     private let mutedKey = "MusicMuteState"
     
+    /// Is muted
+    var isMuted: Bool {
+        return localDefaults.boolForKey(mutedKey)
+    }
+    
     // MARK: - Init
     private override init() {
         super.init()
         prepareAVPlayer1()
         prepareAVPlayer2()
         
-        if isMuted() {
+        if isMuted {
             mute()
         }
     }
@@ -127,15 +132,6 @@ class Music: NSObject {
         avPlayer1?.volume = 1
         avPlayer2?.volume = 1
         localDefaults.setBool(false, forKey: mutedKey)
-    }
-    
-    /// Check mute state
-    func isMuted() -> Bool {
-        if localDefaults.boolForKey(mutedKey) {
-            return true
-        } else {
-            return false
-        }
     }
     
     // MARK: - Private Methods
