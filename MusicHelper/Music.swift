@@ -49,9 +49,6 @@ class Music: NSObject {
     
     // MARK: - Properties
     
-    /// Local defaults
-    private let localDefaults = NSUserDefaults.standardUserDefaults()
-    
     /// Players
     private var avPlayer1: AVAudioPlayer!
     private var avPlayer2: AVAudioPlayer!
@@ -64,7 +61,7 @@ class Music: NSObject {
     
     /// Is muted
     var isMuted: Bool {
-        return localDefaults.boolForKey(mutedKey)
+        return NSUserDefaults.standardUserDefaults().boolForKey(mutedKey)
     }
     
     // MARK: - Init
@@ -124,14 +121,14 @@ class Music: NSObject {
     func mute() {
         avPlayer1?.volume = 0
         avPlayer2?.volume = 0
-        localDefaults.setBool(true, forKey: mutedKey)
+        NSUserDefaults.standardUserDefaults().setBool(true, forKey: mutedKey)
     }
     
     /// Unmute
     func unmute() {
         avPlayer1?.volume = 1
         avPlayer2?.volume = 1
-        localDefaults.setBool(false, forKey: mutedKey)
+        NSUserDefaults.standardUserDefaults().setBool(false, forKey: mutedKey)
     }
     
     // MARK: - Private Methods
