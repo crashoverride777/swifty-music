@@ -170,10 +170,12 @@ extension Music: AVAudioPlayerDelegate {
     
     func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag: Bool) {
         print("Audio player did finish playing")
-        // finish means when music ended not when paused or stopped
+        // finish means when music ended and is not looped, not when you pause or stop it
     }
     
     func audioPlayerDecodeErrorDidOccur(player: AVAudioPlayer, error: NSError?) {
-        print("Audio player did not decode: \(error)")
+        if let error = error {
+            print(error.localizedDescription)
+        }
     }
 }
