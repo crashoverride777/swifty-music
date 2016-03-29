@@ -49,6 +49,8 @@ class Music: NSObject {
     
     // MARK: - Properties
     
+    var error: NSError?
+    
     /// Players
     private var avPlayer1: AVAudioPlayer?
     private var avPlayer2: AVAudioPlayer?
@@ -79,15 +81,13 @@ class Music: NSObject {
     
     /// Play
     func playMenu() {
-        pause()
+        guard playing(avPlayer1) else { return }
         lastPlayed = .AVPlayer1
-        avPlayer1?.play()
     }
     
     func playGame() {
-        pause()
+        guard playing(avPlayer2) else { return }
         lastPlayed = .AVPlayer2
-        avPlayer2?.play()
     }
     
     /// Pause
@@ -135,31 +135,39 @@ class Music: NSObject {
     
     // MARK: - Private Methods
     
+    /// Play
+    private func playing(avPlayer: AVAudioPlayer?) -> Bool {
+        guard let avPlayer = avPlayer else { return false }
+        pause()
+        avPlayer.play()
+        return true
+    }
+    
     /// Prepare player 1
     private func prepareAVPlayer1() {
-        guard let avPlayer1URL = NSBundle.mainBundle().URLForResource(URL.avPlayer1, withExtension: URL.avPlayerExtension) else { return }
         
         do {
+            guard let avPlayer1URL = NSBundle.mainBundle().URLForResource(URL.avPlayer1, withExtension: URL.avPlayerExtension) else { return }
             avPlayer1 = try AVAudioPlayer(contentsOfURL: avPlayer1URL)
             avPlayer1?.delegate = self
             avPlayer1?.numberOfLoops = -1
             avPlayer1?.prepareToPlay()
-        } catch {
-            print("Error finding AVAudioPlayer 1 file")
+        } catch let error as NSError {
+            print(error.localizedDescription)
         }
     }
     
     /// Prepare player 2
     private func prepareAVPlayer2() {
-        guard let avPlayer2URL = NSBundle.mainBundle().URLForResource(URL.avPlayer2, withExtension: URL.avPlayerExtension) else { return }
         
         do {
+            guard let avPlayer2URL = NSBundle.mainBundle().URLForResource(URL.avPlayer2, withExtension: URL.avPlayerExtension) else { return }
             avPlayer2 = try AVAudioPlayer(contentsOfURL: avPlayer2URL)
             avPlayer2?.delegate = self
             avPlayer2?.numberOfLoops = -1
             avPlayer2?.prepareToPlay()
-        } catch {
-            print("Error finding AVAudioPlayer 2 file")
+        } catch let error as NSError {
+            print(error.localizedDescription)
         }
     }
 }
