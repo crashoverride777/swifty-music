@@ -56,7 +56,8 @@ if !Music.sharedInstance.isMuted() {
 
 - v1.2
 
-Small fixes and improvements.
+Improvements to require less code edits when adding more audio players.
+Other fixes
 
 - v1.1
 
