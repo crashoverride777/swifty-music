@@ -9,6 +9,9 @@
 import SpriteKit
 
 class GameScene: SKScene {
+    
+    var touchCounter = 0
+    
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
         let myLabel = SKLabelNode(fontNamed:"Chalkduster")
@@ -24,8 +27,17 @@ class GameScene: SKScene {
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
        /* Called when a touch begins */
         
-        Music.sharedInstance.playGame() // play new game music
+        touchCounter += 1
         
+        if touchCounter == 1 {
+            Music.sharedInstance.playGame() // play new game music
+        }
+        if touchCounter == 2 {
+            touchCounter = 0
+            Music.sharedInstance.stop()
+            Music.sharedInstance.playMenu()
+        }
+    
         for touch in touches {
             let location = touch.locationInNode(self)
             
