@@ -49,8 +49,6 @@ class Music: NSObject {
     
     // MARK: - Properties
     
-    var error: NSError?
-    
     /// Players
     private var avPlayer1: AVAudioPlayer?
     private var avPlayer2: AVAudioPlayer?
@@ -147,12 +145,13 @@ class Music: NSObject {
     private func prepareAVPlayer1() {
         
         do {
-            guard let avPlayer1URL = NSBundle.mainBundle().URLForResource(URL.avPlayer1, withExtension: URL.avPlayerExtension) else { return }
-            avPlayer1 = try AVAudioPlayer(contentsOfURL: avPlayer1URL)
+            guard let url = NSBundle.mainBundle().URLForResource(URL.avPlayer1, withExtension: URL.avPlayerExtension) else { return }
+            avPlayer1 = try AVAudioPlayer(contentsOfURL: url)
             avPlayer1?.delegate = self
             avPlayer1?.numberOfLoops = -1
             avPlayer1?.prepareToPlay()
-        } catch let error as NSError {
+        }
+        catch let error as NSError {
             print(error.localizedDescription)
         }
     }
@@ -161,12 +160,13 @@ class Music: NSObject {
     private func prepareAVPlayer2() {
         
         do {
-            guard let avPlayer2URL = NSBundle.mainBundle().URLForResource(URL.avPlayer2, withExtension: URL.avPlayerExtension) else { return }
-            avPlayer2 = try AVAudioPlayer(contentsOfURL: avPlayer2URL)
+            guard let url = NSBundle.mainBundle().URLForResource(URL.avPlayer2, withExtension: URL.avPlayerExtension) else { return }
+            avPlayer2 = try AVAudioPlayer(contentsOfURL: url)
             avPlayer2?.delegate = self
             avPlayer2?.numberOfLoops = -1
             avPlayer2?.prepareToPlay()
-        } catch let error as NSError {
+        }
+        catch let error as NSError {
             print(error.localizedDescription)
         }
     }
