@@ -73,6 +73,7 @@ This should be fairly straight forward and as of v1.2 no further edits to other 
 - v1.2
 
 Improvements to require less code edits when adding more audio players.
+
 Other fixes and improvements
 
 - v1.1
