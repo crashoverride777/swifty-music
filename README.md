@@ -52,6 +52,10 @@ if !Music.sharedInstance.isMuted() {
 
 # Release notes
 
+- v1.2
+
+Small fixes and improvements.
+
 - v1.1
 
 Small fixes and improvements.
