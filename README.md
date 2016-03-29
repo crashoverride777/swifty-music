@@ -10,7 +10,9 @@ A simple and extendable music helper class.
 
 # How to use
 
-- To play music call 1 of the userMethods. This will automatically pause any previously playing music if playing
+Check the sample project for a demo.
+
+- To play music call 1 of the userMethods. This will automatically pause (not stop and reset) any previously playing music if playing
 ```swift
 Music.sharedInstance.playMenu()
 Music.sharedInstance.playGame()
