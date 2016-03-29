@@ -79,11 +79,13 @@ class Music: NSObject {
     
     /// Play
     func playMenu() {
+        pause()
         lastPlayed = .AVPlayer1
         avPlayer1?.play()
     }
     
     func playGame() {
+        pause()
         lastPlayed = .AVPlayer2
         avPlayer2?.play()
     }

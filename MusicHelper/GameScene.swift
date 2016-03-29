@@ -24,7 +24,6 @@ class GameScene: SKScene {
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
        /* Called when a touch begins */
         
-        Music.sharedInstance.pause() // pause all music, use Music.sharedInstance.resume() to resume
         Music.sharedInstance.playGame() // play new game music
         
         for touch in touches {
