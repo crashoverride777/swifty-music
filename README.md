@@ -52,12 +52,23 @@ if !Music.sharedInstance.isMuted() {
 }
 ```
 
+# How to add more audio players
+
+- To add more audio players  
+
+1) Create more avAudioPlayer properties
+2) Add them to the "allPlayers" array
+3) Create the "play" methods for them
+4) set them up in the "preparePlayers" method.
+
+This should be fairly straight forward and as of v1.2 no further edits to other methods such as pause/resume are required.
+
 # Release notes
 
 - v1.2
 
 Improvements to require less code edits when adding more audio players.
-Other fixes
+Other fixes and improvements
 
 - v1.1
 
