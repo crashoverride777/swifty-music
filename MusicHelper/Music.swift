@@ -32,13 +32,6 @@ private struct URL {
     static let avPlayerExtension = "mp3"
 }
 
-/// Last played
-private enum LastPlayed {
-    case Nothing
-    case AVPlayer1
-    case AVPlayer2
-}
-
 /// Music singleton class
 class Music: NSObject {
     
@@ -53,9 +46,11 @@ class Music: NSObject {
     private var avPlayer1: AVAudioPlayer?
     private var avPlayer2: AVAudioPlayer?
     
-    /// Last played
-    private var lastPlayed = LastPlayed.Nothing
+    private var allPlayers: [AVAudioPlayer?] = []
     
+    /// Last played
+    private var lastPlayed = 0
+   
     /// Muted key
     private let mutedKey = "MusicMuteState"
     
@@ -67,8 +62,10 @@ class Music: NSObject {
     // MARK: - Init
     private override init() {
         super.init()
-        prepareAVPlayer1()
-        prepareAVPlayer2()
+        
+        preparePlayers()
+        
+        allPlayers = [avPlayer1, avPlayer2]
         
         if isMuted {
             mute()
@@ -79,92 +76,96 @@ class Music: NSObject {
     
     /// Play
     func playMenu() {
-        guard playing(avPlayer1) else { return }
-        lastPlayed = .AVPlayer1
+        play(avPlayer1)
     }
     
     func playGame() {
-        guard playing(avPlayer2) else { return }
-        lastPlayed = .AVPlayer2
+        play(avPlayer2)
     }
     
     /// Pause
     func pause() {
-        avPlayer1?.pause()
-        avPlayer2?.pause()
+        for player in allPlayers {
+            player?.pause()
+        }
     }
     
     /// Resume
     func resume() {
-        switch lastPlayed {
-        case .AVPlayer1:
-            avPlayer1?.play()
-        case .AVPlayer2:
-            avPlayer2?.play()
-        case .Nothing:
-            break
+        for (index, player) in allPlayers.enumerate() {
+            if index == lastPlayed {
+                player?.play()
+                return
+            }
         }
     }
     
     /// Stop
     func stop() {
-        avPlayer1?.stop()
-        avPlayer1?.currentTime = 0
-        avPlayer1?.prepareToPlay()
-        
-        avPlayer2?.stop()
-        avPlayer2?.currentTime = 0
-        avPlayer2?.prepareToPlay()
+        for player in allPlayers {
+            player?.stop()
+            player?.currentTime = 0
+            player?.prepareToPlay()
+        }
     }
     
     /// Mute
     func mute() {
-        avPlayer1?.volume = 0
-        avPlayer2?.volume = 0
+        for player in allPlayers {
+            player?.volume = 0
+        }
         NSUserDefaults.standardUserDefaults().setBool(true, forKey: mutedKey)
     }
     
     /// Unmute
     func unmute() {
-        avPlayer1?.volume = 1
-        avPlayer2?.volume = 1
+        for player in allPlayers {
+            player?.volume = 1
+        }
         NSUserDefaults.standardUserDefaults().setBool(false, forKey: mutedKey)
     }
     
     // MARK: - Private Methods
     
     /// Playing
-    private func playing(avPlayer: AVAudioPlayer?) -> Bool {
-        guard let avPlayer = avPlayer else { return false }
+    private func play(avPlayer: AVAudioPlayer?) {
+        guard let avPlayer = avPlayer else { return }
+        
         pause()
         avPlayer.play()
-        return true
+        
+        for (index, _) in allPlayers.enumerate() {
+            if allPlayers[index] == avPlayer {
+                lastPlayed = index
+                return
+            }
+        }
     }
     
-    /// Prepare player 1
-    private func prepareAVPlayer1() {
+    /// Prepare players
+    private func preparePlayers() {
         
+        // Player 1
         do {
-            guard let url = NSBundle.mainBundle().URLForResource(URL.avPlayer1, withExtension: URL.avPlayerExtension) else { return }
-            avPlayer1 = try AVAudioPlayer(contentsOfURL: url)
-            avPlayer1?.delegate = self
-            avPlayer1?.numberOfLoops = -1
-            avPlayer1?.prepareToPlay()
+            if let url = NSBundle.mainBundle().URLForResource(URL.avPlayer1, withExtension: URL.avPlayerExtension) {
+                avPlayer1 = try AVAudioPlayer(contentsOfURL: url)
+                avPlayer1?.delegate = self
+                avPlayer1?.numberOfLoops = -1
+                avPlayer1?.prepareToPlay()
+            }
         }
         catch let error as NSError {
             print(error.localizedDescription)
         }
-    }
-    
-    /// Prepare player 2
-    private func prepareAVPlayer2() {
         
+        // Player 2
         do {
-            guard let url = NSBundle.mainBundle().URLForResource(URL.avPlayer2, withExtension: URL.avPlayerExtension) else { return }
-            avPlayer2 = try AVAudioPlayer(contentsOfURL: url)
-            avPlayer2?.delegate = self
-            avPlayer2?.numberOfLoops = -1
-            avPlayer2?.prepareToPlay()
+            if let url = NSBundle.mainBundle().URLForResource(URL.avPlayer2, withExtension: URL.avPlayerExtension) {
+                avPlayer2 = try AVAudioPlayer(contentsOfURL: url)
+                avPlayer2?.delegate = self
+                avPlayer2?.numberOfLoops = -1
+                avPlayer2?.prepareToPlay()
+            }
         }
         catch let error as NSError {
             print(error.localizedDescription)
@@ -176,8 +177,10 @@ class Music: NSObject {
 extension Music: AVAudioPlayerDelegate {
     
     func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag: Bool) {
-        print("Audio player did finish playing")
-        // finish means when music ended and is not looped, not when you pause or stop it
+        if flag {
+            print("Audio player did finish playing")
+            // finish means when music ended and is not looped, not when you pause or stop it
+        }
     }
     
     func audioPlayerDecodeErrorDidOccur(player: AVAudioPlayer, error: NSError?) {

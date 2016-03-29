@@ -15,13 +15,13 @@ class GameScene: SKScene {
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
         let myLabel = SKLabelNode(fontNamed:"Chalkduster")
-        myLabel.text = "Hello, World!"
+        myLabel.text = "Touch 3 times"
         myLabel.fontSize = 45
         myLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame))
         
         self.addChild(myLabel)
         
-        Music.sharedInstance.playMenu()
+        Music.sharedInstance.playGame()
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -30,32 +30,15 @@ class GameScene: SKScene {
         touchCounter += 1
         
         if touchCounter == 1 {
-            Music.sharedInstance.playGame() // play new game music
+            Music.sharedInstance.pause() // play new game music
         }
         if touchCounter == 2 {
+            Music.sharedInstance.resume()
+        }
+        if touchCounter == 3 {
             touchCounter = 0
             Music.sharedInstance.stop()
             Music.sharedInstance.playMenu()
         }
-    
-        for touch in touches {
-            let location = touch.locationInNode(self)
-            
-            let sprite = SKSpriteNode(imageNamed:"Spaceship")
-            
-            sprite.xScale = 0.5
-            sprite.yScale = 0.5
-            sprite.position = location
-            
-            let action = SKAction.rotateByAngle(CGFloat(M_PI), duration:1)
-            
-            sprite.runAction(SKAction.repeatActionForever(action))
-            
-            self.addChild(sprite)
-        }
-    }
-   
-    override func update(currentTime: CFTimeInterval) {
-        /* Called before each frame is rendered */
     }
 }
