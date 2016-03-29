@@ -135,29 +135,29 @@ class Music: NSObject {
     
     /// Prepare player 1
     private func prepareAVPlayer1() {
-        if let avPlayer1URL = NSBundle.mainBundle().URLForResource(URL.avPlayer1, withExtension: URL.avPlayerExtension) {
-            do {
-                avPlayer1 = try AVAudioPlayer(contentsOfURL: avPlayer1URL)
-                avPlayer1.delegate = self
-                avPlayer1.numberOfLoops = -1
-                avPlayer1.prepareToPlay()
-            } catch {
-                print("Error finding AVAudioPlayer 1 file")
-            }
+        guard let avPlayer1URL = NSBundle.mainBundle().URLForResource(URL.avPlayer1, withExtension: URL.avPlayerExtension) else { return }
+        
+        do {
+            avPlayer1 = try AVAudioPlayer(contentsOfURL: avPlayer1URL)
+            avPlayer1.delegate = self
+            avPlayer1.numberOfLoops = -1
+            avPlayer1.prepareToPlay()
+        } catch {
+            print("Error finding AVAudioPlayer 1 file")
         }
     }
     
     /// Prepare player 2
     private func prepareAVPlayer2() {
-        if let avPlayer2URL = NSBundle.mainBundle().URLForResource(URL.avPlayer2, withExtension: URL.avPlayerExtension) {
-            do {
-                avPlayer2 = try AVAudioPlayer(contentsOfURL: avPlayer2URL)
-                avPlayer2.delegate = self
-                avPlayer2.numberOfLoops = -1
-                avPlayer2.prepareToPlay()
-            } catch {
-                print("Error finding AVAudioPlayer 2 file")
-            }
+        guard let avPlayer2URL = NSBundle.mainBundle().URLForResource(URL.avPlayer2, withExtension: URL.avPlayerExtension) else { return }
+        
+        do {
+            avPlayer2 = try AVAudioPlayer(contentsOfURL: avPlayer2URL)
+            avPlayer2.delegate = self
+            avPlayer2.numberOfLoops = -1
+            avPlayer2.prepareToPlay()
+        } catch {
+            print("Error finding AVAudioPlayer 2 file")
         }
     }
 }
