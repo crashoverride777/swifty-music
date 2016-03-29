@@ -21,7 +21,7 @@
 //    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //    SOFTWARE.
 
-//    v1.1
+//    v1.2
 
 import AVFoundation
 
@@ -50,8 +50,8 @@ class Music: NSObject {
     // MARK: - Properties
     
     /// Players
-    private var avPlayer1: AVAudioPlayer!
-    private var avPlayer2: AVAudioPlayer!
+    private var avPlayer1: AVAudioPlayer?
+    private var avPlayer2: AVAudioPlayer?
     
     /// Last played
     private var lastPlayed = LastPlayed.Nothing
@@ -139,9 +139,9 @@ class Music: NSObject {
         
         do {
             avPlayer1 = try AVAudioPlayer(contentsOfURL: avPlayer1URL)
-            avPlayer1.delegate = self
-            avPlayer1.numberOfLoops = -1
-            avPlayer1.prepareToPlay()
+            avPlayer1?.delegate = self
+            avPlayer1?.numberOfLoops = -1
+            avPlayer1?.prepareToPlay()
         } catch {
             print("Error finding AVAudioPlayer 1 file")
         }
@@ -153,9 +153,9 @@ class Music: NSObject {
         
         do {
             avPlayer2 = try AVAudioPlayer(contentsOfURL: avPlayer2URL)
-            avPlayer2.delegate = self
-            avPlayer2.numberOfLoops = -1
-            avPlayer2.prepareToPlay()
+            avPlayer2?.delegate = self
+            avPlayer2?.numberOfLoops = -1
+            avPlayer2?.prepareToPlay()
         } catch {
             print("Error finding AVAudioPlayer 2 file")
         }
