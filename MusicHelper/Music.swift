@@ -133,7 +133,7 @@ class Music: NSObject {
     
     // MARK: - Private Methods
     
-    /// Play
+    /// Playing
     private func playing(avPlayer: AVAudioPlayer?) -> Bool {
         guard let avPlayer = avPlayer else { return false }
         pause()
