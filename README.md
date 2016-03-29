@@ -16,7 +16,7 @@ Music.sharedInstance.playMenu()
 Music.sharedInstance.playGame()
 ```
 
-- To pause music manual, eg when game paused, for advertising etc
+- To pause music manually, eg when game paused, for advertising etc
 ```swift
 Music.sharedInstance.pause()
 ```
