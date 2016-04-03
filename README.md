@@ -45,7 +45,7 @@ Music.sharedInstance.unmute()
 
 - To check if music is muted, eg when setting up your mute music button
 ```swift
-if !Music.sharedInstance.isMuted() {
+if !Music.sharedInstance.isMuted {
      // music not muted, show mute button
 } else {
     // music is muted, show unmute button
