@@ -48,7 +48,7 @@ class Music: NSObject {
     private var allPlayers: [AVAudioPlayer?] = []
     
     /// Last played
-    private var lastPlayed = 0
+    private var lastPlayed = -1
    
     /// Muted key
     private let mutedKey = "MusicMuteState"
