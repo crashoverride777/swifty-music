@@ -21,7 +21,7 @@
 //    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //    SOFTWARE.
 
-//    v1.2
+//    v1.3
 
 import AVFoundation
 
@@ -29,7 +29,6 @@ import AVFoundation
 private struct URL {
     static let avPlayer1 = "AngryFlappiesMenuMusic"
     static let avPlayer2 = "AngryFlappiesGameMusic"
-    static let avPlayerExtension = "mp3"
 }
 
 /// Music singleton class
@@ -63,7 +62,8 @@ class Music: NSObject {
     private override init() {
         super.init()
         
-        preparePlayers()
+        avPlayer1 = preparePlayer(url: URL.avPlayer1)
+        avPlayer2 = preparePlayer(url: URL.avPlayer2)
         
         allPlayers = [avPlayer1, avPlayer2]
         
@@ -114,6 +114,7 @@ class Music: NSObject {
         for player in allPlayers {
             player?.volume = 0
         }
+        
         NSUserDefaults.standardUserDefaults().setBool(true, forKey: mutedKey)
     }
     
@@ -122,6 +123,7 @@ class Music: NSObject {
         for player in allPlayers {
             player?.volume = 1
         }
+        
         NSUserDefaults.standardUserDefaults().setBool(false, forKey: mutedKey)
     }
     
@@ -141,35 +143,27 @@ class Music: NSObject {
             }
         }
     }
+}
+
+// MARK: - Prepare Player
+private extension Music {
     
-    /// Prepare players
-    private func preparePlayers() {
+    func preparePlayer(url url: String) -> AVAudioPlayer? {
+        var avPlayer: AVAudioPlayer?
         
-        // Player 1
         do {
-            if let url = NSBundle.mainBundle().URLForResource(URL.avPlayer1, withExtension: URL.avPlayerExtension) {
-                avPlayer1 = try AVAudioPlayer(contentsOfURL: url)
-                avPlayer1?.delegate = self
-                avPlayer1?.numberOfLoops = -1
-                avPlayer1?.prepareToPlay()
+            if let url = NSBundle.mainBundle().URLForResource(url, withExtension: "mp3") {
+                avPlayer = try AVAudioPlayer(contentsOfURL: url)
+                avPlayer?.delegate = self
+                avPlayer?.numberOfLoops = -1
+                avPlayer?.prepareToPlay()
             }
         }
         catch let error as NSError {
             print(error.localizedDescription)
         }
         
-        // Player 2
-        do {
-            if let url = NSBundle.mainBundle().URLForResource(URL.avPlayer2, withExtension: URL.avPlayerExtension) {
-                avPlayer2 = try AVAudioPlayer(contentsOfURL: url)
-                avPlayer2?.delegate = self
-                avPlayer2?.numberOfLoops = -1
-                avPlayer2?.prepareToPlay()
-            }
-        }
-        catch let error as NSError {
-            print(error.localizedDescription)
-        }
+        return avPlayer
     }
 }
 
