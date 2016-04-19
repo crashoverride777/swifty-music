@@ -60,15 +60,19 @@ if !Music.sharedInstance.isMuted {
 
 2) Create more avAudioPlayer properties
 
-3) Add them to the "allPlayers" array
+3) Prepare them in the init method
 
-4) Create the "play" methods for them
+4) Add them to the "allPlayers" array
 
-5) set them up in the "preparePlayers" method.
+5) Create the "play" methods for them
 
 This should be fairly straight forward and as of v1.2 no further edits to other methods such as pause/resume are required.
 
 # Release notes
+
+- v1.3
+
+Further clean-up.
 
 - v1.2
 
