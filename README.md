@@ -12,6 +12,14 @@ A simple and extendable music helper class.
 
 Check the sample project for a demo.
 
+It best to init the helper as soon as your app launches to make sure the correct mute settings are used.
+
+In your GameViewController or your 1st SKScene thats presented call
+
+```swift
+Music.sharedInstance
+```
+
 - To play music call 1 of the userMethods. This will automatically pause (not stop and reset) any previously playing music if playing
 ```swift
 Music.sharedInstance.playMenu()
