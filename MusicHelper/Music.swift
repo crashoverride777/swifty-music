@@ -145,6 +145,23 @@ class Music: NSObject {
     }
 }
 
+// MARK: - Delegates
+extension Music: AVAudioPlayerDelegate {
+    
+    func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag: Bool) {
+        if flag {
+            print("Audio player did finish playing")
+            // finish means when music ended and is not looped, not when you pause or stop it
+        }
+    }
+    
+    func audioPlayerDecodeErrorDidOccur(player: AVAudioPlayer, error: NSError?) {
+        if let error = error {
+            print(error.localizedDescription)
+        }
+    }
+}
+
 // MARK: - Prepare Player
 private extension Music {
     
@@ -164,22 +181,5 @@ private extension Music {
         }
         
         return avPlayer
-    }
-}
-
-// MARK: - Delegates
-extension Music: AVAudioPlayerDelegate {
-    
-    func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag: Bool) {
-        if flag {
-            print("Audio player did finish playing")
-            // finish means when music ended and is not looped, not when you pause or stop it
-        }
-    }
-    
-    func audioPlayerDecodeErrorDidOccur(player: AVAudioPlayer, error: NSError?) {
-        if let error = error {
-            print(error.localizedDescription)
-        }
     }
 }
