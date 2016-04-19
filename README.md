@@ -12,9 +12,9 @@ A simple and extendable music helper class.
 
 Check the sample project for a demo.
 
-It best to init the helper as soon as your app launches to make sure the correct mute settings are used.
+- It best to init the helper as soon as your app launches to make sure the correct mute settings are used.
 
-In your GameViewController or your 1st SKScene thats presented call
+In your AppDelegate or ViewController (UIKit app) / GameViewController (SpriteKit) call
 
 ```swift
 Music.sharedInstance
