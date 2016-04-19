@@ -148,11 +148,11 @@ class Music: NSObject {
 // MARK: - Prepare Player
 private extension Music {
     
-    func preparePlayer(url url: String) -> AVAudioPlayer? {
+    func preparePlayer(url playerURL: String) -> AVAudioPlayer? {
         var avPlayer: AVAudioPlayer?
         
         do {
-            if let url = NSBundle.mainBundle().URLForResource(url, withExtension: "mp3") {
+            if let url = NSBundle.mainBundle().URLForResource(playerURL, withExtension: "mp3") {
                 avPlayer = try AVAudioPlayer(contentsOfURL: url)
                 avPlayer?.delegate = self
                 avPlayer?.numberOfLoops = -1
