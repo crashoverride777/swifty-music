@@ -76,6 +76,10 @@ if !Music.sharedInstance.isMuted {
 
 This should be fairly straight forward and as of v1.2 no further edits to other methods such as pause/resume are required.
 
+NOTE: 
+
+By default this helper expects the music files to be mp3s. If you some or all of your files are in different format you have to either edit the preparePlayerMethod or create another one with the correct format extension.
+
 # Release notes
 
 - v1.3
