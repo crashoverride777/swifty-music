@@ -61,8 +61,8 @@ class Music: NSObject {
     private override init() {
         super.init()
         
-        avPlayer1 = preparePlayer(url: URL.avPlayer1)
-        avPlayer2 = preparePlayer(url: URL.avPlayer2)
+        avPlayer1 = prepare(url: URL.avPlayer1)
+        avPlayer2 = prepare(url: URL.avPlayer2)
         
         allPlayers = [avPlayer1, avPlayer2]
         
@@ -148,7 +148,7 @@ extension Music: AVAudioPlayerDelegate {
 private extension Music {
     
     /// Prepare
-    func preparePlayer(url playerURL: String) -> AVAudioPlayer? {
+    func prepare(url playerURL: String) -> AVAudioPlayer? {
         var avPlayer: AVAudioPlayer?
         
         do {
