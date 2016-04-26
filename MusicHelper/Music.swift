@@ -53,12 +53,8 @@ class Music: NSObject {
     /// Is muted
     private let mutedKey = "MusicMuteState"
     var isMuted: Bool {
-        get {
-            return NSUserDefaults.standardUserDefaults().boolForKey(mutedKey)
-        }
-        set {
-            NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: mutedKey)
-        }
+        get { return NSUserDefaults.standardUserDefaults().boolForKey(mutedKey) }
+        set { NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: mutedKey) }
     }
     
     // MARK: - Init
