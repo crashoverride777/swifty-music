@@ -125,23 +125,6 @@ class Music: NSObject {
         
         isMuted = false
     }
-    
-    // MARK: - Private Methods
-    
-    /// Playing
-    private func play(avPlayer: AVAudioPlayer?) {
-        guard let avPlayer = avPlayer else { return }
-        
-        pause()
-        avPlayer.play()
-        
-        for (index, _) in allPlayers.enumerate() {
-            if allPlayers[index] == avPlayer {
-                lastPlayed = index
-                return
-            }
-        }
-    }
 }
 
 // MARK: - Delegates
@@ -161,9 +144,10 @@ extension Music: AVAudioPlayerDelegate {
     }
 }
 
-// MARK: - Prepare Player
+// MARK: - Prepare / Play
 private extension Music {
     
+    /// Prepare
     func preparePlayer(url playerURL: String) -> AVAudioPlayer? {
         var avPlayer: AVAudioPlayer?
         
@@ -180,5 +164,20 @@ private extension Music {
         }
         
         return avPlayer
+    }
+    
+    /// Play
+    func play(avPlayer: AVAudioPlayer?) {
+        guard let avPlayer = avPlayer else { return }
+        
+        pause()
+        avPlayer.play()
+        
+        for (index, _) in allPlayers.enumerate() {
+            if allPlayers[index] == avPlayer {
+                lastPlayed = index
+                return
+            }
+        }
     }
 }
