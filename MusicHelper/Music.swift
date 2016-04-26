@@ -57,7 +57,7 @@ class Music: NSObject {
             return NSUserDefaults.standardUserDefaults().boolForKey(mutedKey)
         }
         set {
-            NSUserDefaults.standardUserDefaults().setBool(isMuted, forKey: mutedKey)
+            NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: mutedKey)
         }
     }
     
