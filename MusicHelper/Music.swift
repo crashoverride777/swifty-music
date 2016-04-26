@@ -50,12 +50,15 @@ class Music: NSObject {
     /// Last played
     private var lastPlayed = -1
    
-    /// Muted key
-    private let mutedKey = "MusicMuteState"
-    
     /// Is muted
+    private let mutedKey = "MusicMuteState"
     var isMuted: Bool {
-        return NSUserDefaults.standardUserDefaults().boolForKey(mutedKey)
+        get {
+            return NSUserDefaults.standardUserDefaults().boolForKey(mutedKey)
+        }
+        set {
+            NSUserDefaults.standardUserDefaults().setBool(isMuted, forKey: mutedKey)
+        }
     }
     
     // MARK: - Init
@@ -115,7 +118,7 @@ class Music: NSObject {
             player?.volume = 0
         }
         
-        NSUserDefaults.standardUserDefaults().setBool(true, forKey: mutedKey)
+        isMuted = true
     }
     
     /// Unmute
@@ -124,7 +127,7 @@ class Music: NSObject {
             player?.volume = 1
         }
         
-        NSUserDefaults.standardUserDefaults().setBool(false, forKey: mutedKey)
+        isMuted = false
     }
     
     // MARK: - Private Methods
