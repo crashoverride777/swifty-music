@@ -21,14 +21,14 @@
 //    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //    SOFTWARE.
 
-//    v1.3
+//    v1.3.1
 
 import AVFoundation
 
 /// URLs
-private struct URL {
-    static let avPlayer1 = "AngryFlappiesMenuMusic"
-    static let avPlayer2 = "AngryFlappiesGameMusic"
+private enum PlayerURL: String {
+    case Player1 = "AngryFlappiesMenuMusic"
+    case Player2 = "AngryFlappiesGameMusic"
 }
 
 /// Music singleton class
@@ -61,8 +61,8 @@ class Music: NSObject {
     private override init() {
         super.init()
         
-        avPlayer1 = prepare(url: URL.avPlayer1)
-        avPlayer2 = prepare(url: URL.avPlayer2)
+        avPlayer1 = prepareWithURL(.Player1)
+        avPlayer2 = prepareWithURL(.Player2)
         
         allPlayers = [avPlayer1, avPlayer2]
         
@@ -148,11 +148,11 @@ extension Music: AVAudioPlayerDelegate {
 private extension Music {
     
     /// Prepare
-    func prepare(url playerURL: String) -> AVAudioPlayer? {
+    func prepareWithURL(playerURL: PlayerURL) -> AVAudioPlayer? {
         var avPlayer: AVAudioPlayer?
         
         do {
-            if let url = NSBundle.mainBundle().URLForResource(playerURL, withExtension: "mp3") {
+            if let url = NSBundle.mainBundle().URLForResource(playerURL.rawValue, withExtension: "mp3") {
                 avPlayer = try AVAudioPlayer(contentsOfURL: url)
                 avPlayer?.delegate = self
                 avPlayer?.numberOfLoops = -1
