@@ -67,7 +67,7 @@ class Music: NSObject {
         allPlayers = [avPlayer1, avPlayer2]
         
         if isMuted {
-            mute()
+            mute()    
         }
     }
     
