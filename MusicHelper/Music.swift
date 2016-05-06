@@ -26,7 +26,7 @@
 import AVFoundation
 
 /// URLs
-private enum PlayerURL: String {
+private enum FileURL: String {
     case Player1 = "AngryFlappiesMenuMusic"
     case Player2 = "AngryFlappiesGameMusic"
 }
@@ -148,11 +148,11 @@ extension Music: AVAudioPlayerDelegate {
 private extension Music {
     
     /// Prepare
-    func prepareWithURL(playerURL: PlayerURL) -> AVAudioPlayer? {
+    func prepareWithURL(fileURL: FileURL) -> AVAudioPlayer? {
         var avPlayer: AVAudioPlayer?
         
         do {
-            if let url = NSBundle.mainBundle().URLForResource(playerURL.rawValue, withExtension: "mp3") {
+            if let url = NSBundle.mainBundle().URLForResource(fileURL.rawValue, withExtension: "mp3") {
                 avPlayer = try AVAudioPlayer(contentsOfURL: url)
                 avPlayer?.delegate = self
                 avPlayer?.numberOfLoops = -1
