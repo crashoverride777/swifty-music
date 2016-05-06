@@ -64,15 +64,13 @@ if !Music.sharedInstance.isMuted {
 
 - To add more audio players  
 
-1) Add the names of the files to the "PlayerURL" enum
+1) Create more avAudioPlayer properties
 
-2) Create more avAudioPlayer properties
+2) Prepare them in the init method
 
-3) Prepare them in the init method
+3) Add them to the "allPlayers" array
 
-4) Add them to the "allPlayers" array
-
-5) Create the "play" methods for them
+4) Create the "play" methods for them
 
 This should be fairly straight forward and as of v1.2 no further edits to other methods such as pause/resume are required.
 
