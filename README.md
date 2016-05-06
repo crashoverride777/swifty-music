@@ -64,7 +64,7 @@ if !Music.sharedInstance.isMuted {
 
 - To add more audio players  
 
-1) Add the names of the files to the "URL" struct
+1) Add the names of the files to the "PlayerURL" enum
 
 2) Create more avAudioPlayer properties
 
@@ -78,7 +78,7 @@ This should be fairly straight forward and as of v1.2 no further edits to other 
 
 NOTE: 
 
-By default this helper expects the music files to be mp3s. If you some or all of your files are in different format you have to either edit the preparePlayerMethod or create another one with the correct format extension.
+By default this helper expects the music files to be mp3s. If some or all of your files are in different format you have to either edit the preparePlayerMethod or create another one with the correct format extension.
 
 # Release notes
 
