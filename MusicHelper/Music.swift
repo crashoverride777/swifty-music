@@ -25,13 +25,6 @@
 
 import AVFoundation
 
-/// URLs
-private enum FileURL: String {
-    case Player1 = "AngryFlappiesMenuMusic"
-    case Player2 = "AngryFlappiesGameMusic"
-}
-
-/// Music singleton class
 class Music: NSObject {
     
     // MARK: - Static Properties
@@ -61,8 +54,8 @@ class Music: NSObject {
     private override init() {
         super.init()
         
-        avPlayer1 = prepareWithURL(.Player1)
-        avPlayer2 = prepareWithURL(.Player2)
+        avPlayer1 = prepareWithURL("AngryFlappiesMenuMusic")
+        avPlayer2 = prepareWithURL("AngryFlappiesGameMusic")
         
         allPlayers = [avPlayer1, avPlayer2]
         
@@ -148,11 +141,11 @@ extension Music: AVAudioPlayerDelegate {
 private extension Music {
     
     /// Prepare
-    func prepareWithURL(fileURL: FileURL) -> AVAudioPlayer? {
+    func prepareWithURL(fileURL: String) -> AVAudioPlayer? {
         var avPlayer: AVAudioPlayer?
         
         do {
-            if let url = NSBundle.mainBundle().URLForResource(fileURL.rawValue, withExtension: "mp3") {
+            if let url = NSBundle.mainBundle().URLForResource(fileURL, withExtension: "mp3") {
                 avPlayer = try AVAudioPlayer(contentsOfURL: url)
                 avPlayer?.delegate = self
                 avPlayer?.numberOfLoops = -1
