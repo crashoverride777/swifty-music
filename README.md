@@ -82,6 +82,10 @@ By default this helper expects the music files to be mp3s. If you some or all of
 
 # Release notes
 
+- v1.3.1
+
+Small improvements
+
 - v1.3
 
 Further clean-up.
