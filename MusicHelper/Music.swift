@@ -127,6 +127,7 @@ extension Music: AVAudioPlayerDelegate {
         if flag {
             print("Audio player did finish playing")
             // finish means when music ended and is not looped, not when you pause or stop it
+            player.prepareToPlay()
         }
     }
     
