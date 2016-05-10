@@ -6,11 +6,23 @@ A simple and extendable music helper class.
 
 - Add the Music.swift file to your project.
 - Add your music tracks to your project
-- In Music.swift go to the struct URL and change the names to match your music tracks names
 
 # How to use
 
 Check the sample project for a demo.
+
+- To add more players
+ 
+1) Create more avAudioPlayer properties
+
+2) Prepare them in the init method with the correct file name and extension
+
+3) Add them to the "allPlayers" array
+
+4) Create the "play" methods for them
+
+This should be fairly straight forward and as of v1.2 no further edits to other methods such as pause/resume are required.
+
 
 - It best to init the helper as soon as your app launches to make sure the correct mute settings are used.
 
@@ -20,7 +32,7 @@ In your AppDelegate or ViewController (UIKit app) / GameViewController (SpriteKi
 Music.sharedInstance
 ```
 
-- To play music call 1 of the userMethods. This will automatically pause (not stop and reset) any previously playing music if playing
+- To play music call 1 of the userMethods. This will automatically pause (not stop and reset) any previously playing music
 ```swift
 Music.sharedInstance.playMenu()
 Music.sharedInstance.playGame()
@@ -59,20 +71,6 @@ if !Music.sharedInstance.isMuted {
     // music is muted, show unmute button
 }
 ```
-
-# How to add more audio players
-
-- To add more audio players  
-
-1) Create more avAudioPlayer properties
-
-2) Prepare them in the init method
-
-3) Add them to the "allPlayers" array
-
-4) Create the "play" methods for them
-
-This should be fairly straight forward and as of v1.2 no further edits to other methods such as pause/resume are required.
 
 # Release notes
 
