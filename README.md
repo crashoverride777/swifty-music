@@ -1,4 +1,4 @@
-# Swift2 Music Helper
+# Swift Music Helper
 
 A simple and extendable music helper class.
 
