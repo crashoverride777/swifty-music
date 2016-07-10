@@ -25,7 +25,7 @@ NOTE: By default the helper supports mp3 and wav as file formats. If you have an
 Than init the helper as soon as your app launches like this
 
 ```swift
-Music.sharedInstance.setUp(forURLs: MusicURL.all)
+Music.sharedInstance.setUp(withURLs: MusicURL.all)
 ```
 
 - To play music call the play method with the corresponding Music URL. This will automatically pause (not stop and reset) any previously playing music
