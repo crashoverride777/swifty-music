@@ -20,6 +20,8 @@ enum MusicURL: String {
 }
 ```
 
+NOTE: By default the helper supports mp3 and wav as file formats. If you have another format go to the helper and update the prepare method with the new file extension.
+
 Than init the helper as soon as your app launches like this
 
 ```swift
