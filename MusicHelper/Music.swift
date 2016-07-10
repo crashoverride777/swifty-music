@@ -55,7 +55,7 @@ public class Music: NSObject {
     // MARK: - User Methods
     
     /// SetUp
-    public func setUp(urls urls: [String]) {
+    public func setUp(withURLs urls: [String]) {
         for url in urls {
             if let player = prepare(withURL: url) {
                 allPlayers.updateValue(player, forKey: url)

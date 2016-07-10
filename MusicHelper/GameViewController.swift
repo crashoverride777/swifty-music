@@ -22,7 +22,7 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         
         // init music helper, not really needed but good to do ASAP
-        Music.sharedInstance.setUp(urls: MusicURL.all)
+        Music.sharedInstance.setUp(withURLs: MusicURL.all)
 
         if let scene = GameScene(fileNamed:"GameScene") {
             // Configure the view.
