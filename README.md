@@ -9,7 +9,7 @@ A simple and extendable music helper class.
 
 # How to use
 
-Create a enum with all your music file names
+Create a global enum with all your music file names.
 
 ```swift
 enum MusicURL: String {
@@ -20,9 +20,7 @@ enum MusicURL: String {
 }
 ```
 
-Than init the helper as soon as your app launches
-
-In your AppDelegate or ViewController (UIKit app) / GameViewController (SpriteKit) call
+Than init the helper as soon as your app launches like this
 
 ```swift
 Music.sharedInstance.setUp(forURLs: MusicURL.all)
