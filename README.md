@@ -9,33 +9,29 @@ A simple and extendable music helper class.
 
 # How to use
 
-Check the sample project for a demo.
+Create a enum with all your music file names
 
-- To add more players
- 
-1) Create more avAudioPlayer properties
+```swift
+enum MusicURL: String {
+    case menu = "AngryFlappiesMenuMusic"
+    case game = "AngryFlappiesGameMusic"
+    
+    static var all = [menu.rawValue, game.rawValue]
+}
+```
 
-2) Prepare them in the init method with the correct file name and extension
-
-3) Add them to the "allPlayers" array
-
-4) Create the "play" methods for them
-
-This should be fairly straight forward and as of v1.2 no further edits to other methods such as pause/resume are required.
-
-
-- It best to init the helper as soon as your app launches to make sure the correct mute settings are used.
+Than init the helper as soon as your app launches
 
 In your AppDelegate or ViewController (UIKit app) / GameViewController (SpriteKit) call
 
 ```swift
-Music.sharedInstance
+Music.sharedInstance.setUp(forURLs: MusicURL.all)
 ```
 
-- To play music call 1 of the userMethods. This will automatically pause (not stop and reset) any previously playing music
+- To play music call the play method with the corresponding Music URL. This will automatically pause (not stop and reset) any previously playing music
 ```swift
-Music.sharedInstance.playMenu()
-Music.sharedInstance.playGame()
+Music.sharedInstance.play(playerURL: MusicURL.menu.rawValue)
+Music.sharedInstance.play(playerURL: MusicURL.game.rawValue)
 ```
 
 - To pause music manually, eg when game paused, for advertising etc
@@ -73,6 +69,10 @@ if !Music.sharedInstance.isMuted {
 ```
 
 # Release notes
+
+- v1.4
+
+Clean-up and improvements
 
 - v1.3.2
 
