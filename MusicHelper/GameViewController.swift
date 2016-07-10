@@ -9,13 +9,20 @@
 import UIKit
 import SpriteKit
 
+enum MusicURL: String {
+    case menu = "AngryFlappiesMenuMusic"
+    case game = "AngryFlappiesGameMusic"
+    
+    static var all = [menu.rawValue, game.rawValue]
+}
+
 class GameViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // init music helper, not really needed but good to do ASAP
-        Music.sharedInstance
+        Music.sharedInstance.setUp(urls: MusicURL.all)
 
         if let scene = GameScene(fileNamed:"GameScene") {
             // Configure the view.

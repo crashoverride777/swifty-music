@@ -21,36 +21,28 @@
 //    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //    SOFTWARE.
 
-//    v1.3.2
+//    v1.4
 
 import AVFoundation
 
-private enum FileExtension: String {
-    case MP3 = "mp3"
-    case WAV = "wav"
-}
-
-class Music: NSObject {
+public class Music: NSObject {
     
     // MARK: - Static Properties
     
     /// Shared instance
-    static let sharedInstance = Music()
+    public static let sharedInstance = Music()
     
     // MARK: - Properties
     
-    /// Players
-    private var avPlayer1: AVAudioPlayer?
-    private var avPlayer2: AVAudioPlayer?
-    
-    private var allPlayers: [AVAudioPlayer?] = []
+    /// All players
+    private var allPlayers = [String: AVAudioPlayer]()
     
     /// Last played
-    private var lastPlayed = -1
-   
-    /// Is muted
+    private var lastPlayed = ""
+    
+    /// Check mute state
     private let mutedKey = "MusicMuteState"
-    var isMuted: Bool {
+    public var isMuted: Bool {
         get { return NSUserDefaults.standardUserDefaults().boolForKey(mutedKey) }
         set { NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: mutedKey) }
     }
@@ -58,67 +50,72 @@ class Music: NSObject {
     // MARK: - Init
     private override init() {
         super.init()
-        
-        avPlayer1 = prepareWithURL("AngryFlappiesMenuMusic", fileExtension: .MP3)
-        avPlayer2 = prepareWithURL("AngryFlappiesGameMusic", fileExtension: .MP3)
-        
-        allPlayers = [avPlayer1, avPlayer2]
-        
-        if isMuted {
-            mute()    
-        }
     }
     
     // MARK: - User Methods
     
-    /// Play
-    func playMenu() {
-        play(avPlayer1)
+    /// SetUp
+    public func setUp(urls urls: [String]) {
+        for url in urls {
+            if let player = prepare(withURL: url) {
+                allPlayers.updateValue(player, forKey: url)
+            }
+        }
+        
+        if isMuted {
+            mute()
+        }
     }
     
-    func playGame() {
-        play(avPlayer2)
+    /// Play
+    public func play(playerURL url: String) {
+        guard let avPlayer = allPlayers[url] else { return }
+        pause()
+        avPlayer.play()
+        
+        for (url, player) in allPlayers where player == avPlayer {
+            lastPlayed = url
+            break
+        }
     }
     
     /// Pause
-    func pause() {
-        for player in allPlayers {
-            player?.pause()
+    public func pause() {
+        for (_, player) in allPlayers {
+            player.pause()
         }
     }
     
     /// Resume
-    func resume() {
-        for (index, player) in allPlayers.enumerate() {
-            if index == lastPlayed {
-                player?.play()
-                return
-            }
+    public func resume() {
+        for (url, player) in allPlayers where url == lastPlayed {
+            player.play()
+            break
         }
     }
     
     /// Stop
-    func stop() {
-        for player in allPlayers {
-            player?.stop()
-            player?.currentTime = 0
-            player?.prepareToPlay()
+    public func stop() {
+        for (_, player) in allPlayers {
+            player.stop()
+            player.currentTime = 0
+            player.prepareToPlay()
         }
     }
     
     /// Mute
-    func mute() {
-        for player in allPlayers {
-            player?.volume = 0
+    public func mute() {
+        for (_ , player) in allPlayers {
+            player.volume = 0
         }
         
         isMuted = true
     }
     
     /// Unmute
-    func unmute() {
-        for player in allPlayers {
-            player?.volume = 1
+    public func unmute() {
+        for (_, player) in allPlayers {
+            player.volume = 1
         }
         
         isMuted = false
@@ -128,55 +125,46 @@ class Music: NSObject {
 // MARK: - Delegates
 extension Music: AVAudioPlayerDelegate {
     
-    func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag: Bool) {
-        if flag {
-            print("Audio player did finish playing")
-            // finish means when music ended and is not looped, not when you pause or stop it
-            player.prepareToPlay()
-        }
+    public func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag: Bool) {
+        print("Audio player did finish playing")
+        // finish means when music ended not when paused or stopped
     }
     
-    func audioPlayerDecodeErrorDidOccur(player: AVAudioPlayer, error: NSError?) {
+    public func audioPlayerDecodeErrorDidOccur(player: AVAudioPlayer, error: NSError?) {
         if let error = error {
             print(error.localizedDescription)
         }
     }
 }
 
-// MARK: - Prepare / Play
+// MARK: - Prepare Audio Player
+
 private extension Music {
     
-    /// Prepare
-    func prepareWithURL(fileURL: String, fileExtension: FileExtension) -> AVAudioPlayer? {
-        var avPlayer: AVAudioPlayer?
+    func prepare(withURL playerURL: String) -> AVAudioPlayer? {
+        var url: NSURL?
+        
+        if let urlMP3 = NSBundle.mainBundle().URLForResource(playerURL, withExtension: "mp3") {
+            url = urlMP3
+        }
+        
+        if let urlWAV = NSBundle.mainBundle().URLForResource(playerURL, withExtension: "wav") {
+            url = urlWAV
+        }
+        
+        guard let validURL = url else { return nil }
         
         do {
-            if let url = NSBundle.mainBundle().URLForResource(fileURL, withExtension: fileExtension.rawValue) {
-                avPlayer = try AVAudioPlayer(contentsOfURL: url)
-                avPlayer?.delegate = self
-                avPlayer?.numberOfLoops = -1
-                avPlayer?.prepareToPlay()
-            }
+            let avPlayer = try AVAudioPlayer(contentsOfURL: validURL)
+            avPlayer.delegate = self
+            avPlayer.numberOfLoops = -1
+            avPlayer.prepareToPlay()
+            return avPlayer
         }
+            
         catch let error as NSError {
             print(error.localizedDescription)
-        }
-        
-        return avPlayer
-    }
-    
-    /// Play
-    func play(avPlayer: AVAudioPlayer?) {
-        guard let avPlayer = avPlayer else { return }
-        
-        pause()
-        avPlayer.play()
-        
-        for (index, _) in allPlayers.enumerate() {
-            if allPlayers[index] == avPlayer {
-                lastPlayed = index
-                return
-            }
+            return nil
         }
     }
 }

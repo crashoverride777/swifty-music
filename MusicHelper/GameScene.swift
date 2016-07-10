@@ -21,7 +21,7 @@ class GameScene: SKScene {
         
         self.addChild(myLabel)
         
-        Music.sharedInstance.playGame()
+        Music.sharedInstance.play(playerURL: MusicURL.game.rawValue)
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -38,7 +38,7 @@ class GameScene: SKScene {
         if touchCounter == 3 {
             touchCounter = 0
             Music.sharedInstance.stop()
-            Music.sharedInstance.playMenu()
+            Music.sharedInstance.play(playerURL: MusicURL.menu.rawValue)
         }
     }
 }
