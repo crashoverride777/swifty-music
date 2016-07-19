@@ -8,20 +8,21 @@
 
 import SpriteKit
 
-class GameScene: SKScene {
+class GameScene: SKScene, MusicControls {
+    
+    let myLabel = SKLabelNode(fontNamed:"Chalkduster")
     
     var touchCounter = 0
     
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
-        let myLabel = SKLabelNode(fontNamed:"Chalkduster")
-        myLabel.text = "Touch 3 times"
-        myLabel.fontSize = 45
+        myLabel.text = "Touch to pause"
+        myLabel.fontSize = 40
         myLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame))
         
         self.addChild(myLabel)
         
-        Music.sharedInstance.play(playerURL: MusicURL.game.rawValue)
+        playMusic(playerURL: MusicURL.game.rawValue)
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -30,15 +31,18 @@ class GameScene: SKScene {
         touchCounter += 1
         
         if touchCounter == 1 {
-            Music.sharedInstance.pause() // play new game music
+            myLabel.text = "Touch to resume"
+            pauseMusic() // play new game music
         }
         if touchCounter == 2 {
-            Music.sharedInstance.resume()
+            myLabel.text = "Touch to stop and play menu"
+            resumeMusic()
         }
         if touchCounter == 3 {
+            myLabel.text = "Touch to pause"
             touchCounter = 0
-            Music.sharedInstance.stop()
-            Music.sharedInstance.play(playerURL: MusicURL.menu.rawValue)
+            stopMusic()
+            playMusic(playerURL: MusicURL.menu.rawValue)
         }
     }
 }

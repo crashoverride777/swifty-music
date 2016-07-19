@@ -21,82 +21,60 @@
 //    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //    SOFTWARE.
 
-//    v1.4
+//    v2.0
+
+/*
+    Abstract:
+    A protocol extension and singleton class to manage music.
+*/
 
 import AVFoundation
 
-public class Music: NSObject {
-    
-    // MARK: - Static Properties
-    
-    /// Shared instance
-    public static let sharedInstance = Music()
-    
-    // MARK: - Properties
-    
-    /// All players
-    private var allPlayers = [String: AVAudioPlayer]()
-    
-    /// Last played
-    private var lastPlayed = ""
-    
-    /// Check mute state
-    private let mutedKey = "MusicMuteState"
-    public var isMuted: Bool {
-        get { return NSUserDefaults.standardUserDefaults().boolForKey(mutedKey) }
-        set { NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: mutedKey) }
-    }
-    
-    // MARK: - Init
-    private override init() {
-        super.init()
-    }
-    
-    // MARK: - User Methods
-    
-    /// SetUp
-    public func setUp(withURLs urls: [String]) {
-        for url in urls {
-            if let player = prepare(withURL: url) {
-                allPlayers.updateValue(player, forKey: url)
-            }
-        }
-        
-        if isMuted {
-            mute()
-        }
-    }
-    
+/// Last played
+private var lastPlayed = ""
+
+/// Check mute state
+private let mutedKey = "MusicMuteState"
+public var musicIsMuted: Bool {
+    get { return NSUserDefaults.standardUserDefaults().boolForKey(mutedKey) }
+    set { NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: mutedKey) }
+}
+
+// MARK: - Music Controls
+
+public protocol MusicControls { }
+public extension MusicControls {
+
     /// Play
-    public func play(playerURL url: String) {
-        guard let avPlayer = allPlayers[url] else { return }
-        pause()
+    func playMusic(playerURL url: String) {
+        guard let avPlayer = MusicPlayer.sharedInstance.all[url] else { return }
+        pauseMusic()
         avPlayer.play()
         
-        for (url, player) in allPlayers where player == avPlayer {
+        for (url, player) in MusicPlayer.sharedInstance.all where player == avPlayer {
             lastPlayed = url
             break
         }
     }
     
     /// Pause
-    public func pause() {
-        for (_, player) in allPlayers {
+    func pauseMusic() {
+        for (_, player) in MusicPlayer.sharedInstance.all {
             player.pause()
         }
     }
     
     /// Resume
-    public func resume() {
-        for (url, player) in allPlayers where url == lastPlayed {
+    func resumeMusic() {
+        for (url, player) in MusicPlayer.sharedInstance.all where url == lastPlayed {
             player.play()
             break
         }
     }
     
     /// Stop
-    public func stop() {
-        for (_, player) in allPlayers {
+    func stopMusic() {
+        for (_, player) in MusicPlayer.sharedInstance.all {
             player.stop()
             player.currentTime = 0
             player.prepareToPlay()
@@ -104,43 +82,57 @@ public class Music: NSObject {
     }
     
     /// Mute
-    public func mute() {
-        for (_ , player) in allPlayers {
+    func muteMusic() {
+        for (_ , player) in MusicPlayer.sharedInstance.all {
             player.volume = 0
         }
         
-        isMuted = true
+        musicIsMuted = true
     }
     
     /// Unmute
-    public func unmute() {
-        for (_, player) in allPlayers {
+    func unmuteMusic() {
+        for (_, player) in MusicPlayer.sharedInstance.all {
             player.volume = 1
         }
         
-        isMuted = false
+        musicIsMuted = false
     }
 }
 
-// MARK: - Delegates
-extension Music: AVAudioPlayerDelegate {
+// MARK: - Music Player
+
+public class MusicPlayer: NSObject, MusicControls {
+
+    // MARK: - Static Properties
     
-    public func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag: Bool) {
-        print("Audio player did finish playing")
-        // finish means when music ended not when paused or stopped
-    }
+    /// Shared instance
+    public static let sharedInstance = MusicPlayer()
     
-    public func audioPlayerDecodeErrorDidOccur(player: AVAudioPlayer, error: NSError?) {
-        if let error = error {
-            print(error.localizedDescription)
+    // MARK: - Properties
+    
+    /// All players
+    private var all = [String: AVAudioPlayer]()
+    
+    // MARK: - Methods
+    
+    /// SetUp
+    public func setup(withURLs urls: [String]) {
+        for url in urls {
+            if let player = prepare(withURL: url) {
+                all.updateValue(player, forKey: url)
+            }
+        }
+        
+        if musicIsMuted {
+            muteMusic()
         }
     }
 }
 
-// MARK: - Prepare Audio Player
+/// Prepare
+private extension MusicPlayer {
 
-private extension Music {
-    
     func prepare(withURL playerURL: String) -> AVAudioPlayer? {
         var url: NSURL?
         
@@ -152,19 +144,43 @@ private extension Music {
             url = urlWAV
         }
         
+        print("Test 2")
+        
         guard let validURL = url else { return nil }
+        
+        print("Test 3")
         
         do {
             let avPlayer = try AVAudioPlayer(contentsOfURL: validURL)
             avPlayer.delegate = self
             avPlayer.numberOfLoops = -1
             avPlayer.prepareToPlay()
+            print("Test 4")
             return avPlayer
         }
             
         catch let error as NSError {
             print(error.localizedDescription)
             return nil
+        }
+    }
+}
+
+/// Delegates
+extension MusicPlayer: AVAudioPlayerDelegate {
+    
+    public func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag: Bool) {
+        print("Audio player did finish playing")
+        // finish means when music ended not when paused or stopped
+        
+        if flag {
+            player.prepareToPlay()
+        }
+    }
+    
+    public func audioPlayerDecodeErrorDidOccur(player: AVAudioPlayer, error: NSError?) {
+        if let error = error {
+            print(error.localizedDescription)
         }
     }
 }
