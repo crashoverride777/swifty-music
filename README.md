@@ -7,7 +7,7 @@ A simple and extendable music helper class.
 - Add the Music.swift file to your project.
 - Add your music tracks to your project
 
-# How to use
+# SetUp
 
 Create a global enum with all your music file names.
 
@@ -25,43 +25,51 @@ NOTE: By default the helper supports mp3 and wav as file formats. If you have an
 Than init the helper as soon as your app launches like this
 
 ```swift
-Music.sharedInstance.setUp(withURLs: MusicURL.all)
+MusicPlayer.sharedInstance.setup(withURLs: MusicURL.all)
+```
+
+# How to use
+
+Confirm to the musicControls protocol in the class you need to play music from
+
+```swift
+class MyClass: ..., MusicControls
 ```
 
 - To play music call the play method with the corresponding Music URL. This will automatically pause (not stop and reset) any previously playing music
 ```swift
-Music.sharedInstance.play(playerURL: MusicURL.menu.rawValue)
-Music.sharedInstance.play(playerURL: MusicURL.game.rawValue)
+playMusic(playerURL: MusicURL.menu.rawValue)
+playMusic(playerURL: MusicURL.game.rawValue)
 ```
 
 - To pause music manually, eg when game paused, for advertising etc
 ```swift
-Music.sharedInstance.pause()
+pauseMusic()
 ```
 
 - To resume paused music
 ```swift
-Music.sharedInstance.resume()
+resumeMusic()
 ```
 
 - To stop and reset music, eg gameover
 ```swift
-Music.sharedInstance.stop()
+stopMusic()
 ```
 
 - To mute music
 ```swift
-Music.sharedInstance.mute()
+muteMusic()
 ```
 
 - To unmute music
 ```swift
-Music.sharedInstance.unmute()
+unmuteMusic()
 ```
 
 - To check if music is muted, eg when setting up your mute music button
 ```swift
-if !Music.sharedInstance.isMuted {
+if !musicIsMuted {
      // music not muted, show mute button
 } else {
     // music is muted, show unmute button
@@ -70,30 +78,6 @@ if !Music.sharedInstance.isMuted {
 
 # Release notes
 
-- v1.4
+- v2.0
 
-Clean-up and improvements
-
-- v1.3.2
-
-Clean-up and improvements
-
-- v1.3.1
-
-Small improvements
-
-- v1.3
-
-Further clean-up.
-
-- v1.2
-
-Improvements to require less code edits when adding more audio players.
-
-Other fixes and improvements
-
-- v1.1
-
-Small fixes and improvements.
-
-- v 1.0
+Redesign using protocol extension. Please read the instructions again.
