@@ -144,18 +144,13 @@ private extension MusicPlayer {
             url = urlWAV
         }
         
-        print("Test 2")
-        
         guard let validURL = url else { return nil }
-        
-        print("Test 3")
         
         do {
             let avPlayer = try AVAudioPlayer(contentsOfURL: validURL)
             avPlayer.delegate = self
             avPlayer.numberOfLoops = -1
             avPlayer.prepareToPlay()
-            print("Test 4")
             return avPlayer
         }
             
