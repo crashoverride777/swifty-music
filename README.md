@@ -1,6 +1,6 @@
 # Swift Music Helper
 
-A simple and extendable music helper class.
+A swift protocol extension to handle music playback.
 
 # Set-Up
 
@@ -20,7 +20,7 @@ enum MusicURL: String {
 }
 ```
 
-NOTE: By default the helper supports mp3 and wav as file formats. If you have another format go to the helper and update the prepare method with the new file extension.
+NOTE: By default the helper supports mp3 and wav as file formats. If you have another format go to the MusicPlayer.swift file update the prepare method with the new file extension.
 
 Than init the helper as soon as your app launches like this
 
@@ -30,7 +30,7 @@ MusicPlayer.sharedInstance.setup(withURLs: MusicURL.all)
 
 # How to use
 
-Confirm to the musicControls protocol in the class you need to play music from
+Conform to the musicControls protocol in the class you need to play music from
 
 ```swift
 class MyClass: ..., MusicControls
@@ -69,10 +69,10 @@ unmuteMusic()
 
 - To check if music is muted, eg when setting up your mute music button
 ```swift
-if !musicIsMuted {
-     // music not muted, show mute button
-} else {
+if musicIsMuted {
     // music is muted, show unmute button
+} else {
+    // music not muted, show mute button
 }
 ```
 
