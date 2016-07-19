@@ -83,26 +83,26 @@ public extension MusicControls {
     
     /// Mute
     func muteMusic() {
+        musicIsMuted = true
+        
         for (_ , player) in MusicPlayer.sharedInstance.all {
             player.volume = 0
         }
-        
-        musicIsMuted = true
     }
     
     /// Unmute
     func unmuteMusic() {
+        musicIsMuted = false
+        
         for (_, player) in MusicPlayer.sharedInstance.all {
             player.volume = 1
         }
-        
-        musicIsMuted = false
     }
 }
 
 // MARK: - Music Player
 
-public class MusicPlayer: NSObject, MusicControls {
+public class MusicPlayer: NSObject {
 
     // MARK: - Static Properties
     
@@ -122,10 +122,6 @@ public class MusicPlayer: NSObject, MusicControls {
             if let player = prepare(withURL: url) {
                 all.updateValue(player, forKey: url)
             }
-        }
-        
-        if musicIsMuted {
-            muteMusic()
         }
     }
 }
@@ -151,6 +147,11 @@ private extension MusicPlayer {
             avPlayer.delegate = self
             avPlayer.numberOfLoops = -1
             avPlayer.prepareToPlay()
+            
+            if musicIsMuted {
+                avPlayer.volume = 0
+            }
+            
             return avPlayer
         }
             
