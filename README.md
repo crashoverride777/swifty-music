@@ -7,9 +7,8 @@ A swift protocol extension to handle music playback.
 - Add the Music.swift file to your project.
 - Add your music tracks to your project
 
-# SetUp
 
-Create a global enum with all your music file names.
+Create a global (outside any class or struct) enum with all your music file names.
 
 ```swift
 enum MusicURL: String {
@@ -20,7 +19,7 @@ enum MusicURL: String {
 }
 ```
 
-NOTE: By default the helper supports mp3 and wav as file formats. If you have another format go to the MusicPlayer.swift file update the prepare method with the new file extension.
+NOTE: By default the helper supports mp3 and wav as file formats. If you have another format go to the MusicPlayer.swift file and update the prepare method with the new file extension.
 
 Than init the helper as soon as your app launches like this
 
@@ -42,7 +41,7 @@ playMusic(playerURL: MusicURL.menu.rawValue)
 playMusic(playerURL: MusicURL.game.rawValue)
 ```
 
-- To pause music manually, eg when game paused, for advertising etc
+- To pause music manually, eg game paused, advertising etc
 ```swift
 pauseMusic()
 ```
