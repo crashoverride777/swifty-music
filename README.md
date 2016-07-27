@@ -21,18 +21,20 @@ enum MusicURL: String {
 
 NOTE: By default the helper supports mp3 and wav as file formats. If you have another format go to the MusicPlayer.swift file and update the prepare method with the new file extension.
 
-Than init the helper as soon as your app launches like this
+Than init the helper as soon as your app launches. Conform to the Music protocol either in the first view controller or the appDelegate and call the setup method.
+
+class: SomeClass: ..., Music {...
 
 ```swift
-MusicPlayer.sharedInstance.setup(withURLs: MusicURL.all)
+setupMusicPlayers(withURLs: MusicURL.all)
 ```
 
 # How to use
 
-Conform to the musicControls protocol in the class you need to play music from
+Conform to the Music protocol in the class you need to play music from
 
 ```swift
-class MyClass: ..., MusicControls
+class MyClass: ..., Music
 ```
 
 - To play music call the play method with the corresponding Music URL. This will automatically pause (not stop and reset) any previously playing music
@@ -76,6 +78,10 @@ if musicIsMuted {
 ```
 
 # Release notes
+
+- v2.0.1
+
+Small changes to the setup method.
 
 - v2.0
 
