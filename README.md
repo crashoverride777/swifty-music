@@ -23,8 +23,6 @@ NOTE: By default the helper supports mp3 and wav as file formats. If you have an
 
 Than init the helper as soon as your app launches. Conform to the Music protocol either in the first view controller or the appDelegate and call the setup method.
 
-class: SomeClass: ..., Music {...
-
 ```swift
 setupMusicPlayers(withURLs: MusicURL.all)
 ```
