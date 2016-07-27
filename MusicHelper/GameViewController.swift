@@ -16,12 +16,12 @@ enum MusicURL: String {
     static var all = [menu.rawValue, game.rawValue]
 }
 
-class GameViewController: UIViewController {
+class GameViewController: UIViewController, Music {
 
     override func viewDidLoad() {
         super.viewDidLoad()
       
-        MusicPlayer.sharedInstance.setup(withURLs: MusicURL.all)
+        setupMusicPlayers(withURLs: MusicURL.all)
 
         if let scene = GameScene(fileNamed:"GameScene") {
             // Configure the view.

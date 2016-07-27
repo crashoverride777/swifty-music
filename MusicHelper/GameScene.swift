@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-class GameScene: SKScene, MusicControls {
+class GameScene: SKScene, Music {
     
     let myLabel = SKLabelNode(fontNamed:"Chalkduster")
     

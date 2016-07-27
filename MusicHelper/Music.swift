@@ -21,7 +21,7 @@
 //    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //    SOFTWARE.
 
-//    v2.0
+//    v2.0.1
 
 /*
     Abstract:
@@ -42,16 +42,22 @@ public var musicIsMuted: Bool {
 
 // MARK: - Music Controls
 
-public protocol MusicControls { }
-public extension MusicControls {
+public protocol Music { }
+public extension Music {
 
+    /// Setup with urls
+    public func setupMusicPlayers(withURLs urls: [String]) {
+        MusicManager.sharedInstance.setupPlayers(withURLs: urls)
+    }
+    
     /// Play
     func playMusic(playerURL url: String) {
-        guard let avPlayer = MusicPlayer.sharedInstance.all[url] else { return }
+        guard !MusicManager.sharedInstance.all.isEmpty else { return }
+        guard let avPlayer = MusicManager.sharedInstance.all[url] else { return }
         pauseMusic()
         avPlayer.play()
         
-        for (url, player) in MusicPlayer.sharedInstance.all where player == avPlayer {
+        for (url, player) in MusicManager.sharedInstance.all where player == avPlayer {
             lastPlayed = url
             break
         }
@@ -59,14 +65,16 @@ public extension MusicControls {
     
     /// Pause
     func pauseMusic() {
-        for (_, player) in MusicPlayer.sharedInstance.all {
+        guard !MusicManager.sharedInstance.all.isEmpty else { return }
+        for (_, player) in MusicManager.sharedInstance.all {
             player.pause()
         }
     }
     
     /// Resume
     func resumeMusic() {
-        for (url, player) in MusicPlayer.sharedInstance.all where url == lastPlayed {
+        guard !MusicManager.sharedInstance.all.isEmpty else { return }
+        for (url, player) in MusicManager.sharedInstance.all where url == lastPlayed {
             player.play()
             break
         }
@@ -74,7 +82,8 @@ public extension MusicControls {
     
     /// Stop
     func stopMusic() {
-        for (_, player) in MusicPlayer.sharedInstance.all {
+        guard !MusicManager.sharedInstance.all.isEmpty else { return }
+        for (_, player) in MusicManager.sharedInstance.all {
             player.stop()
             player.currentTime = 0
             player.prepareToPlay()
@@ -83,53 +92,52 @@ public extension MusicControls {
     
     /// Mute
     func muteMusic() {
+        guard !MusicManager.sharedInstance.all.isEmpty else { return }
         musicIsMuted = true
         
-        for (_ , player) in MusicPlayer.sharedInstance.all {
+        for (_ , player) in MusicManager.sharedInstance.all {
             player.volume = 0
         }
     }
     
     /// Unmute
     func unmuteMusic() {
+        guard !MusicManager.sharedInstance.all.isEmpty else { return }
         musicIsMuted = false
         
-        for (_, player) in MusicPlayer.sharedInstance.all {
+        for (_, player) in MusicManager.sharedInstance.all {
             player.volume = 1
         }
     }
 }
 
-// MARK: - Music Player
+// MARK: - Music Manager
 
-public class MusicPlayer: NSObject {
+class MusicManager: NSObject {
 
     // MARK: - Static Properties
     
     /// Shared instance
-    public static let sharedInstance = MusicPlayer()
+    private static let sharedInstance = MusicManager()
     
     // MARK: - Properties
     
     /// All players
     private var all = [String: AVAudioPlayer]()
-    
-    // MARK: - Methods
-    
-    /// SetUp
-    public func setup(withURLs urls: [String]) {
+}
+
+/// Setup
+private extension MusicManager {
+
+    func setupPlayers(withURLs urls: [String]) {
         for url in urls {
-            if let player = prepare(withURL: url) {
+            if let player = preparePlayer(withURL: url) {
                 all.updateValue(player, forKey: url)
             }
         }
     }
-}
-
-/// Prepare
-private extension MusicPlayer {
-
-    func prepare(withURL playerURL: String) -> AVAudioPlayer? {
+    
+    func preparePlayer(withURL playerURL: String) -> AVAudioPlayer? {
         var url: NSURL?
         
         if let urlMP3 = NSBundle.mainBundle().URLForResource(playerURL, withExtension: "mp3") {
@@ -162,19 +170,19 @@ private extension MusicPlayer {
     }
 }
 
-/// Delegates
-extension MusicPlayer: AVAudioPlayerDelegate {
+/// AVAudioPlayerDelegate
+extension MusicManager: AVAudioPlayerDelegate {
     
-    public func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag: Bool) {
+    func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag: Bool) {
         print("Audio player did finish playing")
         // finish means when music ended not when paused or stopped
         
-        if flag {
-            player.prepareToPlay()
-        }
+        guard flag else { return }
+ 
+        player.prepareToPlay()
     }
     
-    public func audioPlayerDecodeErrorDidOccur(player: AVAudioPlayer, error: NSError?) {
+    func audioPlayerDecodeErrorDidOccur(player: AVAudioPlayer, error: NSError?) {
         if let error = error {
             print(error.localizedDescription)
         }
