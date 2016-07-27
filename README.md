@@ -21,7 +21,16 @@ enum MusicURL: String {
 
 NOTE: By default the helper supports mp3 and wav as file formats. If you have another format go to the MusicPlayer.swift file and update the prepare method with the new file extension.
 
-Than init the helper as soon as your app launches. Conform to the Music protocol either in the first view controller or the appDelegate and call the setup method.
+Than init the helper as soon as your app launches. 
+
+Conform to the Music protocol either in the first view controller or the appDelegate
+
+```swift
+class MyClass: ..., Music
+
+```
+
+and than call the setup method passing in all the music urls
 
 ```swift
 setupMusicPlayers(withURLs: MusicURL.all)
