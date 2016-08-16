@@ -113,7 +113,7 @@ public extension Music {
 
 // MARK: - Music Manager
 
-class MusicManager: NSObject {
+final class MusicManager: NSObject {
 
     // MARK: - Static Properties
     
@@ -124,6 +124,12 @@ class MusicManager: NSObject {
     
     /// All players
     private var all = [String: AVAudioPlayer]()
+    
+    // MARK: - Init
+    
+    private override init() {
+        super.init()
+    }
 }
 
 /// Setup
