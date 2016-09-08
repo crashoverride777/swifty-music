@@ -86,6 +86,10 @@ if musicIsMuted {
 
 # Release notes
 
+- v2.1
+
+Updated to Swift 3.
+
 - v2.0.1
 
 Small changes to the setup method.
