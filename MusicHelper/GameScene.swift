@@ -14,18 +14,18 @@ class GameScene: SKScene, Music {
     
     var touchCounter = 0
     
-    override func didMoveToView(view: SKView) {
+    override func didMove(to view: SKView) {
         /* Setup your scene here */
         myLabel.text = "Touch to pause"
         myLabel.fontSize = 40
-        myLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame))
+        myLabel.position = CGPoint(x:self.frame.midX, y:self.frame.midY)
         
         self.addChild(myLabel)
         
         playMusic(playerURL: MusicURL.game.rawValue)
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
        /* Called when a touch begins */
         
         touchCounter += 1

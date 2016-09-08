@@ -21,7 +21,7 @@
 //    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //    SOFTWARE.
 
-//    v2.0.1
+//    v2.1
 
 /*
     Abstract:
@@ -35,9 +35,9 @@ private var lastPlayed = ""
 
 /// Check mute state
 private let mutedKey = "MusicMuteState"
-public var musicIsMuted: Bool {
-    get { return NSUserDefaults.standardUserDefaults().boolForKey(mutedKey) }
-    set { NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: mutedKey) }
+private var muted: Bool {
+    get { return UserDefaults.standard.bool(forKey: mutedKey) }
+    set { UserDefaults.standard.set(newValue, forKey: mutedKey) }
 }
 
 // MARK: - Music Controls
@@ -45,6 +45,11 @@ public var musicIsMuted: Bool {
 public protocol Music { }
 public extension Music {
 
+    /// Check music mute state
+    var musicIsMuted: Bool {
+        return muted
+    }
+    
     /// Setup with urls
     public func setupMusicPlayers(withURLs urls: [String]) {
         MusicManager.sharedInstance.setupPlayers(withURLs: urls)
@@ -93,7 +98,7 @@ public extension Music {
     /// Mute
     func muteMusic() {
         guard !MusicManager.sharedInstance.all.isEmpty else { return }
-        musicIsMuted = true
+        muted = true
         
         for (_ , player) in MusicManager.sharedInstance.all {
             player.volume = 0
@@ -103,7 +108,7 @@ public extension Music {
     /// Unmute
     func unmuteMusic() {
         guard !MusicManager.sharedInstance.all.isEmpty else { return }
-        musicIsMuted = false
+        muted = false
         
         for (_, player) in MusicManager.sharedInstance.all {
             player.volume = 1
@@ -118,16 +123,16 @@ final class MusicManager: NSObject {
     // MARK: - Static Properties
     
     /// Shared instance
-    private static let sharedInstance = MusicManager()
+    fileprivate static let sharedInstance = MusicManager()
     
     // MARK: - Properties
     
     /// All players
-    private var all = [String: AVAudioPlayer]()
+    fileprivate var all = [String: AVAudioPlayer]()
     
     // MARK: - Init
     
-    private override init() {
+    fileprivate override init() {
         super.init()
     }
 }
@@ -135,6 +140,9 @@ final class MusicManager: NSObject {
 /// Setup
 private extension MusicManager {
 
+    /// Setup music players
+    ///
+    /// - parameter withURLs: An array of url strings for the music players to prepare.
     func setupPlayers(withURLs urls: [String]) {
         for url in urls {
             if let player = preparePlayer(withURL: url) {
@@ -143,26 +151,30 @@ private extension MusicManager {
         }
     }
     
+    /// Prepare AVPlayer
+    ///
+    /// - parameter withURL: Prepare the avplayer with the url string.
+    /// - returns: Optional AVAudioPlayer.
     func preparePlayer(withURL playerURL: String) -> AVAudioPlayer? {
-        var url: NSURL?
+        var url: URL?
         
-        if let urlMP3 = NSBundle.mainBundle().URLForResource(playerURL, withExtension: "mp3") {
+        if let urlMP3 = Bundle.main.url(forResource: playerURL, withExtension: "mp3") {
             url = urlMP3
         }
         
-        if let urlWAV = NSBundle.mainBundle().URLForResource(playerURL, withExtension: "wav") {
+        if let urlWAV = Bundle.main.url(forResource: playerURL, withExtension: "wav") {
             url = urlWAV
         }
         
         guard let validURL = url else { return nil }
         
         do {
-            let avPlayer = try AVAudioPlayer(contentsOfURL: validURL)
+            let avPlayer = try AVAudioPlayer(contentsOf: validURL)
             avPlayer.delegate = self
             avPlayer.numberOfLoops = -1
             avPlayer.prepareToPlay()
             
-            if musicIsMuted {
+            if muted {
                 avPlayer.volume = 0
             }
             
@@ -179,7 +191,8 @@ private extension MusicManager {
 /// AVAudioPlayerDelegate
 extension MusicManager: AVAudioPlayerDelegate {
     
-    func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag: Bool) {
+    /// Did finish
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         print("Audio player did finish playing")
         // finish means when music ended not when paused or stopped
         
@@ -188,7 +201,8 @@ extension MusicManager: AVAudioPlayerDelegate {
         player.prepareToPlay()
     }
     
-    func audioPlayerDecodeErrorDidOccur(player: AVAudioPlayer, error: NSError?) {
+    /// Decoding error
+    func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
         if let error = error {
             print(error.localizedDescription)
         }
