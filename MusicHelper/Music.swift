@@ -52,17 +52,17 @@ public extension Music {
     
     /// Setup with urls
     public func setupMusicPlayers(withURLs urls: [String]) {
-        MusicManager.sharedInstance.setupPlayers(withURLs: urls)
+        MusicManager.shared.setupPlayers(withURLs: urls)
     }
     
     /// Play
     func playMusic(playerURL url: String) {
-        guard !MusicManager.sharedInstance.all.isEmpty else { return }
-        guard let avPlayer = MusicManager.sharedInstance.all[url] else { return }
+        guard !MusicManager.shared.all.isEmpty else { return }
+        guard let avPlayer = MusicManager.shared.all[url] else { return }
         pauseMusic()
         avPlayer.play()
         
-        for (url, player) in MusicManager.sharedInstance.all where player == avPlayer {
+        for (url, player) in MusicManager.shared.all where player == avPlayer {
             lastPlayed = url
             break
         }
@@ -70,16 +70,16 @@ public extension Music {
     
     /// Pause
     func pauseMusic() {
-        guard !MusicManager.sharedInstance.all.isEmpty else { return }
-        for (_, player) in MusicManager.sharedInstance.all {
+        guard !MusicManager.shared.all.isEmpty else { return }
+        for (_, player) in MusicManager.shared.all {
             player.pause()
         }
     }
     
     /// Resume
     func resumeMusic() {
-        guard !MusicManager.sharedInstance.all.isEmpty else { return }
-        for (url, player) in MusicManager.sharedInstance.all where url == lastPlayed {
+        guard !MusicManager.shared.all.isEmpty else { return }
+        for (url, player) in MusicManager.shared.all where url == lastPlayed {
             player.play()
             break
         }
@@ -87,8 +87,8 @@ public extension Music {
     
     /// Stop
     func stopMusic() {
-        guard !MusicManager.sharedInstance.all.isEmpty else { return }
-        for (_, player) in MusicManager.sharedInstance.all {
+        guard !MusicManager.shared.all.isEmpty else { return }
+        for (_, player) in MusicManager.shared.all {
             player.stop()
             player.currentTime = 0
             player.prepareToPlay()
@@ -97,20 +97,20 @@ public extension Music {
     
     /// Mute
     func muteMusic() {
-        guard !MusicManager.sharedInstance.all.isEmpty else { return }
+        guard !MusicManager.shared.all.isEmpty else { return }
         muted = true
         
-        for (_ , player) in MusicManager.sharedInstance.all {
+        for (_ , player) in MusicManager.shared.all {
             player.volume = 0
         }
     }
     
     /// Unmute
     func unmuteMusic() {
-        guard !MusicManager.sharedInstance.all.isEmpty else { return }
+        guard !MusicManager.shared.all.isEmpty else { return }
         muted = false
         
-        for (_, player) in MusicManager.sharedInstance.all {
+        for (_, player) in MusicManager.shared.all {
             player.volume = 1
         }
     }
@@ -123,7 +123,7 @@ final class MusicManager: NSObject {
     // MARK: - Static Properties
     
     /// Shared instance
-    fileprivate static let sharedInstance = MusicManager()
+    fileprivate static let shared = MusicManager()
     
     // MARK: - Properties
     
