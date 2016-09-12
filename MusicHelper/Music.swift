@@ -132,7 +132,7 @@ final class MusicManager: NSObject {
     
     // MARK: - Init
     
-    fileprivate override init() {
+    private override init() {
         super.init()
     }
 }
