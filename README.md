@@ -8,14 +8,14 @@ A swift singleton class to handle music playback using AVFoundation.
 - Add your music tracks to your project
 
 
-Go the Music URL enum and create your enum cases that reference your music file names (e.g case menu looks for a file menu.mp3)
+Create an extension of FileName to add your file names
 
 ```swift
-enum MusicURL: String {
-    case menu
-    case game
+extension Music.FileName {
+    static let menu = Music.FileName(rawValue: "MenuMusic")
+    static let game = Music.FileName(rawValue: "GameMusic")
     
-    ...
+    static var all = [Music.FileName.menu, Music.FileName.game]
 }
 ```
 
@@ -24,8 +24,7 @@ NOTE: By default the helper supports mp3 and wav as file formats. If you have an
 Than init the helper as soon as your app launches. 
 
 ```swift
-MusicURL.all = [.menu, .game]
-Music.shared.setup(withURLs: MusicURL.all)
+Music.shared.setup(forFileNames: Music.FileName.all)
 ```
 
 # How to use
