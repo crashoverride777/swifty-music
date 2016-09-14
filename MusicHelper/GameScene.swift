@@ -22,7 +22,7 @@ class GameScene: SKScene {
         
         self.addChild(myLabel)
         
-        Music.shared.play(forURL: .game)
+        Music.shared.play(forFileName: .game)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -42,7 +42,7 @@ class GameScene: SKScene {
             myLabel.text = "Touch to pause"
             touchCounter = 0
             Music.shared.stop()
-            Music.shared.play(forURL: .menu)
+            Music.shared.play(forFileName: .menu)
         }
     }
 }

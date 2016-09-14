@@ -25,15 +25,6 @@
 
 import AVFoundation
 
-/// Music file names
-public enum MusicURL: String {
-    case menu
-    case game
-    
-    /// Set all music urls for app
-    public static var all = [MusicURL]()
-}
-
 /**
  Music
  
@@ -47,6 +38,14 @@ public class Music: NSObject {
     public static let shared = Music()
     
     // MARK: - Properties
+    
+    /// File names
+    public struct FileName: RawRepresentable {
+        public var rawValue: String
+        public init(rawValue: String) {
+            self.rawValue = rawValue
+        }
+    }
     
     /// Check music mute state
     public var isMuted: Bool {
@@ -80,10 +79,10 @@ public class Music: NSObject {
      
      - parameter urls: An array of url strings for the music players to prepare.
      */
-    public func setup(withURLs urls: [MusicURL]) {
-        for url in urls {
-            if let player = prepare(withURL: url.rawValue) {
-                all.updateValue(player, forKey: url.rawValue)
+    public func setup(forFileNames fileNames: [Music.FileName]) {
+        for fileName in fileNames {
+            if let player = prepare(forFileName: fileName.rawValue) {
+                all.updateValue(player, forKey: fileName.rawValue)
             }
         }
     }
@@ -93,7 +92,7 @@ public class Music: NSObject {
      
      - parameter url: The player URL string of the music file to play.
      */
-    public func play(forURL url: MusicURL) {
+    public func play(forFileName url: Music.FileName) {
         guard !all.isEmpty else { return }
         guard let avPlayer = all[url.rawValue] else { return }
         pause()
@@ -164,14 +163,14 @@ private extension Music {
      - parameter playerURL: Prepare the avplayer with the url string.
      - returns: Optional AVAudioPlayer.
      */
-    func prepare(withURL playerURL: String) -> AVAudioPlayer? {
+    func prepare(forFileName fileName: String) -> AVAudioPlayer? {
         var url: URL?
         
-        if let urlMP3 = Bundle.main.url(forResource: playerURL, withExtension: "mp3") {
+        if let urlMP3 = Bundle.main.url(forResource: fileName, withExtension: "mp3") {
             url = urlMP3
         }
         
-        if let urlWAV = Bundle.main.url(forResource: playerURL, withExtension: "wav") {
+        if let urlWAV = Bundle.main.url(forResource: fileName, withExtension: "wav") {
             url = urlWAV
         }
         
