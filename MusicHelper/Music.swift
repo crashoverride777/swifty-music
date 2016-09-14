@@ -90,11 +90,11 @@ public class Music: NSObject {
     /**
      Play music
      
-     - parameter url: The player URL string of the music file to play.
+     - parameter fileName: The player fileName string of the music file to play.
      */
-    public func play(forFileName url: Music.FileName) {
+    public func play(_ fileName: Music.FileName) {
         guard !all.isEmpty else { return }
-        guard let avPlayer = all[url.rawValue] else { return }
+        guard let avPlayer = all[fileName.rawValue] else { return }
         pause()
         avPlayer.play()
         
