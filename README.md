@@ -1,6 +1,6 @@
 # Swift Music Helper
 
-A swift protocol extension to handle music playback using AVFoundation.
+A swift singleton class to handle music playback using AVFoundation.
 
 # Set-Up
 
