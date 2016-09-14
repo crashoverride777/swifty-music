@@ -13,7 +13,7 @@ extension Music.FileName {
     static let menu = Music.FileName(rawValue: "MenuMusic")
     static let game = Music.FileName(rawValue: "GameMusic")
     
-    static var all = [Music.FileName.menu, Music.FileName.game]
+    static var all: [Music.FileName] = [.menu, .game]
 }
 
 class GameViewController: UIViewController {
