@@ -31,8 +31,8 @@ Music.shared.setup(forFileNames: Music.FileName.all)
 
 - To play music call the play method with the corresponding Music URL. This will automatically pause (not stop and reset) any previously playing music
 ```swift
-Music.shared.play(forURL: .menu)
-Music.shared.play(forURL: .game)
+Music.shared.play(.menu)
+Music.shared.play(.game)
 ```
 
 - To pause music manually, eg game paused, advertising etc
