@@ -8,14 +8,14 @@ A swift protocol extension to handle music playback using AVFoundation.
 - Add your music tracks to your project
 
 
-Create a global (outside any class or struct) enum with all your music file names.
+Go the Music URL enum and create your enum cases that reference your music file names (e.g case menu looks for a file menu.mp3)
 
 ```swift
 enum MusicURL: String {
-    case menu = "AngryFlappiesMenuMusic"
-    case game = "AngryFlappiesGameMusic"
+    case menu
+    case game
     
-    static var all = [menu.rawValue, game.rawValue]
+    ...
 }
 ```
 
@@ -23,61 +23,47 @@ NOTE: By default the helper supports mp3 and wav as file formats. If you have an
 
 Than init the helper as soon as your app launches. 
 
-Conform to the Music protocol either in the first view controller or the appDelegate
-
 ```swift
-class MyClass: ..., Music
-
-```
-
-and than call the setup method passing in all the music urls
-
-```swift
-setupMusicPlayers(withURLs: MusicURL.all)
+MusicURL.all = [.menu, .game]
+Music.shared.setup(withURLs: MusicURL.all)
 ```
 
 # How to use
 
-Conform to the Music protocol in the class you need to play music from
-
-```swift
-class MyClass: ..., Music
-```
-
 - To play music call the play method with the corresponding Music URL. This will automatically pause (not stop and reset) any previously playing music
 ```swift
-playMusic(playerURL: MusicURL.menu.rawValue)
-playMusic(playerURL: MusicURL.game.rawValue)
+Music.shared.play(forURL: .menu)
+Music.shared.play(forURL: .game)
 ```
 
 - To pause music manually, eg game paused, advertising etc
 ```swift
-pauseMusic()
+Music.shared.pause()
 ```
 
 - To resume paused music
 ```swift
-resumeMusic()
+Music.shared.resume()
 ```
 
 - To stop and reset music, eg gameover
 ```swift
-stopMusic()
+Music.shared.stop()
 ```
 
 - To mute music
 ```swift
-muteMusic()
+Music.shared.mute()
 ```
 
 - To unmute music
 ```swift
-unmuteMusic()
+Music.shared.unmute()
 ```
 
 - To check if music is muted, eg when setting up your mute music button
 ```swift
-if musicIsMuted {
+if Music.shared.isMuted {
     // music is muted, show unmute button
 } else {
     // music not muted, show mute button
@@ -86,14 +72,10 @@ if musicIsMuted {
 
 # Release notes
 
-- v2.1
+- v3.0
 
-Updated to Swift 3.
+Revert project back into a singleton class to make the API easier to use and understand.
 
-- v2.0.1
+Documentation and other improvements.
 
-Small changes to the setup method.
-
-- v2.0
-
-Redesign using protocol extension. Please read the instructions again.
+Swift 3 support.
