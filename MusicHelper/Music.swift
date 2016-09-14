@@ -21,141 +21,156 @@
 //    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //    SOFTWARE.
 
-//    v2.1
+//    v3.0
 
-/*
-    Abstract:
-    A protocol extension and singleton class to manage music.
+/**
+    Music
+ 
+    Singleton class to manage music.
 */
 
 import AVFoundation
 
-/// Last played
-private var lastPlayed = ""
-
-/// Check mute state
-private let mutedKey = "MusicMuteState"
-private var muted: Bool {
-    get { return UserDefaults.standard.bool(forKey: mutedKey) }
-    set { UserDefaults.standard.set(newValue, forKey: mutedKey) }
+/// Music file names
+public enum MusicURL: String {
+    case menu
+    case game
+    
+    /// Set all music urls for app
+    public static var all = [MusicURL]()
 }
 
-// MARK: - Music Controls
-
-public protocol Music { }
-public extension Music {
-
+/**
+ Music
+ 
+ Singleton class used to play music.
+ */
+public class Music: NSObject {
+    
+    // MARK: - Static Properties
+    
+    /// Shared instance
+    public static let shared = Music()
+    
+    // MARK: - Properties
+    
     /// Check music mute state
-    var musicIsMuted: Bool {
+    public var isMuted: Bool {
         return muted
     }
     
-    /// Setup with urls
-    public func setupMusicPlayers(withURLs urls: [String]) {
-        MusicManager.shared.setupPlayers(withURLs: urls)
+    /// Mute state
+    private let mutedKey = "MusicMuteState"
+    private var muted: Bool {
+        get { return UserDefaults.standard.bool(forKey: mutedKey) }
+        set { UserDefaults.standard.set(newValue, forKey: mutedKey) }
     }
     
-    /// Play
-    func playMusic(playerURL url: String) {
-        guard !MusicManager.shared.all.isEmpty else { return }
-        guard let avPlayer = MusicManager.shared.all[url] else { return }
-        pauseMusic()
+    /// All players
+    private var all = [String: AVAudioPlayer]()
+    
+    /// Last played
+    private var lastPlayed = ""
+    
+    // MARK: - Init
+    
+    /// Private singleton init
+    private override init() {
+        super.init()
+    }
+    
+    // MARK: - Methods
+    
+    /**
+     Setup music players
+     
+     - parameter urls: An array of url strings for the music players to prepare.
+     */
+    public func setup(withURLs urls: [MusicURL]) {
+        for url in urls {
+            if let player = prepare(withURL: url.rawValue) {
+                all.updateValue(player, forKey: url.rawValue)
+            }
+        }
+    }
+    
+    /**
+     Play music
+     
+     - parameter url: The player URL string of the music file to play.
+     */
+    public func play(forURL url: MusicURL) {
+        guard !all.isEmpty else { return }
+        guard let avPlayer = all[url.rawValue] else { return }
+        pause()
         avPlayer.play()
         
-        for (url, player) in MusicManager.shared.all where player == avPlayer {
+        for (url, player) in all where player == avPlayer {
             lastPlayed = url
             break
         }
     }
     
-    /// Pause
-    func pauseMusic() {
-        guard !MusicManager.shared.all.isEmpty else { return }
-        for (_, player) in MusicManager.shared.all {
+    /// Pause music
+    public func pause() {
+        guard !all.isEmpty else { return }
+        for (_, player) in all {
             player.pause()
         }
     }
     
-    /// Resume
-    func resumeMusic() {
-        guard !MusicManager.shared.all.isEmpty else { return }
-        for (url, player) in MusicManager.shared.all where url == lastPlayed {
+    /// Resume music
+    public func resume() {
+        guard !all.isEmpty else { return }
+        for (url, player) in all where url == lastPlayed {
             player.play()
             break
         }
     }
     
-    /// Stop
-    func stopMusic() {
-        guard !MusicManager.shared.all.isEmpty else { return }
-        for (_, player) in MusicManager.shared.all {
+    /// Stop music
+    public func stop() {
+        guard !all.isEmpty else { return }
+        for (_, player) in all {
             player.stop()
             player.currentTime = 0
             player.prepareToPlay()
         }
     }
     
-    /// Mute
-    func muteMusic() {
-        guard !MusicManager.shared.all.isEmpty else { return }
+    /// Mute music
+    public func mute() {
+        guard !all.isEmpty else { return }
         muted = true
         
-        for (_ , player) in MusicManager.shared.all {
+        for (_ , player) in all {
             player.volume = 0
         }
     }
     
-    /// Unmute
-    func unmuteMusic() {
-        guard !MusicManager.shared.all.isEmpty else { return }
+    /// Unmute music
+    public func unmute() {
+        guard !all.isEmpty else { return }
         muted = false
         
-        for (_, player) in MusicManager.shared.all {
+        for (_, player) in all {
             player.volume = 1
         }
     }
 }
 
-// MARK: - Music Manager
+// MARK: - Prepare
 
-final class MusicManager: NSObject {
-
-    // MARK: - Static Properties
+/// Prepare
+private extension Music {
     
-    /// Shared instance
-    fileprivate static let shared = MusicManager()
-    
-    // MARK: - Properties
-    
-    /// All players
-    fileprivate var all = [String: AVAudioPlayer]()
-    
-    // MARK: - Init
-    
-    private override init() {
-        super.init()
-    }
-}
-
-/// Setup
-private extension MusicManager {
-
-    /// Setup music players
-    ///
-    /// - parameter withURLs: An array of url strings for the music players to prepare.
-    func setupPlayers(withURLs urls: [String]) {
-        for url in urls {
-            if let player = preparePlayer(withURL: url) {
-                all.updateValue(player, forKey: url)
-            }
-        }
-    }
-    
-    /// Prepare AVPlayer
-    ///
-    /// - parameter withURL: Prepare the avplayer with the url string.
-    /// - returns: Optional AVAudioPlayer.
-    func preparePlayer(withURL playerURL: String) -> AVAudioPlayer? {
+    /**
+     Prepare AVPlayer
+     
+     - parameter playerURL: Prepare the avplayer with the url string.
+     - returns: Optional AVAudioPlayer.
+     */
+    func prepare(withURL playerURL: String) -> AVAudioPlayer? {
         var url: URL?
         
         if let urlMP3 = Bundle.main.url(forResource: playerURL, withExtension: "mp3") {
@@ -174,7 +189,7 @@ private extension MusicManager {
             avPlayer.numberOfLoops = -1
             avPlayer.prepareToPlay()
             
-            if muted {
+            if isMuted {
                 avPlayer.volume = 0
             }
             
@@ -188,21 +203,23 @@ private extension MusicManager {
     }
 }
 
+// MARK: - Delegates
+
 /// AVAudioPlayerDelegate
-extension MusicManager: AVAudioPlayerDelegate {
+extension Music: AVAudioPlayerDelegate {
     
     /// Did finish
-    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+    public func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         print("Audio player did finish playing")
         // finish means when music ended not when paused or stopped
         
         guard flag else { return }
- 
+        
         player.prepareToPlay()
     }
     
     /// Decoding error
-    func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
+    public func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
         if let error = error {
             print(error.localizedDescription)
         }

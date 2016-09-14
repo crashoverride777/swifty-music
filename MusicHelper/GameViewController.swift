@@ -9,23 +9,17 @@
 import UIKit
 import SpriteKit
 
-enum MusicURL: String {
-    case menu = "AngryFlappiesMenuMusic"
-    case game = "AngryFlappiesGameMusic"
-    
-    static var all = [menu.rawValue, game.rawValue]
-}
-
-class GameViewController: UIViewController, Music {
+class GameViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
       
-        setupMusicPlayers(withURLs: MusicURL.all)
+        MusicURL.all = [MusicURL.menu, MusicURL.game]
+        Music.shared.setup(withURLs: MusicURL.all)
 
+        guard let skView = self.view as? SKView else { return }
         if let scene = GameScene(fileNamed:"GameScene") {
             // Configure the view.
-            let skView = self.view as! SKView
             skView.showsFPS = true
             skView.showsNodeCount = true
             

@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-class GameScene: SKScene, Music {
+class GameScene: SKScene {
     
     let myLabel = SKLabelNode(fontNamed:"Chalkduster")
     
@@ -22,7 +22,7 @@ class GameScene: SKScene, Music {
         
         self.addChild(myLabel)
         
-        playMusic(playerURL: MusicURL.game.rawValue)
+        Music.shared.play(forURL: .game)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -32,17 +32,17 @@ class GameScene: SKScene, Music {
         
         if touchCounter == 1 {
             myLabel.text = "Touch to resume"
-            pauseMusic() // play new game music
+            Music.shared.pause() // play new game music
         }
         if touchCounter == 2 {
             myLabel.text = "Touch to stop and play menu"
-            resumeMusic()
+            Music.shared.resume()
         }
         if touchCounter == 3 {
             myLabel.text = "Touch to pause"
             touchCounter = 0
-            stopMusic()
-            playMusic(playerURL: MusicURL.menu.rawValue)
+            Music.shared.stop()
+            Music.shared.play(forURL: .menu)
         }
     }
 }
