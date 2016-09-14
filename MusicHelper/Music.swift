@@ -23,12 +23,6 @@
 
 //    v3.0
 
-/**
-    Music
- 
-    Singleton class to manage music.
-*/
-
 import AVFoundation
 
 /// Music file names
@@ -43,7 +37,7 @@ public enum MusicURL: String {
 /**
  Music
  
- Singleton class used to play music.
+ Singleton class used music playback.
  */
 public class Music: NSObject {
     
