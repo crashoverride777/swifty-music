@@ -21,14 +21,14 @@
 //    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //    SOFTWARE.
 
-//    v3.0
+//    v3.0.1
 
 import AVFoundation
 
 /**
  Music
  
- Singleton class used music playback.
+ Singleton class used for music playback with AVAudioPlayer.
  */
 public class Music: NSObject {
     
@@ -68,17 +68,13 @@ public class Music: NSObject {
     // MARK: - Init
     
     /// Private singleton init
-    private override init() {
-        super.init()
-    }
+    private override init() { }
     
     // MARK: - Methods
     
-    /**
-     Setup music players
-     
-     - parameter urls: An array of url strings for the music players to prepare.
-     */
+    /// Setup music players
+    ///
+    /// - parameter urls: An array of url strings for the music players to prepare.
     public func setup(forFileNames fileNames: [Music.FileName]) {
         for fileName in fileNames {
             if let player = prepare(forFileName: fileName.rawValue) {
@@ -87,11 +83,9 @@ public class Music: NSObject {
         }
     }
     
-    /**
-     Play music
-     
-     - parameter fileName: The player fileName string of the music file to play.
-     */
+    /// Play music
+    ///
+    /// - parameter fileName: The player fileName string of the music file to play.
     public func play(_ fileName: Music.FileName) {
         guard !all.isEmpty else { return }
         guard let avPlayer = all[fileName.rawValue] else { return }
@@ -121,16 +115,6 @@ public class Music: NSObject {
         }
     }
     
-    /// Stop music
-    public func stop() {
-        guard !all.isEmpty else { return }
-        for (_, player) in all {
-            player.stop()
-            player.currentTime = 0
-            player.prepareToPlay()
-        }
-    }
-    
     /// Mute music
     public func mute() {
         guard !all.isEmpty else { return }
@@ -150,6 +134,18 @@ public class Music: NSObject {
             player.volume = 1
         }
     }
+    
+    /// Stop music and reset all players
+    public func stopAndResetAll() {
+        guard !all.isEmpty else { return }
+        lastPlayed = ""
+        
+        for (_, player) in all {
+            player.stop()
+            player.currentTime = 0
+            player.prepareToPlay()
+        }
+    }
 }
 
 // MARK: - Prepare
@@ -157,12 +153,10 @@ public class Music: NSObject {
 /// Prepare
 private extension Music {
     
-    /**
-     Prepare AVPlayer
-     
-     - parameter playerURL: Prepare the avplayer with the url string.
-     - returns: Optional AVAudioPlayer.
-     */
+    /// Prepare AVPlayer
+    ///
+    /// - parameter playerURL: Prepare the avplayer with the url string.
+    /// - returns: Optional AVAudioPlayer.
     func prepare(forFileName fileName: String) -> AVAudioPlayer? {
         var url: URL?
         
@@ -201,10 +195,9 @@ private extension Music {
 /// AVAudioPlayerDelegate
 extension Music: AVAudioPlayerDelegate {
     
-    /// Did finish
+    /// Did finish. Finish means when music ended not when calling stop
     public func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         print("Audio player did finish playing")
-        // finish means when music ended not when paused or stopped
         
         guard flag else { return }
         

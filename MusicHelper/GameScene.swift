@@ -41,7 +41,7 @@ class GameScene: SKScene {
         if touchCounter == 3 {
             myLabel.text = "Touch to pause"
             touchCounter = 0
-            Music.shared.stop()
+            Music.shared.stopAndResetAll()
             Music.shared.play(.menu)
         }
     }

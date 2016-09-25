@@ -9,6 +9,7 @@
 import UIKit
 import SpriteKit
 
+/// Music file names
 extension Music.FileName {
     static let menu = Music.FileName(rawValue: "MenuMusic")
     static let game = Music.FileName(rawValue: "GameMusic")
