@@ -45,11 +45,6 @@ Music.shared.pause()
 Music.shared.resume()
 ```
 
-- To stop and reset music, eg gameover
-```swift
-Music.shared.stop()
-```
-
 - To mute music
 ```swift
 Music.shared.mute()
@@ -58,6 +53,11 @@ Music.shared.mute()
 - To unmute music
 ```swift
 Music.shared.unmute()
+```
+
+- To stop and reset all music players, eg gameover
+```swift
+Music.shared.stopAndResetAll()
 ```
 
 - To check if music is muted, eg when setting up your mute music button
@@ -71,10 +71,20 @@ if Music.shared.isMuted {
 
 # Release notes
 
+- v3.0.1
+
+Cleanup and documentation fixes
+
+Stop method is now called
+
+```swift
+Music.shared.stopAndResetAll()
+```
+
 - v3.0
 
-Revert project back into a singleton class to make the API easier to use and understand.
+Updated to Swift 3 
 
-Documentation and other improvements.
+Revert project back into a singleton class to make the API easier to use and understand
 
-Swift 3 support.
+Documentation and other improvements
