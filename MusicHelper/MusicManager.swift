@@ -75,7 +75,7 @@ public class Music: NSObject {
     /// Setup music players
     ///
     /// - parameter urls: An array of url strings for the music players to prepare.
-    public func setup(forFileNames fileNames: [Music.FileName]) {
+    public func setup(forFileNames fileNames: [FileName]) {
         for fileName in fileNames {
             if let player = prepare(forFileName: fileName.rawValue) {
                 all.updateValue(player, forKey: fileName.rawValue)
@@ -86,7 +86,7 @@ public class Music: NSObject {
     /// Play music
     ///
     /// - parameter fileName: The player fileName string of the music file to play.
-    public func play(_ fileName: Music.FileName) {
+    public func play(_ fileName: FileName) {
         guard !all.isEmpty else { return }
         guard let avPlayer = all[fileName.rawValue] else { return }
         pause()

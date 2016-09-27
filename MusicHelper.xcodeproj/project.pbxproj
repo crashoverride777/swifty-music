@@ -14,7 +14,7 @@
 		B44650631C47E0440037C3D1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B44650611C47E0440037C3D1 /* Main.storyboard */; };
 		B44650651C47E0440037C3D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B44650641C47E0440037C3D1 /* Assets.xcassets */; };
 		B44650681C47E0440037C3D1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B44650661C47E0440037C3D1 /* LaunchScreen.storyboard */; };
-		B446508C1C47E04F0037C3D1 /* Music.swift in Sources */ = {isa = PBXBuildFile; fileRef = B446508B1C47E04F0037C3D1 /* Music.swift */; };
+		B446508C1C47E04F0037C3D1 /* MusicManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B446508B1C47E04F0037C3D1 /* MusicManager.swift */; };
 		B446508F1C47E1130037C3D1 /* GameMusic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B446508D1C47E1130037C3D1 /* GameMusic.mp3 */; };
 		B44650901C47E1130037C3D1 /* MenuMusic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B446508E1C47E1130037C3D1 /* MenuMusic.mp3 */; };
 /* End PBXBuildFile section */
@@ -29,7 +29,7 @@
 		B44650641C47E0440037C3D1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B44650671C47E0440037C3D1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B44650691C47E0440037C3D1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B446508B1C47E04F0037C3D1 /* Music.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Music.swift; sourceTree = "<group>"; };
+		B446508B1C47E04F0037C3D1 /* MusicManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicManager.swift; sourceTree = "<group>"; };
 		B446508D1C47E1130037C3D1 /* GameMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = GameMusic.mp3; sourceTree = "<group>"; };
 		B446508E1C47E1130037C3D1 /* MenuMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = MenuMusic.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -64,7 +64,7 @@
 		B44650581C47E0440037C3D1 /* MusicHelper */ = {
 			isa = PBXGroup;
 			children = (
-				B446508B1C47E04F0037C3D1 /* Music.swift */,
+				B446508B1C47E04F0037C3D1 /* MusicManager.swift */,
 				B446508E1C47E1130037C3D1 /* MenuMusic.mp3 */,
 				B446508D1C47E1130037C3D1 /* GameMusic.mp3 */,
 				B44650591C47E0440037C3D1 /* AppDelegate.swift */,
@@ -157,7 +157,7 @@
 				B446505E1C47E0440037C3D1 /* GameScene.swift in Sources */,
 				B44650601C47E0440037C3D1 /* GameViewController.swift in Sources */,
 				B446505A1C47E0440037C3D1 /* AppDelegate.swift in Sources */,
-				B446508C1C47E04F0037C3D1 /* Music.swift in Sources */,
+				B446508C1C47E04F0037C3D1 /* MusicManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
