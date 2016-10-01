@@ -21,7 +21,7 @@
 //    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //    SOFTWARE.
 
-//    v3.0.1
+//    v3.0.2
 
 import AVFoundation
 
@@ -65,6 +65,9 @@ public class Music: NSObject {
     /// Last played
     private var lastPlayed = ""
     
+    /// Supported file extensions
+    fileprivate var fileExtensions = ["mp3", "wav", "aac", "ac3", "m4a", "caf"]
+    
     // MARK: - Init
     
     /// Private singleton init
@@ -87,8 +90,7 @@ public class Music: NSObject {
     ///
     /// - parameter fileName: The player fileName string of the music file to play.
     public func play(_ fileName: FileName) {
-        guard !all.isEmpty else { return }
-        guard let avPlayer = all[fileName.rawValue] else { return }
+        guard !all.isEmpty, let avPlayer = all[fileName.rawValue] else { return }
         pause()
         avPlayer.play()
         
@@ -158,20 +160,10 @@ private extension Music {
     /// - parameter playerURL: Prepare the avplayer with the url string.
     /// - returns: Optional AVAudioPlayer.
     func prepare(forFileName fileName: String) -> AVAudioPlayer? {
-        var url: URL?
-        
-        if let urlMP3 = Bundle.main.url(forResource: fileName, withExtension: "mp3") {
-            url = urlMP3
-        }
-        
-        if let urlWAV = Bundle.main.url(forResource: fileName, withExtension: "wav") {
-            url = urlWAV
-        }
-        
-        guard let validURL = url else { return nil }
+        guard let url = getURL(forFileName: fileName) else { return nil }
         
         do {
-            let avPlayer = try AVAudioPlayer(contentsOf: validURL)
+            let avPlayer = try AVAudioPlayer(contentsOf: url)
             avPlayer.delegate = self
             avPlayer.numberOfLoops = -1
             avPlayer.prepareToPlay()
@@ -187,6 +179,17 @@ private extension Music {
             print(error.localizedDescription)
             return nil
         }
+    }
+    
+    /// Get file url
+    func getURL(forFileName fileName: String) -> URL? {
+        for fileExtension in fileExtensions {
+            if let url = Bundle.main.url(forResource: fileName, withExtension: fileExtension) {
+                return url
+            }
+        }
+        
+        return nil
     }
 }
 
