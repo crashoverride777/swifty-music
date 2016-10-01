@@ -77,6 +77,8 @@ public class Music: NSObject {
     
     /// Setup music players
     ///
+    /// Supported file formates: mp3, wav, aac, ac3, m4a, caf
+    ///
     /// - parameter urls: An array of url strings for the music players to prepare.
     public func setup(forFileNames fileNames: [FileName]) {
         for fileName in fileNames {
