@@ -71,6 +71,10 @@ if Music.shared.isMuted {
 
 # Release notes
 
+- v3.0.2
+
+Added support for the following file formats: aac, ac3, m4a, caf
+
 - v3.0.1
 
 Cleanup and documentation fixes
