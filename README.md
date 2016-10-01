@@ -19,7 +19,7 @@ extension Music.FileName {
 }
 ```
 
-NOTE: By default the helper supports mp3 and wav as file formats. If you have another format go to the MusicPlayer.swift file and update the prepare method with the new file extension.
+NOTE: The helper supports the following file formats: mp3, wav, aac, ac3, m4a, caf
 
 Than init the helper as soon as your app launches. 
 
