@@ -4,11 +4,10 @@ A swift singleton class to handle music playback using AVFoundation.
 
 # Set-Up
 
-- Add the Music.swift file to your project.
+- Add the MusicManager.swift file to your project.
 - Add your music tracks to your project
 
-
-Create an extension of FileName to add your file names
+Create an extension of FileName to add your music file names in your project.
 
 ```swift
 extension Music.FileName {
@@ -19,7 +18,7 @@ extension Music.FileName {
 }
 ```
 
-NOTE: The helper supports the following file formats: mp3, wav, aac, ac3, m4a, caf
+NOTE: The following file formats are supported: mp3, wav, aac, ac3, m4a, caf
 
 Than init the helper as soon as your app launches. 
 
