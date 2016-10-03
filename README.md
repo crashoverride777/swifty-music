@@ -1,5 +1,7 @@
 # Swift Music Helper
 
+Note: I will lock down this project withing the next 1-2 updates. This means there will be no more source breaking changes which I am sure is frustrating some. All future changes will be handled via deprecated warnings. I am also looking to create a cocoa pod for this project very soon.
+
 A swift singleton class to handle music playback using AVFoundation.
 
 # Set-Up
