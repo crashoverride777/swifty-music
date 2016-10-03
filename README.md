@@ -4,7 +4,7 @@ A swift singleton class to handle music playback using AVFoundation.
 
 # Set-Up
 
-- Add the MusicManager.swift file to your project.
+- Add the SwiftyMusic.swift file to your project.
 - Add your music tracks to your project
 
 Create an extension of FileName to add your music file names in your project.
@@ -46,7 +46,7 @@ SwiftyMusic.shared.resume()
 
 - To mute music
 ```swift
-Music.shared.mute()
+SwiftyMusic.shared.mute()
 ```
 
 - To unmute music
