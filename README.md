@@ -1,6 +1,4 @@
-# Swift Music Helper
-
-Note: I will lock down this project withing the next 1-2 updates. This means there will be no more source breaking changes which I am sure is frustrating some. All future changes will be handled via deprecated warnings. I am also looking to create a cocoa pod for this project very soon.
+# SwiftyMusic
 
 A swift singleton class to handle music playback using AVFoundation.
 
@@ -12,11 +10,11 @@ A swift singleton class to handle music playback using AVFoundation.
 Create an extension of FileName to add your music file names in your project.
 
 ```swift
-extension Music.FileName {
-    static let menu = Music.FileName(rawValue: "MenuMusic")
-    static let game = Music.FileName(rawValue: "GameMusic")
+extension SwiftyMusic.FileName {
+    static let menu = SwiftyMusic.FileName(rawValue: "MenuMusic")
+    static let game = SwiftyMusic.FileName(rawValue: "GameMusic")
     
-    static var all: [Music.FileName] = [.menu, .game]
+    static var all: [SwiftyMusic.FileName] = [.menu, .game]
 }
 ```
 
@@ -25,25 +23,25 @@ NOTE: The following file formats are supported: mp3, wav, aac, ac3, m4a, caf
 Than init the helper as soon as your app launches. 
 
 ```swift
-Music.shared.setup(forFileNames: Music.FileName.all)
+SwiftyMusic.shared.setup(forFileNames: SwiftyMusic.FileName.all)
 ```
 
 # How to use
 
 - To play music call the play method with the corresponding Music URL. This will automatically pause (not stop and reset) any previously playing music
 ```swift
-Music.shared.play(.menu)
-Music.shared.play(.game)
+SwiftyMusic.shared.play(.menu)
+SwiftyMusic.shared.play(.game)
 ```
 
 - To pause music manually, eg game paused, advertising etc
 ```swift
-Music.shared.pause()
+SwiftyMusic.shared.pause()
 ```
 
 - To resume paused music
 ```swift
-Music.shared.resume()
+SwiftyMusic.shared.resume()
 ```
 
 - To mute music
@@ -53,17 +51,17 @@ Music.shared.mute()
 
 - To unmute music
 ```swift
-Music.shared.unmute()
+SwiftyMusic.shared.unmute()
 ```
 
 - To stop and reset all music players, eg gameover
 ```swift
-Music.shared.stopAndResetAll()
+SwiftyMusic.shared.stopAndResetAll()
 ```
 
 - To check if music is muted, eg when setting up your mute music button
 ```swift
-if Music.shared.isMuted {
+if SwiftyMusic.shared.isMuted {
     // music is muted, show unmute button
 } else {
     // music not muted, show mute button
@@ -72,24 +70,8 @@ if Music.shared.isMuted {
 
 # Release notes
 
-- v3.0.2
+- v4.0
 
-Added support for the following file formats: aac, ac3, m4a, caf
+Project has been renamed to SwiftyMusic
 
-- v3.0.1
-
-Cleanup and documentation fixes
-
-Stop method is now called
-
-```swift
-Music.shared.stopAndResetAll()
-```
-
-- v3.0
-
-Updated to Swift 3 
-
-Revert project back into a singleton class to make the API easier to use and understand
-
-Documentation and other improvements
+No more source breaking changes after this update. All future changes will be handled with deprecated messages.
