@@ -21,14 +21,14 @@
 //    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //    SOFTWARE.
 
-//    v3.1
+//    v4.0
 
 import AVFoundation
 
 /**
  SwiftyMusic
  
- A singleton class to play music with AVAudioPlayer. adadad
+ A singleton class to play music with AVAudioPlayer.
  */
 public class SwiftyMusic: NSObject {
     
