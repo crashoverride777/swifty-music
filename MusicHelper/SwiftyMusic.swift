@@ -21,21 +21,21 @@
 //    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //    SOFTWARE.
 
-//    v3.0.2
+//    v3.1
 
 import AVFoundation
 
 /**
- Music
+ SwiftyMusic
  
- Singleton class used for music playback with AVAudioPlayer.
+ A singleton class used for music playback with AVAudioPlayer.
  */
-public class Music: NSObject {
+public class SwiftyMusic: NSObject {
     
     // MARK: - Static Properties
     
     /// Shared instance
-    public static let shared = Music()
+    public static let shared = SwiftyMusic()
     
     // MARK: - Properties
     
@@ -155,7 +155,7 @@ public class Music: NSObject {
 // MARK: - Prepare
 
 /// Prepare
-private extension Music {
+private extension SwiftyMusic {
     
     /// Prepare AVPlayer
     ///
@@ -198,7 +198,7 @@ private extension Music {
 // MARK: - Delegates
 
 /// AVAudioPlayerDelegate
-extension Music: AVAudioPlayerDelegate {
+extension SwiftyMusic: AVAudioPlayerDelegate {
     
     /// Did finish. Finish means when music ended not when calling stop
     public func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {

@@ -10,11 +10,11 @@ import UIKit
 import SpriteKit
 
 /// Music file names
-extension Music.FileName {
-    static let menu = Music.FileName(rawValue: "MenuMusic")
-    static let game = Music.FileName(rawValue: "GameMusic")
+extension SwiftyMusic.FileName {
+    static let menu = SwiftyMusic.FileName(rawValue: "MenuMusic")
+    static let game = SwiftyMusic.FileName(rawValue: "GameMusic")
     
-    static var all: [Music.FileName] = [.menu, .game]
+    static var all: [SwiftyMusic.FileName] = [.menu, .game]
 }
 
 class GameViewController: UIViewController {
@@ -22,7 +22,7 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
       
-        Music.shared.setup(forFileNames: Music.FileName.all)
+        SwiftyMusic.shared.setup(forFileNames: SwiftyMusic.FileName.all)
 
         guard let skView = self.view as? SKView else { return }
         if let scene = GameScene(fileNamed:"GameScene") {
