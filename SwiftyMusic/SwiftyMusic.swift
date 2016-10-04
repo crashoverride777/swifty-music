@@ -95,11 +95,7 @@ public class SwiftyMusic: NSObject {
         guard !all.isEmpty, let avPlayer = all[fileName.rawValue] else { return }
         pause()
         avPlayer.play()
-        
-        for (url, player) in all where player == avPlayer {
-            lastPlayed = url
-            break
-        }
+        lastPlayed = fileName.rawValue
     }
     
     /// Pause music
