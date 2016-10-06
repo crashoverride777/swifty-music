@@ -80,7 +80,7 @@ public class SwiftyMusic: NSObject {
     /// Supported file formates: mp3, wav, aac, ac3, m4a, caf
     ///
     /// - parameter urls: An array of url strings for the music players to prepare.
-    public func setup(forFileNames fileNames: [FileName]) {
+    public func setup(withFileNames fileNames: [FileName]) {
         for fileName in fileNames {
             if let player = prepare(forFileName: fileName.rawValue) {
                 all.updateValue(player, forKey: fileName.rawValue)
