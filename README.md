@@ -23,7 +23,7 @@ NOTE: The following file formats are supported: mp3, wav, aac, ac3, m4a, caf
 Than init the helper as soon as your app launches. 
 
 ```swift
-SwiftyMusic.shared.setup(forFileNames: SwiftyMusic.FileName.all)
+SwiftyMusic.shared.setup(withFileNames: SwiftyMusic.FileName.all)
 ```
 
 # How to use
