@@ -2,6 +2,10 @@
 
 A swift singleton class to handle music playback using AVFoundation.
 
+# Cocoa Pods
+
+I know that the current way with copying the .swift file(s) into your project sucks and is bad practice, so I am working hard to finally support CocoaPods very soon. Stay tuned.
+
 # Set-Up
 
 - Add the SwiftyMusic.swift file to your project.
