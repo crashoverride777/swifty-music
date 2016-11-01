@@ -32,7 +32,7 @@ SwiftyMusic.shared.setup(withFileNames: SwiftyMusic.FileName.all)
 
 # How to use
 
-- To play music call the play method with the corresponding Music URL. This will automatically pause (not stop and reset) any previously playing music
+- To play music call the play method with the corresponding Music URL you created above. This will automatically pause (not stop and reset) any previously playing music
 ```swift
 SwiftyMusic.shared.play(.menu)
 SwiftyMusic.shared.play(.game)
