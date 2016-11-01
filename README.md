@@ -11,7 +11,7 @@ I know that the current way of copying the .swift file(s) into your project suck
 - Add the SwiftyMusic.swift file to your project.
 - Add your music tracks to your project
 
-Anywhere in your project create an extension of FileName to add your music file names.
+Anywhere in your project create an extension of FileName to add your music file names that you added to your project.
 
 ```swift
 extension SwiftyMusic.FileName {
