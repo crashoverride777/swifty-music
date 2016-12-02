@@ -50,19 +50,19 @@ SwiftyMusic.shared.pause()
 SwiftyMusic.shared.resume()
 ```
 
+- To stop and reset all music players, eg gameover
+```swift
+SwiftyMusic.shared.stopAndResetAll()
+```
+
 - To mute music
 ```swift
-SwiftyMusic.shared.mute()
+SwiftyMusic.shared.isMuted = true
 ```
 
 - To unmute music
 ```swift
-SwiftyMusic.shared.unmute()
-```
-
-- To stop and reset all music players, eg gameover
-```swift
-SwiftyMusic.shared.stopAndResetAll()
+SwiftyMusic.shared.isMuted = false
 ```
 
 - To check if music is muted, eg when setting up your mute music button
@@ -75,6 +75,10 @@ if SwiftyMusic.shared.isMuted {
 ```
 
 # Release notes
+
+- v4.0.1
+
+Cleanup
 
 - v4.0
 
