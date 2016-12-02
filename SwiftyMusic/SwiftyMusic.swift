@@ -21,9 +21,12 @@
 //    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //    SOFTWARE.
 
-//    v4.0
+//    v4.0.1
 
 import AVFoundation
+
+private let mutedKey = "MusicMuteState"
+private let fileExtensions = ["mp3", "wav", "aac", "ac3", "m4a", "caf"]
 
 /**
  SwiftyMusic
@@ -47,26 +50,23 @@ public class SwiftyMusic: NSObject {
         }
     }
     
-    /// Check music mute state
+    /// Is muted
     public var isMuted: Bool {
-        return muted
-    }
-    
-    /// Mute state
-    private let mutedKey = "MusicMuteState"
-    private var muted: Bool {
         get { return UserDefaults.standard.bool(forKey: mutedKey) }
-        set { UserDefaults.standard.set(newValue, forKey: mutedKey) }
+        set {
+            UserDefaults.standard.set(newValue, forKey: mutedKey)
+            guard !allPlayers.isEmpty else { return }
+            for (_ , player) in allPlayers {
+                player.volume = isMuted ? 0 : 1
+            }
+        }
     }
     
     /// All players
-    private var all = [String: AVAudioPlayer]()
+    private var allPlayers = [String: AVAudioPlayer]()
     
     /// Last played
     private var lastPlayed = ""
-    
-    /// Supported file extensions
-    fileprivate var fileExtensions = ["mp3", "wav", "aac", "ac3", "m4a", "caf"]
     
     // MARK: - Init
     
@@ -83,7 +83,7 @@ public class SwiftyMusic: NSObject {
     public func setup(withFileNames fileNames: [FileName]) {
         for fileName in fileNames {
             if let player = prepare(forFileName: fileName.rawValue) {
-                all.updateValue(player, forKey: fileName.rawValue)
+                allPlayers[fileName.rawValue] = player
             }
         }
     }
@@ -92,7 +92,7 @@ public class SwiftyMusic: NSObject {
     ///
     /// - parameter fileName: The player fileName string of the music file to play.
     public func play(_ fileName: FileName) {
-        guard !all.isEmpty, let avPlayer = all[fileName.rawValue] else { return }
+        guard !allPlayers.isEmpty, let avPlayer = allPlayers[fileName.rawValue] else { return }
         pause()
         avPlayer.play()
         lastPlayed = fileName.rawValue
@@ -100,47 +100,49 @@ public class SwiftyMusic: NSObject {
     
     /// Pause music
     public func pause() {
-        guard !all.isEmpty else { return }
-        for (_, player) in all {
+        guard !allPlayers.isEmpty else { return }
+        for (_, player) in allPlayers {
             player.pause()
         }
     }
     
     /// Resume music
     public func resume() {
-        guard !all.isEmpty else { return }
-        for (url, player) in all where url == lastPlayed {
+        guard !allPlayers.isEmpty else { return }
+        for (url, player) in allPlayers where url == lastPlayed {
             player.play()
             break
         }
     }
     
     /// Mute music
+    @available(*, deprecated: 4.0.1, message: "Use isMuted = true instead")
     public func mute() {
-        guard !all.isEmpty else { return }
-        muted = true
+        guard !allPlayers.isEmpty else { return }
+        isMuted = true
         
-        for (_ , player) in all {
+        for (_ , player) in allPlayers {
             player.volume = 0
         }
     }
     
     /// Unmute music
+    @available(*, deprecated: 4.0.1, message: "Use isMuted = false instead")
     public func unmute() {
-        guard !all.isEmpty else { return }
-        muted = false
+        guard !allPlayers.isEmpty else { return }
+        isMuted = false
         
-        for (_, player) in all {
+        for (_, player) in allPlayers {
             player.volume = 1
         }
     }
     
     /// Stop music and reset all players
     public func stopAndResetAll() {
-        guard !all.isEmpty else { return }
+        guard !allPlayers.isEmpty else { return }
         lastPlayed = ""
         
-        for (_, player) in all {
+        for (_, player) in allPlayers {
             player.stop()
             player.currentTime = 0
             player.prepareToPlay()
