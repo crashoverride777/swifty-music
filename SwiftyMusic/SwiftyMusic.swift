@@ -68,7 +68,6 @@ public class SwiftyMusic: NSObject {
     
     // MARK: - Init
     
-    /// Private singleton init
     private override init() { }
     
     // MARK: - Methods
