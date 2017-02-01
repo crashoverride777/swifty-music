@@ -16,11 +16,11 @@ In the meantime I would create a folder on your Mac, called something like Share
 Anywhere in your project create an extension of FileName to add your music file names that you want to use.
 
 ```swift
-extension SwiftyMusic.FileName {
-    static let menu = SwiftyMusic.FileName(rawValue: "MenuMusic")
-    static let game = SwiftyMusic.FileName(rawValue: "GameMusic")
+extension SwiftyMusicFileName {
+    static let menu = SwiftyMusicFileName(rawValue: "MenuMusic")
+    static let game = SwiftyMusicFileName(rawValue: "GameMusic")
     
-    static var all: [SwiftyMusic.FileName] = [.menu, .game]
+    static var all: [SwiftyMusicFileName] = [.menu, .game]
 }
 ```
 
@@ -29,7 +29,7 @@ NOTE: The following file formats are supported: mp3, wav, aac, ac3, m4a, caf
 Than init the helper as soon as your app launches. 
 
 ```swift
-SwiftyMusic.shared.setup(withFileNames: SwiftyMusic.FileName.all)
+SwiftyMusic.shared.setup(withFileNames: SwiftyMusicFileName.all)
 ```
 
 # How to use
@@ -75,6 +75,10 @@ if SwiftyMusic.shared.isMuted {
 ```
 
 # Release notes
+
+- v4.0.2
+
+Cleanup (check setup instructions)
 
 - v4.0.1
 
