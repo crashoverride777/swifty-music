@@ -21,12 +21,18 @@
 //    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //    SOFTWARE.
 
-//    v4.0.1
-
 import AVFoundation
 
 private let mutedKey = "MusicMuteState"
 private let fileExtensions = ["mp3", "wav", "aac", "ac3", "m4a", "caf"]
+
+/// Swifty music file names
+public struct SwiftyMusicFileName: RawRepresentable {
+    public var rawValue: String
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+}
 
 /**
  SwiftyMusic
@@ -41,14 +47,6 @@ public class SwiftyMusic: NSObject {
     public static let shared = SwiftyMusic()
     
     // MARK: - Properties
-    
-    /// File names
-    public struct FileName: RawRepresentable {
-        public var rawValue: String
-        public init(rawValue: String) {
-            self.rawValue = rawValue
-        }
-    }
     
     /// Is muted
     public var isMuted: Bool {
@@ -80,9 +78,9 @@ public class SwiftyMusic: NSObject {
     /// Supported file formates: mp3, wav, aac, ac3, m4a, caf
     ///
     /// - parameter urls: An array of url strings for the music players to prepare.
-    public func setup(withFileNames fileNames: [FileName]) {
+    public func setup(withFileNames fileNames: [SwiftyMusicFileName]) {
         for fileName in fileNames {
-            if let player = prepare(forFileName: fileName.rawValue) {
+            if let player = prepare(forFileName: fileName) {
                 allPlayers[fileName.rawValue] = player
             }
         }
@@ -91,7 +89,7 @@ public class SwiftyMusic: NSObject {
     /// Play music
     ///
     /// - parameter fileName: The player fileName string of the music file to play.
-    public func play(_ fileName: FileName) {
+    public func play(_ fileName: SwiftyMusicFileName) {
         guard !allPlayers.isEmpty, let avPlayer = allPlayers[fileName.rawValue] else { return }
         pause()
         avPlayer.play()
@@ -159,7 +157,7 @@ private extension SwiftyMusic {
     ///
     /// - parameter playerURL: Prepare the avplayer with the url string.
     /// - returns: Optional AVAudioPlayer.
-    func prepare(forFileName fileName: String) -> AVAudioPlayer? {
+    func prepare(forFileName fileName: SwiftyMusicFileName) -> AVAudioPlayer? {
         guard let url = getURL(forFileName: fileName) else { return nil }
         
         do {
@@ -182,9 +180,9 @@ private extension SwiftyMusic {
     }
     
     /// Get file url
-    func getURL(forFileName fileName: String) -> URL? {
+    func getURL(forFileName fileName: SwiftyMusicFileName) -> URL? {
         for fileExtension in fileExtensions {
-            if let url = Bundle.main.url(forResource: fileName, withExtension: fileExtension) {
+            if let url = Bundle.main.url(forResource: fileName.rawValue, withExtension: fileExtension) {
                 return url
             }
         }
