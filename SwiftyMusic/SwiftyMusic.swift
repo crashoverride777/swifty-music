@@ -32,6 +32,7 @@ public struct SwiftyMusicFileName: RawRepresentable {
     public init(rawValue: String) {
         self.rawValue = rawValue
     }
+    fileprivate static let none = SwiftyMusicFileName(rawValue: "None")
 }
 
 /**
@@ -60,11 +61,11 @@ public class SwiftyMusic: NSObject {
         }
     }
     
+    /// Last played
+    private var lastPlayed: SwiftyMusicFileName = .none
+    
     /// All players
     private var allPlayers = [String: AVAudioPlayer]()
-    
-    /// Last played
-    private var lastPlayed = ""
     
     // MARK: - Init
     
@@ -89,10 +90,12 @@ public class SwiftyMusic: NSObject {
     ///
     /// - parameter fileName: The player fileName string of the music file to play.
     public func play(_ fileName: SwiftyMusicFileName) {
+        guard lastPlayed != fileName else { return }
         guard !allPlayers.isEmpty, let avPlayer = allPlayers[fileName.rawValue] else { return }
+        
         pause()
         avPlayer.play()
-        lastPlayed = fileName.rawValue
+        lastPlayed = fileName
     }
     
     /// Pause music
@@ -106,38 +109,16 @@ public class SwiftyMusic: NSObject {
     /// Resume music
     public func resume() {
         guard !allPlayers.isEmpty else { return }
-        for (url, player) in allPlayers where url == lastPlayed {
+        for (url, player) in allPlayers where url == lastPlayed.rawValue {
             player.play()
             break
-        }
-    }
-    
-    /// Mute music
-    @available(*, deprecated: 4.0.1, message: "Use isMuted = true instead")
-    public func mute() {
-        guard !allPlayers.isEmpty else { return }
-        isMuted = true
-        
-        for (_ , player) in allPlayers {
-            player.volume = 0
-        }
-    }
-    
-    /// Unmute music
-    @available(*, deprecated: 4.0.1, message: "Use isMuted = false instead")
-    public func unmute() {
-        guard !allPlayers.isEmpty else { return }
-        isMuted = false
-        
-        for (_, player) in allPlayers {
-            player.volume = 1
         }
     }
     
     /// Stop music and reset all players
     public func stopAndResetAll() {
         guard !allPlayers.isEmpty else { return }
-        lastPlayed = ""
+        lastPlayed = .none
         
         for (_, player) in allPlayers {
             player.stop()
