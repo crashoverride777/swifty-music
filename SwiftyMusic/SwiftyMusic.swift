@@ -61,8 +61,8 @@ public class SwiftyMusic: NSObject {
         }
     }
     
-    /// Last played
-    private var lastPlayed: SwiftyMusicFileName = .none
+    /// Current playing
+    private var currentlyPlaying: SwiftyMusicFileName = .none
     
     /// All players
     private var allPlayers = [String: AVAudioPlayer]()
@@ -90,12 +90,12 @@ public class SwiftyMusic: NSObject {
     ///
     /// - parameter fileName: The player fileName string of the music file to play.
     public func play(_ fileName: SwiftyMusicFileName) {
-        guard lastPlayed != fileName else { return }
+        guard currentlyPlaying != fileName else { return }
         guard !allPlayers.isEmpty, let avPlayer = allPlayers[fileName.rawValue] else { return }
         
         pause()
         avPlayer.play()
-        lastPlayed = fileName
+        currentlyPlaying = fileName
     }
     
     /// Pause music
@@ -109,7 +109,7 @@ public class SwiftyMusic: NSObject {
     /// Resume music
     public func resume() {
         guard !allPlayers.isEmpty else { return }
-        for (url, player) in allPlayers where url == lastPlayed.rawValue {
+        for (url, player) in allPlayers where url == currentlyPlaying.rawValue {
             player.play()
             break
         }
@@ -118,7 +118,7 @@ public class SwiftyMusic: NSObject {
     /// Stop music and reset all players
     public func stopAndResetAll() {
         guard !allPlayers.isEmpty else { return }
-        lastPlayed = .none
+        currentlyPlaying = .none
         
         for (_, player) in allPlayers {
             player.stop()
