@@ -101,7 +101,11 @@ public class SwiftyMusic: NSObject {
         currentlyPlayingFile = fileName
         
         guard !isPaused else { return }
-        pause()
+        
+        for (_, player) in allPlayers {
+            player.pause()
+        }
+        
         avPlayer.play()
     }
     
