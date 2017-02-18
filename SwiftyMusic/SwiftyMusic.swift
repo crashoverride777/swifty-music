@@ -62,10 +62,16 @@ public class SwiftyMusic: NSObject {
     }
     
     /// Current playing
-    private var currentlyPlaying: SwiftyMusicFileName = .none
+    public var currentlyPlaying: SwiftyMusicFileName {
+        return currentlyPlayingFile
+    }
+    private var currentlyPlayingFile: SwiftyMusicFileName = .none
     
     /// All players
     private var allPlayers = [String: AVAudioPlayer]()
+    
+    /// Is paused
+    private var isPaused = false
     
     // MARK: - Init
     
@@ -90,16 +96,19 @@ public class SwiftyMusic: NSObject {
     ///
     /// - parameter fileName: The player fileName string of the music file to play.
     public func play(_ fileName: SwiftyMusicFileName) {
-        guard currentlyPlaying != fileName else { return }
-        guard !allPlayers.isEmpty, let avPlayer = allPlayers[fileName.rawValue] else { return }
+        guard !allPlayers.isEmpty, currentlyPlaying != fileName, let avPlayer = allPlayers[fileName.rawValue] else { return }
         
+        currentlyPlayingFile = fileName
+        
+        guard !isPaused else { return }
         pause()
         avPlayer.play()
-        currentlyPlaying = fileName
     }
     
     /// Pause music
     public func pause() {
+        isPaused = true
+        
         guard !allPlayers.isEmpty else { return }
         for (_, player) in allPlayers {
             player.pause()
@@ -108,6 +117,8 @@ public class SwiftyMusic: NSObject {
     
     /// Resume music
     public func resume() {
+        isPaused = false
+        
         guard !allPlayers.isEmpty else { return }
         for (url, player) in allPlayers where url == currentlyPlaying.rawValue {
             player.play()
@@ -117,9 +128,9 @@ public class SwiftyMusic: NSObject {
     
     /// Stop music and reset all players
     public func stopAndResetAll() {
-        guard !allPlayers.isEmpty else { return }
-        currentlyPlaying = .none
+        currentlyPlayingFile = .none
         
+        guard !allPlayers.isEmpty else { return }
         for (_, player) in allPlayers {
             player.stop()
             player.currentTime = 0
