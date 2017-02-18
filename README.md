@@ -76,6 +76,10 @@ if SwiftyMusic.shared.isMuted {
 
 # Release notes
 
+- v4.0.4
+
+Updated play method to only play when not paused.
+
 - v4.0.3
 
 Play method will not fire if its calling the same file thats already playing
