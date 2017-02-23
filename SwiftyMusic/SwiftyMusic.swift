@@ -100,6 +100,10 @@ public class SwiftyMusic: NSObject {
         
         currentlyPlayingFile = fileName
         
+        if isMuted {
+            avPlayer.volume = 0 // just incase
+        }
+        
         guard !isPaused else { return }
         
         for (_, player) in allPlayers {
@@ -124,7 +128,7 @@ public class SwiftyMusic: NSObject {
         isPaused = false
         
         guard !allPlayers.isEmpty else { return }
-        for (url, player) in allPlayers where url == currentlyPlaying.rawValue {
+        for (url, player) in allPlayers where url == currentlyPlaying.rawValue && !player.isPlaying {
             player.play()
             break
         }
