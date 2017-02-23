@@ -1,6 +1,6 @@
 # SwiftyMusic
 
-A swift singleton class to handle music playback using AVFoundation.
+A Swift helper to handle music playback using AVFoundation.
 
 # Cocoa Pods
 
@@ -13,7 +13,10 @@ In the meantime I would create a folder on your Mac, called something like Share
 - Add the SwiftyMusic.swift file to your project.
 - Add your music tracks to your project
 
-Anywhere in your project create an extension of FileName to add your music file names that you want to use.
+Anywhere in your project create an extension of FileName to add the file names of the music tracks that you will use. You can exclude the file extension of the file. 
+
+SwiftyMusic supports the following file formats: 
+mp3, wav, aac, ac3, m4a, caf
 
 ```swift
 extension SwiftyMusicFileName {
@@ -24,9 +27,7 @@ extension SwiftyMusicFileName {
 }
 ```
 
-NOTE: The following file formats are supported: mp3, wav, aac, ac3, m4a, caf
-
-Than init the helper as soon as your app launches. 
+Than setup the helper as soon as your app launches. 
 
 ```swift
 SwiftyMusic.shared.setup(withFileNames: SwiftyMusicFileName.all)
