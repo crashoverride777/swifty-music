@@ -54,8 +54,8 @@ public class SwiftyMusic: NSObject {
         set {
             UserDefaults.standard.set(newValue, forKey: mutedKey)
             guard !allPlayers.isEmpty else { return }
-            for (_ , player) in allPlayers {
-                player.volume = newValue ? 0 : 1
+            allPlayers.forEach {
+                $1.volume = newValue ? 0 : 1
             }
         }
     }
@@ -84,9 +84,9 @@ public class SwiftyMusic: NSObject {
     ///
     /// - parameter urls: An array of url strings for the music players to prepare.
     public func setup(withFileNames fileNames: [SwiftyMusicFileName]) {
-        for fileName in fileNames {
-            guard let player = prepare(forFileName: fileName) else { continue }
-            allPlayers[fileName.rawValue] = player
+        fileNames.forEach {
+            guard let player = prepare(forFileName: $0) else { return }
+            allPlayers[$0.rawValue] = player
         }
     }
     
@@ -108,8 +108,8 @@ public class SwiftyMusic: NSObject {
         
         guard !isPaused else { return }
         
-        for (_, player) in allPlayers {
-            player.pause()
+        allPlayers.forEach {
+            $1.pause()
         }
         
         avPlayer.play()
@@ -122,8 +122,8 @@ public class SwiftyMusic: NSObject {
         isPaused = true
         
         guard !allPlayers.isEmpty else { return }
-        for (_, player) in allPlayers {
-            player.pause()
+        allPlayers.forEach {
+            $1.pause()
         }
     }
     
@@ -133,9 +133,9 @@ public class SwiftyMusic: NSObject {
         resetVolume()
         
         guard !allPlayers.isEmpty else { return }
-        for (url, player) in allPlayers where url == currentlyPlaying.rawValue && !player.isPlaying {
-            player.play()
-            break
+        allPlayers.forEach {
+            guard $0 == currentlyPlaying.rawValue && !$1.isPlaying else { return }
+            $1.play()
         }
     }
     
@@ -144,16 +144,16 @@ public class SwiftyMusic: NSObject {
     /// Set volume to a level
     public func setVolume(to value: Float) {
         guard !isMuted, !allPlayers.isEmpty else { return }
-        for (_, player) in allPlayers {
-            player.volume = value
+        allPlayers.forEach {
+            $1.volume = value
         }
     }
     
     /// Reset volume
     public func resetVolume() {
         guard !isMuted, !allPlayers.isEmpty else { return }
-        for (_, player) in allPlayers {
-            player.volume = 1
+        allPlayers.forEach {
+            $1.volume = 1
         }
     }
     
@@ -164,11 +164,11 @@ public class SwiftyMusic: NSObject {
         currentlyPlayingFile = .none
         
         guard !allPlayers.isEmpty else { return }
-        for (_, player) in allPlayers {
-            player.stop()
-            player.currentTime = 0
-            player.volume = 1
-            player.prepareToPlay()
+        allPlayers.forEach {
+            $1.stop()
+            $1.currentTime = 0
+            $1.volume = 1
+            $1.prepareToPlay()
         }
     }
 }
