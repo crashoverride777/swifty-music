@@ -166,6 +166,7 @@ public class SwiftyMusic: NSObject {
         for (_, player) in allPlayers {
             player.stop()
             player.currentTime = 0
+            player.volume = 1
             player.prepareToPlay()
         }
     }
