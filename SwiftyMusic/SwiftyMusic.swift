@@ -100,16 +100,11 @@ public class SwiftyMusic: NSObject {
         
         currentlyPlayingFile = fileName
         
-        if isMuted {
-            avPlayer.volume = 0 // just incase
-        } else {
-            resetVolume()
-        }
-        
         guard !isPaused else { return }
         
         allPlayers.forEach {
             $1.pause()
+            $1.volume = isMuted ? 0 : $1.volume
         }
         
         avPlayer.play()
