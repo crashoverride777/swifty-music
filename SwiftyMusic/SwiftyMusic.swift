@@ -133,6 +133,9 @@ public class SwiftyMusic: NSObject {
         
         guard !allPlayers.isEmpty else { return }
         for (url, player) in allPlayers where url == currentlyPlaying.rawValue && !player.isPlaying {
+            if !isMuted {
+                player.volume = 1
+            }
             player.play()
             break
         }
