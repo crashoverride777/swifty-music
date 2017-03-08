@@ -55,7 +55,7 @@ public class SwiftyMusic: NSObject {
             UserDefaults.standard.set(newValue, forKey: mutedKey)
             guard !allPlayers.isEmpty else { return }
             for (_ , player) in allPlayers {
-                player.volume = isMuted ? 0 : 1
+                player.volume = newValue ? 0 : 1
             }
         }
     }
@@ -76,7 +76,7 @@ public class SwiftyMusic: NSObject {
     
     private override init() { }
     
-    // MARK: - Methods
+    // MARK: - Setup
     
     /// Setup music players
     ///
@@ -85,11 +85,12 @@ public class SwiftyMusic: NSObject {
     /// - parameter urls: An array of url strings for the music players to prepare.
     public func setup(withFileNames fileNames: [SwiftyMusicFileName]) {
         for fileName in fileNames {
-            if let player = prepare(forFileName: fileName) {
-                allPlayers[fileName.rawValue] = player
-            }
+            guard let player = prepare(forFileName: fileName) else { continue }
+            allPlayers[fileName.rawValue] = player
         }
     }
+    
+    // MARK: - Play
     
     /// Play music
     ///
@@ -101,6 +102,8 @@ public class SwiftyMusic: NSObject {
         
         if isMuted {
             avPlayer.volume = 0 // just incase
+        } else {
+            resetVolume()
         }
         
         guard !isPaused else { return }
@@ -111,6 +114,8 @@ public class SwiftyMusic: NSObject {
         
         avPlayer.play()
     }
+    
+    // MARK: - Pause and Resume
     
     /// Pause music
     public func pause() {
@@ -132,6 +137,26 @@ public class SwiftyMusic: NSObject {
             break
         }
     }
+    
+    // MARK: - Adjust volume
+    
+    /// Set volume to a level
+    public func setVolume(to value: Float) {
+        guard !isMuted, !allPlayers.isEmpty else { return }
+        for (_, player) in allPlayers {
+            player.volume = value
+        }
+    }
+    
+    /// Reset volume
+    public func resetVolume() {
+        guard !isMuted, !allPlayers.isEmpty else { return }
+        for (_, player) in allPlayers {
+            player.volume = 1
+        }
+    }
+    
+    // MARK: - Stop and Reset
     
     /// Stop music and reset all players
     public func stopAndResetAll() {
@@ -180,9 +205,8 @@ private extension SwiftyMusic {
     /// Get file url
     func getURL(forFileName fileName: SwiftyMusicFileName) -> URL? {
         for fileExtension in fileExtensions {
-            if let url = Bundle.main.url(forResource: fileName.rawValue, withExtension: fileExtension) {
-                return url
-            }
+            guard let url = Bundle.main.url(forResource: fileName.rawValue, withExtension: fileExtension) else { continue }
+            return url
         }
         
         return nil
