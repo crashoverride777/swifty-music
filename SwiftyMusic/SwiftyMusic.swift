@@ -130,11 +130,9 @@ public class SwiftyMusic: NSObject {
     /// Resume music
     public func resume() {
         isPaused = false
-        
-        guard !allPlayers.isEmpty else { return }
-        
         resetVolume()
         
+        guard !allPlayers.isEmpty else { return }
         for (url, player) in allPlayers where url == currentlyPlaying.rawValue && !player.isPlaying {
             player.play()
             break
