@@ -77,6 +77,10 @@ if SwiftyMusic.shared.isMuted {
 
 # Release notes
 
+- v4.1
+
+Added ability to adjust volume
+
 - v4.0.5
 
 Cleanup
