@@ -51,6 +51,16 @@ SwiftyMusic.shared.pause()
 SwiftyMusic.shared.resume()
 ```
 
+- To adjust volume (e.g game paused)
+```swift
+SwiftyMusic.shared.setVolume(to: 0.5)
+```
+
+- To reset volume (e.g game resumed)
+```swift
+SwiftyMusic.shared.resetVolume()
+```
+
 - To stop and reset all music players, eg gameover
 ```swift
 SwiftyMusic.shared.stopAndResetAll()
