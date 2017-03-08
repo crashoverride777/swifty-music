@@ -104,7 +104,8 @@ public class SwiftyMusic: NSObject {
         
         allPlayers.forEach {
             $1.pause()
-            $1.volume = isMuted ? 0 : $1.volume
+            guard isMuted else { return }
+            $1.volume = 0
         }
         
         avPlayer.play()
