@@ -19,18 +19,18 @@ SwiftyMusic supports the following file formats:
 mp3, wav, aac, ac3, m4a, caf
 
 ```swift
-extension SwiftyMusicFileName {
-    static let menu = SwiftyMusicFileName(rawValue: "MenuMusic")
-    static let game = SwiftyMusicFileName(rawValue: "GameMusic")
+extension SwiftyMusic.FileName {
+    static let menu = SwiftyMusic.FileName(rawValue: "MenuMusic")
+    static let game = SwiftyMusic.FileName(rawValue: "GameMusic")
     
-    static var all: [SwiftyMusicFileName] = [.menu, .game]
+    static var all: [SwiftyMusic.FileName] = [.menu, .game]
 }
 ```
 
 Than setup the helper as soon as your app launches. 
 
 ```swift
-SwiftyMusic.shared.setup(withFileNames: SwiftyMusicFileName.all)
+SwiftyMusic.shared.setup(withFileNames: SwiftyMusic.FileName.all)
 ```
 
 # How to use
