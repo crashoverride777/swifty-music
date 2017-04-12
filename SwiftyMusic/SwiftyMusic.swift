@@ -35,7 +35,11 @@ public class SwiftyMusic: NSObject {
         public init(rawValue: String) {
             self.rawValue = rawValue
         }
-        fileprivate static let none = FileName(rawValue: "None")
+        public init(_ rawValue: String) {
+            self.rawValue = rawValue
+        }
+        
+        fileprivate static let none = FileName("None")
     }
     
     // MARK: - Static Properties
