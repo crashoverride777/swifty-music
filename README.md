@@ -20,8 +20,8 @@ mp3, wav, aac, ac3, m4a, caf
 
 ```swift
 extension SwiftyMusic.FileName {
-    static let menu = SwiftyMusic.FileName(rawValue: "MenuMusic")
-    static let game = SwiftyMusic.FileName(rawValue: "GameMusic")
+    static let menu = SwiftyMusic.FileName("MenuMusic")
+    static let game = SwiftyMusic.FileName("GameMusic")
     
     static var all: [SwiftyMusic.FileName] = [.menu, .game]
 }
