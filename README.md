@@ -87,6 +87,10 @@ if SwiftyMusic.shared.isMuted {
 
 # Release notes
 
+- v4.1.1
+
+Nested enumerations to closer follow Swift API design guidelines.
+
 - v4.1
 
 Added ability to adjust volume
