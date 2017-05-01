@@ -87,9 +87,13 @@ if SwiftyMusic.shared.isMuted {
 
 # Release notes
 
+- v4.1.2
+
+Cleanup
+
 - v4.1.1
 
-Nested enumerations to closer follow Swift API design guidelines.
+Nested enumerations to closer follow Swift API design guidelines
 
 - v4.1
 
