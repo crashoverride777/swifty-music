@@ -31,7 +31,8 @@ public class SwiftyMusic: NSObject {
     
     /// File Names
     public struct FileName: RawRepresentable {
-        public var rawValue: String
+        public let rawValue: String
+        
         public init(rawValue: String) {
             self.rawValue = rawValue
         }
@@ -54,45 +55,46 @@ public class SwiftyMusic: NSObject {
         get { return UserDefaults.standard.bool(forKey: mutedKey) }
         set {
             UserDefaults.standard.set(newValue, forKey: mutedKey)
-            guard !allPlayers.isEmpty else { return }
             allPlayers.forEach {
                 $1.volume = newValue ? 0 : 1
             }
         }
     }
     
-    /// Current playing
+    /// Currently playing
     public var currentlyPlaying: FileName {
-        return currentlyPlayingFile
+        return _currentlyPlaying
     }
-    private var currentlyPlayingFile: FileName = .none
     
-    /// All players
+    private var _currentlyPlaying: FileName = .none
+    
+    /// All av audio players
     private var allPlayers = [String: AVAudioPlayer]()
     
     /// Is paused
     private var isPaused = false
     
-    /// Muted key
+    /// Key
     private let mutedKey = "MusicMuteState"
     
-    /// Supported file extensions
+    /// File extensions
     fileprivate let fileExtensions = ["mp3", "wav", "aac", "ac3", "m4a", "caf"]
     
     // MARK: - Init
     
+    /// Init
     private override init() { }
     
     // MARK: - Setup
     
     /// Setup music players
     ///
-    /// Supported file formates: mp3, wav, aac, ac3, m4a, caf
+    /// Supported file formats: mp3, wav, aac, ac3, m4a, caf
     ///
-    /// - parameter urls: An array of url strings for the music players to prepare.
+    /// - parameter fileNames: An array of file names to prepare.
     public func setup(withFileNames fileNames: [FileName]) {
         fileNames.forEach {
-            guard let player = prepare(forFileName: $0) else { return }
+            guard let player = prepare(withFileName: $0) else { return }
             allPlayers[$0.rawValue] = player
         }
     }
@@ -101,30 +103,44 @@ public class SwiftyMusic: NSObject {
     
     /// Play music
     ///
-    /// - parameter fileName: The player fileName string of the music file to play.
+    /// - parameter fileName: The player fileName of the music file to play.
     public func play(_ fileName: FileName) {
-        guard !allPlayers.isEmpty, currentlyPlaying != fileName, let avPlayer = allPlayers[fileName.rawValue] else { return }
+        guard currentlyPlaying != fileName, let avPlayer = allPlayers[fileName.rawValue] else { return }
         
-        currentlyPlayingFile = fileName
+        _currentlyPlaying = fileName
         
         guard !isPaused else { return }
         
         allPlayers.forEach {
             $1.pause()
-            guard isMuted else { return }
-            $1.volume = 0
         }
         
+        avPlayer.volume = isMuted ? 0 : 1
         avPlayer.play()
     }
     
-    // MARK: - Pause and Resume
+    // MARK: - Adjust volume
+    
+    /// Set volume to a level
+    public func setVolume(to value: Float) {
+        guard !isMuted else { return }
+        
+        allPlayers.forEach {
+            $1.volume = value
+        }
+    }
+    
+    /// Reset volume
+    public func resetVolume() {
+        setVolume(to: 1)
+    }
+    
+    // MARK: - Pause / Resume
     
     /// Pause music
     public func pause() {
         isPaused = true
         
-        guard !allPlayers.isEmpty else { return }
         allPlayers.forEach {
             $1.pause()
         }
@@ -133,59 +149,56 @@ public class SwiftyMusic: NSObject {
     /// Resume music
     public func resume() {
         isPaused = false
-        resetVolume()
         
-        guard !allPlayers.isEmpty else { return }
         allPlayers.forEach {
             guard $0 == currentlyPlaying.rawValue && !$1.isPlaying else { return }
             $1.play()
         }
     }
     
-    // MARK: - Adjust volume
+    // MARK: - Stop
     
-    /// Set volume to a level
-    public func setVolume(to value: Float) {
-        guard !isMuted, !allPlayers.isEmpty else { return }
-        allPlayers.forEach {
-            $1.volume = value
-        }
-    }
-    
-    /// Reset volume
-    public func resetVolume() {
-        guard !isMuted, !allPlayers.isEmpty else { return }
-        allPlayers.forEach {
-            $1.volume = 1
-        }
-    }
-    
-    // MARK: - Stop and Reset
-    
-    /// Stop music and reset all players
+    /// Stop and reset all music
     public func stopAndResetAll() {
-        currentlyPlayingFile = .none
+        _currentlyPlaying = .none
         
-        guard !allPlayers.isEmpty else { return }
         allPlayers.forEach {
             $1.stop()
             $1.currentTime = 0
-            $1.volume = 1
+            $1.volume = isMuted ? 0 : 1
             $1.prepareToPlay()
         }
     }
 }
 
-// MARK: - Prepare
 
-/// Prepare
+// MARK: - AVAudioPlayerDelegate
+
+/// AVAudioPlayerDelegate
+extension SwiftyMusic: AVAudioPlayerDelegate {
+    
+    /// Did finish
+    public func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        print("Audio player did finish playing")
+        // finish means when music ended not when paused or stopped
+        guard flag else { return }
+        player.prepareToPlay()
+    }
+    
+    /// Decoding error
+    public func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
+        if let error = error {
+            print(error.localizedDescription)
+        }
+    }
+}
+
+// MARK: - Private
+
 private extension SwiftyMusic {
     
     /// Prepare AVPlayer
-    ///
-    /// - parameter playerURL: Prepare the avplayer with the url string.
-    /// - returns: Optional AVAudioPlayer.
-    func prepare(forFileName fileName: FileName) -> AVAudioPlayer? {
+    func prepare(withFileName fileName: FileName) -> AVAudioPlayer? {
         guard let url = getURL(forFileName: fileName) else { return nil }
         
         do {
@@ -197,8 +210,8 @@ private extension SwiftyMusic {
             return avPlayer
         }
             
-        catch let error as NSError {
-            print(error.localizedDescription)
+        catch let error {
+            print(error)
             return nil
         }
     }
@@ -211,27 +224,5 @@ private extension SwiftyMusic {
         }
         
         return nil
-    }
-}
-
-// MARK: - Delegates
-
-/// AVAudioPlayerDelegate
-extension SwiftyMusic: AVAudioPlayerDelegate {
-    
-    /// Did finish. Finish means when music ended not when calling stop
-    public func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        print("Audio player did finish playing")
-        
-        guard flag else { return }
-        
-        player.prepareToPlay()
-    }
-    
-    /// Decoding error
-    public func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
-        if let error = error {
-            print(error.localizedDescription)
-        }
     }
 }
