@@ -202,7 +202,15 @@ private extension SwiftyMusic {
     
     /// Prepare AVPlayer
     func prepare(withFileName fileName: FileName) -> AVAudioPlayer? {
-        guard let url = getURL(forFileName: fileName) else { return nil }
+        var bundleURL: URL?
+        
+        for fileExtension in fileExtensions {
+            guard let url = Bundle.main.url(forResource: fileName.rawValue, withExtension: fileExtension) else { continue }
+            bundleURL = url
+            break
+        }
+        
+        guard let url = bundleURL else { return nil }
         
         do {
             let avPlayer = try AVAudioPlayer(contentsOf: url)
@@ -215,16 +223,6 @@ private extension SwiftyMusic {
             print(error)
             return nil
         }
-    }
-    
-    /// Get file url
-    func getURL(forFileName fileName: FileName) -> URL? {
-        for fileExtension in fileExtensions {
-            guard let url = Bundle.main.url(forResource: fileName.rawValue, withExtension: fileExtension) else { continue }
-            return url
-        }
-        
-        return nil
     }
     
     /// Set player default properties
