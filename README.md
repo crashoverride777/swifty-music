@@ -87,6 +87,10 @@ if SwiftyMusic.shared.isMuted {
 
 # Release notes
 
+- v4.1.3
+
+Cleanup
+
 - v4.1.2
 
 Cleanup
