@@ -165,11 +165,7 @@ public class SwiftyMusic: NSObject {
         allPlayers.forEach {
             $1.stop()
             $1.currentTime = 0
-            
-            $1.delegate = self
-            $1.volume = isMuted ? 0 : 1
-            $1.numberOfLoops = -1
-            $1.prepareToPlay()
+            setDefaultProperties(forPlayer: $1)
         }
     }
 }
@@ -185,7 +181,7 @@ extension SwiftyMusic: AVAudioPlayerDelegate {
         print("Audio player did finish playing")
         // finish means when music ended not when paused or stopped
         guard flag else { return }
-        player.prepareToPlay()
+        setDefaultProperties(forPlayer: player)
     }
     
     /// Decoding error
@@ -207,9 +203,7 @@ private extension SwiftyMusic {
         do {
             let avPlayer = try AVAudioPlayer(contentsOf: url)
             avPlayer.delegate = self
-            avPlayer.volume = isMuted ? 0 : 1
-            avPlayer.numberOfLoops = -1
-            avPlayer.prepareToPlay()
+            setDefaultProperties(forPlayer: avPlayer)
             return avPlayer
         }
             
@@ -227,6 +221,13 @@ private extension SwiftyMusic {
         }
         
         return nil
+    }
+    
+    /// Set player default properties
+    func setDefaultProperties(forPlayer avPlayer: AVAudioPlayer) {
+        avPlayer.volume = isMuted ? 0 : 1
+        avPlayer.numberOfLoops = -1
+        avPlayer.prepareToPlay()
     }
     
     /// Print
