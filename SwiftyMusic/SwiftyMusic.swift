@@ -225,4 +225,12 @@ private extension SwiftyMusic {
         
         return nil
     }
+    
+    /// Print
+    /// Overrides the default print method so it print statements only show when in DEBUG mode
+    func print(_ items: Any...) {
+        #if DEBUG
+            Swift.print(items)
+        #endif
+    }
 }
