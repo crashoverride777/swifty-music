@@ -165,7 +165,10 @@ public class SwiftyMusic: NSObject {
         allPlayers.forEach {
             $1.stop()
             $1.currentTime = 0
+            
+            $1.delegate = self
             $1.volume = isMuted ? 0 : 1
+            $1.numberOfLoops = -1
             $1.prepareToPlay()
         }
     }
