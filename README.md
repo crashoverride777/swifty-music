@@ -87,6 +87,10 @@ if SwiftyMusic.shared.isMuted {
 
 # Release notes
 
+- v4.1.4
+
+Fixed muting bug
+
 - v4.1.3
 
 Print statements will now only print in DEBUG mode
