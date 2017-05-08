@@ -56,8 +56,7 @@ public class SwiftyMusic: NSObject {
         set {
             UserDefaults.standard.set(newValue, forKey: mutedKey)
             allPlayers.forEach {
-                guard newValue else { return }
-                $1.volume = 0
+                $1.volume = newValue ? 0 : 1
             }
         }
     }
