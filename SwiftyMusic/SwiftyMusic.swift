@@ -56,7 +56,7 @@ public class SwiftyMusic: NSObject {
         set {
             UserDefaults.standard.set(newValue, forKey: mutedKey)
             allPlayers.forEach {
-                $1.volume = newValue ? 0 : 1
+                $1.volume = newValue ? 0 : currentVolume
             }
         }
     }
@@ -67,6 +67,9 @@ public class SwiftyMusic: NSObject {
     }
     
     private var _currentlyPlaying: FileName = .none
+    
+    /// Current volume
+    private var currentVolume: Float = 1.0
     
     /// All av audio players
     private var allPlayers = [String: AVAudioPlayer]()
@@ -115,10 +118,7 @@ public class SwiftyMusic: NSObject {
             $1.pause()
         }
         
-        if isMuted {
-            avPlayer.volume = 0
-        }
-        
+        avPlayer.volume = isMuted ? 0 : currentVolume
         avPlayer.play()
     }
     
@@ -127,6 +127,8 @@ public class SwiftyMusic: NSObject {
     /// Set volume to a level
     public func setVolume(to value: Float) {
         guard !isMuted else { return }
+        
+        currentVolume = value
         
         allPlayers.forEach {
             $1.volume = value
@@ -164,6 +166,8 @@ public class SwiftyMusic: NSObject {
     /// Stop and reset all music
     public func stopAndResetAll() {
         _currentlyPlaying = .none
+        
+        currentVolume = 1
         
         allPlayers.forEach {
             $1.stop()
