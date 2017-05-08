@@ -89,7 +89,7 @@ if SwiftyMusic.shared.isMuted {
 
 - v4.1.4
 
-Fixed muting bug
+Fixed mute bug
 
 - v4.1.3
 
