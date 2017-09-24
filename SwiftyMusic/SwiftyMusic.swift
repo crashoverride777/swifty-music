@@ -68,17 +68,9 @@ public class SwiftyMusic: NSObject {
     }
     
     private var _currentlyPlaying: FileName = .none
-    
-    /// Current volume
     private var currentVolume: Float = 1.0
-    
-    /// All av audio players
     private var players = [String: AVAudioPlayer]()
-    
-    /// Is paused
     private var isPaused = false
-    
-    /// File extensions
     private let fileExtensions = ["mp3", "wav", "aac", "ac3", "m4a", "caf"]
     
     // MARK: - Init
