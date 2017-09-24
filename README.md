@@ -87,6 +87,10 @@ if SwiftyMusic.shared.isMuted {
 
 # Release notes
 
+- v4.1.5
+
+Swift 4 update
+
 - v4.1.4
 
 Fixed mute bug
