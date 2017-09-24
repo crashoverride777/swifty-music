@@ -55,11 +55,12 @@ public class SwiftyMusic: NSObject {
         get { return UserDefaults.standard.bool(forKey: mutedKey) }
         set {
             UserDefaults.standard.set(newValue, forKey: mutedKey)
-            allPlayers.forEach {
+            players.forEach {
                 $1.volume = newValue ? 0 : currentVolume
             }
         }
     }
+    private let mutedKey = "SwiftyMusicMuteKey"
     
     /// Currently playing
     public var currentlyPlaying: FileName {
@@ -72,16 +73,13 @@ public class SwiftyMusic: NSObject {
     private var currentVolume: Float = 1.0
     
     /// All av audio players
-    private var allPlayers = [String: AVAudioPlayer]()
+    private var players = [String: AVAudioPlayer]()
     
     /// Is paused
     private var isPaused = false
     
-    /// Key
-    private let mutedKey = "MusicMuteState"
-    
     /// File extensions
-    fileprivate let fileExtensions = ["mp3", "wav", "aac", "ac3", "m4a", "caf"]
+    private let fileExtensions = ["mp3", "wav", "aac", "ac3", "m4a", "caf"]
     
     // MARK: - Init
     
@@ -98,7 +96,7 @@ public class SwiftyMusic: NSObject {
     public func setup(withFileNames fileNames: [FileName]) {
         fileNames.forEach {
             guard let player = prepare(withFileName: $0) else { return }
-            allPlayers[$0.rawValue] = player
+            players[$0.rawValue] = player
         }
     }
     
@@ -108,13 +106,13 @@ public class SwiftyMusic: NSObject {
     ///
     /// - parameter fileName: The player fileName of the music file to play.
     public func play(_ fileName: FileName) {
-        guard currentlyPlaying != fileName, let avPlayer = allPlayers[fileName.rawValue] else { return }
+        guard currentlyPlaying != fileName, let avPlayer = players[fileName.rawValue] else { return }
         
         _currentlyPlaying = fileName
         
         guard !isPaused else { return }
         
-        allPlayers.forEach {
+        players.forEach {
             $1.pause()
         }
         
@@ -130,7 +128,7 @@ public class SwiftyMusic: NSObject {
         
         currentVolume = value
         
-        allPlayers.forEach {
+        players.forEach {
             $1.volume = value
         }
     }
@@ -146,7 +144,7 @@ public class SwiftyMusic: NSObject {
     public func pause() {
         isPaused = true
         
-        allPlayers.forEach {
+        players.forEach {
             $1.pause()
         }
     }
@@ -155,7 +153,7 @@ public class SwiftyMusic: NSObject {
     public func resume() {
         isPaused = false
         
-        allPlayers.forEach {
+        players.forEach {
             guard $0 == currentlyPlaying.rawValue && !$1.isPlaying else { return }
             $1.play()
         }
@@ -169,14 +167,13 @@ public class SwiftyMusic: NSObject {
         
         currentVolume = 1
         
-        allPlayers.forEach {
+        players.forEach {
             $1.stop()
             $1.currentTime = 0
-            setDefaultProperties(forPlayer: $1)
+            loadDefaultProperties(forPlayer: $1)
         }
     }
 }
-
 
 // MARK: - AVAudioPlayerDelegate
 
@@ -185,10 +182,8 @@ extension SwiftyMusic: AVAudioPlayerDelegate {
     
     /// Did finish
     public func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        print("Audio player did finish playing")
-        // finish means when music ended not when paused or stopped
-        guard flag else { return }
-        setDefaultProperties(forPlayer: player)
+        print("Audio player \(player) did finish playing \(flag)")
+        // Finish means when music ended not when stopped
     }
     
     /// Decoding error
@@ -218,7 +213,7 @@ private extension SwiftyMusic {
         do {
             let avPlayer = try AVAudioPlayer(contentsOf: url)
             avPlayer.delegate = self
-            setDefaultProperties(forPlayer: avPlayer)
+            loadDefaultProperties(forPlayer: avPlayer)
             return avPlayer
         }
             
@@ -229,7 +224,7 @@ private extension SwiftyMusic {
     }
     
     /// Set player default properties
-    func setDefaultProperties(forPlayer avPlayer: AVAudioPlayer) {
+    func loadDefaultProperties(forPlayer avPlayer: AVAudioPlayer) {
         avPlayer.volume = isMuted ? 0 : 1
         avPlayer.numberOfLoops = -1
         avPlayer.prepareToPlay()
