@@ -25,7 +25,7 @@ import AVFoundation
 /**
  SwiftyMusic
  
- A singleton class to play music with AVAudioPlayer.
+ A singleton class to play music with AVAudioPlayer
  */
 public class SwiftyMusic: NSObject {
     

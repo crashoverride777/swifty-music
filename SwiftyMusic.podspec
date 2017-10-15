@@ -12,7 +12,7 @@ s.requires_arc = true
 s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4' }
 
 s.ios.deployment_target = '10.3'
-s.tvos.deployment_target = '10.0'
+#s.tvos.deployment_target = '10.0'
 
 s.source = {
     :git => 'https://github.com/crashoverride777/SwiftyMusic.git',
