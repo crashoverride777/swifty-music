@@ -32,6 +32,8 @@ $ pod install
 
 You can also download the CocoaPods app for macOS and manage your pods this way.
 
+https://cocoapods.org/app
+
 # Set-Up
 
 - Add the SwiftyMusic.swift file to your project.
