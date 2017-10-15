@@ -4,9 +4,25 @@ A Swift helper to handle music playback using AVFoundation.
 
 # Cocoa Pods
 
-I know that the current way of copying the .swift file(s) into your project sucks and is bad practice, so I am working hard to finally support CocoaPods very soon. Stay tuned.
+CocoaPods is a dependency manager for Cocoa projects. You can install it with the following command:
 
-In the meantime I would create a folder on your Mac, called something like SharedFiles, and drag the swift file(s) into this folder. Than drag the files from this folder into your project, making sure that "copy if needed" is not selected. This way its easier to update the files and to share them between projects.
+$ gem install cocoapods
+
+CocoaPods 1.1+ is required to build.
+
+To integrate SwiftyMusic into your Xcode project using CocoaPods, specify it in your Podfile:
+
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '10.0'
+use_frameworks!
+
+target '<Your Target Name>' do
+    pod 'SwiftyMusic'
+end
+
+Then, run the following command:
+
+$ pod install
 
 # Set-Up
 
