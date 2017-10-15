@@ -36,7 +36,14 @@ https://cocoapods.org/app
 
 # Set-Up
 
-- Add the SwiftyMusic.swift file to your project.
+- Add the SwiftyMusic.swift file to your project or if you used CocoaPods add the the 
+
+```swift
+import SwiftyMusic 
+```
+
+to your .swift file(s).
+
 - Add your music tracks to your project
 
 Anywhere in your project create an extension of FileName to add the file names of the music tracks that you will use. You can exclude the file extension of the file. 
