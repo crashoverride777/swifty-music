@@ -16,7 +16,7 @@ To integrate SwiftyMusic into your Xcode project using CocoaPods, specify it in 
 
 ```swift
 source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '10.0'
+platform :ios, '9.3.0'
 use_frameworks!
 
 target '<Your Target Name>' do
