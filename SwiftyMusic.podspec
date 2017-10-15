@@ -11,7 +11,7 @@ s.authors = { 'Dominik' => 'overrideinteractive@icloud.com' }
 s.requires_arc = true
 s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4' }
 
-s.ios.deployment_target = '10.3'
+s.ios.deployment_target = '9.3'
 #s.tvos.deployment_target = '10.0'
 
 s.source = {
