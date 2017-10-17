@@ -10,8 +10,6 @@ CocoaPods is a dependency manager for Cocoa projects. You can install it with th
 $ gem install cocoapods
 ```
 
-CocoaPods 1.1+ is required to build.
-
 To integrate SwiftyMusic into your Xcode project using CocoaPods, specify it in your Podfile:
 
 ```swift
@@ -30,19 +28,19 @@ Then, run the following command:
 $ pod install
 ```
 
-You can also download the CocoaPods app for macOS and manage your pods this way.
+You can also download the CocoaPods app for macOS and manage your pods that way.
 
 https://cocoapods.org/app
 
 # Set-Up
 
-- Add the SwiftyMusic.swift file to your project or if you used CocoaPods add the the 
+- Add the SwiftyMusic.swift file to your project or if you used CocoaPods add the 
 
 ```swift
 import SwiftyMusic 
 ```
 
-to your .swift file(s).
+statement to your .swift file(s).
 
 - Add your music tracks to your project
 
