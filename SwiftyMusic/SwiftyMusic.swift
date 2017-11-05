@@ -29,6 +29,13 @@ import AVFoundation
  */
 public class SwiftyMusic: NSObject {
     
+    // MARK: - Static Properties
+    
+    /// Shared instance
+    public static let shared = SwiftyMusic()
+    
+    // MARK: - Properties
+    
     /// File Names
     public struct FileName: RawRepresentable {
         public let rawValue: String
@@ -43,31 +50,19 @@ public class SwiftyMusic: NSObject {
         fileprivate static let none = FileName("None")
     }
     
-    // MARK: - Static Properties
-    
-    /// Shared instance
-    public static let shared = SwiftyMusic()
-    
-    // MARK: - Properties
-    
     /// Is muted
     public var isMuted: Bool {
-        get { return UserDefaults.standard.bool(forKey: mutedKey) }
+        get { return UserDefaults.standard.bool(forKey: .mutedKey) }
         set {
-            UserDefaults.standard.set(newValue, forKey: mutedKey)
-            players.forEach {
-                $1.volume = newValue ? 0 : currentVolume
-            }
+            UserDefaults.standard.set(newValue, forKey: .mutedKey)
+            players.forEach { $1.volume = newValue ? 0 : currentVolume }
         }
     }
-    private let mutedKey = "SwiftyMusicMuteKey"
     
     /// Currently playing
-    public var currentlyPlaying: FileName {
-        return _currentlyPlaying
-    }
+    public private(set) var currentlyPlaying: FileName = .none
     
-    private var _currentlyPlaying: FileName = .none
+    /// Private
     private var currentVolume: Float = 1.0
     private var players = [String: AVAudioPlayer]()
     private var isPaused = false
@@ -100,14 +95,11 @@ public class SwiftyMusic: NSObject {
     public func play(_ fileName: FileName) {
         guard currentlyPlaying != fileName, let avPlayer = players[fileName.rawValue] else { return }
         
-        _currentlyPlaying = fileName
+        currentlyPlaying = fileName
         
         guard !isPaused else { return }
         
-        players.forEach {
-            $1.pause()
-        }
-        
+        players.forEach { $1.pause() }
         avPlayer.volume = isMuted ? 0 : currentVolume
         avPlayer.play()
     }
@@ -119,10 +111,7 @@ public class SwiftyMusic: NSObject {
         guard !isMuted else { return }
         
         currentVolume = value
-        
-        players.forEach {
-            $1.volume = value
-        }
+        players.forEach { $1.volume = value }
     }
     
     /// Reset volume
@@ -135,10 +124,7 @@ public class SwiftyMusic: NSObject {
     /// Pause music
     public func pause() {
         isPaused = true
-        
-        players.forEach {
-            $1.pause()
-        }
+        players.forEach { $1.pause() }
     }
     
     /// Resume music
@@ -155,8 +141,7 @@ public class SwiftyMusic: NSObject {
     
     /// Stop and reset all music
     public func stopAndResetAll() {
-        _currentlyPlaying = .none
-        
+        currentlyPlaying = .none
         currentVolume = 1
         
         players.forEach {
@@ -229,4 +214,10 @@ private extension SwiftyMusic {
             Swift.print(items)
         #endif
     }
+}
+
+// MARK: - Keys
+
+private extension String {
+     static let mutedKey = "SwiftyMusicMuteKey"
 }
