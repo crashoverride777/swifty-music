@@ -13,6 +13,7 @@ s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4' }
 
 s.ios.deployment_target = '9.3'
 #s.tvos.deployment_target = '10.0'
+s.swift_version = '4.0'
 
 s.source = {
     :git => 'https://github.com/crashoverride777/swifty-music.git',
