@@ -9,7 +9,7 @@ A Swift helper to handle music playback using AVFoundation.
 
 ## Installation
 
-CocoaPods is a dependency manager for Cocoa projects. Simply install the pod by adding the following to your pod file
+CocoaPods is a dependency manager for Cocoa projects. Simply install the pod by adding the following line to your pod file
 
 ```swift
 pod 'SwiftyMusic'
