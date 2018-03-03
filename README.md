@@ -118,6 +118,10 @@ if SwiftyMusic.shared.isMuted {
 
 # Release notes
 
+- v4.1.6
+
+Cleanup
+
 - v4.1.5
 
 Swift 4 update
