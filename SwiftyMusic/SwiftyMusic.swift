@@ -1,6 +1,6 @@
 //    The MIT License (MIT)
 //
-//    Copyright (c) 2016-2017 Dominik Ringler
+//    Copyright (c) 2016-2018 Dominik Ringler
 //
 //    Permission is hereby granted, free of charge, to any person obtaining a copy
 //    of this software and associated documentation files (the "Software"), to deal
@@ -171,11 +171,10 @@ extension SwiftyMusic: AVAudioPlayerDelegate {
     }
 }
 
-// MARK: - Private
+// MARK: - Prepare
 
 private extension SwiftyMusic {
     
-    /// Prepare AVPlayer
     func prepare(withFileName fileName: FileName) -> AVAudioPlayer? {
         var bundleURL: URL?
         
@@ -199,18 +198,25 @@ private extension SwiftyMusic {
             return nil
         }
     }
+}
+
+// MARK: - Load Default Properties
+
+private extension SwiftyMusic {
     
-    /// Set player default properties
     func loadDefaultProperties(forPlayer avPlayer: AVAudioPlayer) {
         avPlayer.volume = isMuted ? 0 : 1
         avPlayer.numberOfLoops = -1
         avPlayer.prepareToPlay()
     }
-    
-    /// Print
-    /// Overrides the default print method so it print statements only show when in DEBUG mode
+}
+
+// MARK: - Print
+
+private extension SwiftyMusic {
+
     func print(_ items: Any...) {
-        #if DEBUG
+        #if DEBUG /// Overrides the default print method so it print statements only show when in DEBUG mode
             Swift.print(items)
         #endif
     }
