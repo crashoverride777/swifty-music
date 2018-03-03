@@ -2,27 +2,28 @@
 
 A Swift helper to handle music playback using AVFoundation.
 
-# Cocoa Pods
+## Requirements
 
-CocoaPods is a dependency manager for Cocoa projects. You can install it with the following command:
+- iOS 9.3+
+- Swift 4.0+
+
+# Installation
+
+CocoaPods is a dependency manager for Cocoa projects. Simply install the pod by adding the following to your pod file
 
 ```swift
 pod 'SwiftyMusic'
 ```
 
-You can also download the CocoaPods app for macOS and manage your pods that way.
-
-https://cocoapods.org/app
+Altenatively you can drag the swift file(s) manually into your project.
 
 # Usage
 
-- Add the SwiftyMusic.swift file to your project or if you used CocoaPods add the 
+And add the import statements to your .swift file(s) if you installed via cocoa pods.
 
 ```swift
 import SwiftyMusic 
 ```
-
-statement to your .swift file(s).
 
 - Add your music tracks to your project
 
