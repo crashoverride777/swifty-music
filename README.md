@@ -13,13 +13,7 @@ $ gem install cocoapods
 To integrate SwiftyMusic into your Xcode project using CocoaPods, specify it in your Podfile:
 
 ```swift
-source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '9.3.0'
-use_frameworks!
-
-target '<Your Target Name>' do
-    pod 'SwiftyMusic'
-end
+pod 'SwiftyMusic'
 ```
 
 Then, run the following command:
@@ -32,7 +26,7 @@ You can also download the CocoaPods app for macOS and manage your pods that way.
 
 https://cocoapods.org/app
 
-# Set-Up
+# Usage
 
 - Add the SwiftyMusic.swift file to your project or if you used CocoaPods add the 
 
@@ -63,8 +57,6 @@ Than setup the helper as soon as your app launches.
 ```swift
 SwiftyMusic.shared.setup(withFileNames: SwiftyMusic.FileName.all)
 ```
-
-# How to use
 
 - To play music call the play method with the corresponding Music URL you created above. This will automatically pause (not stop and reset) any previously playing music
 ```swift
@@ -115,63 +107,3 @@ if SwiftyMusic.shared.isMuted {
     // music not muted, show mute button
 }
 ```
-
-# Release notes
-
-- v4.1.6
-
-Cleanup
-
-- v4.1.5
-
-Swift 4 update
-
-- v4.1.4
-
-Fixed mute bug
-
-- v4.1.3
-
-Print statements will now only print in DEBUG mode
-
-Cleanup
-
-- v4.1.2
-
-Cleanup
-
-- v4.1.1
-
-Nested enumerations to closer follow Swift API design guidelines
-
-- v4.1
-
-Added ability to adjust volume
-
-- v4.0.5
-
-Cleanup
-
-- v4.0.4
-
-Updated play method to only fire if not currently paused
-
-- v4.0.3
-
-Play method will not fire if its calling the same file thats already playing
-
-Cleanup
-
-- v4.0.2
-
-Cleanup (check setup instructions)
-
-- v4.0.1
-
-Cleanup
-
-- v4.0
-
-Project has been renamed to SwiftyMusic
-
-No more source breaking changes after this update. All future changes will be handled with deprecated messages unless the whole API changes.
