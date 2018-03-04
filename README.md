@@ -19,18 +19,16 @@ Altenatively you can drag the swift file(s) manually into your project.
 
 ## Usage
 
+Add your music tracks to your project. SwiftyMusic supports the following file formats: 
+mp3, wav, aac, ac3, m4a, caf
+
 And add the import statements to your .swift file(s) if you installed via cocoa pods.
 
 ```swift
 import SwiftyMusic 
 ```
 
-- Add your music tracks to your project
-
-Anywhere in your project create an extension of FileName to add the file names of the music tracks that you will use. You can exclude the file extension of the file. 
-
-SwiftyMusic supports the following file formats: 
-mp3, wav, aac, ac3, m4a, caf
+Anywhere in your project create an extension of `FileName` to add the file names of the music tracks that you will use. These must be the same as the actual filename of the music file.
 
 ```swift
 extension SwiftyMusic.FileName {
