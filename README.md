@@ -19,16 +19,17 @@ Altenatively you can drag the swift file(s) manually into your project.
 
 ## Usage
 
-Add your music tracks to your project. SwiftyMusic supports the following file formats: 
-mp3, wav, aac, ac3, m4a, caf
+- Add your music tracks to your project. 
 
-And add the import statements to your .swift file(s) if you installed via cocoa pods.
+SwiftyMusic supports the following file formats: mp3, wav, aac, ac3, m4a, caf
+
+- Add the import statements to your .swift file(s) if you installed via cocoa pods.
 
 ```swift
 import SwiftyMusic 
 ```
 
-Anywhere in your project create an extension of `FileName` to add the file names of the music tracks that you will use. These must be the same as the actual filename of the music file.
+- Anywhere in your project create an extension of `FileName` to add the file names of the music tracks that you will use. These must be the same as the actual filename of the music file.
 
 ```swift
 extension SwiftyMusic.FileName {
@@ -39,7 +40,7 @@ extension SwiftyMusic.FileName {
 }
 ```
 
-Than setup the helper as soon as your app launches. 
+- Than setup the helper as soon as your app launches. 
 
 ```swift
 SwiftyMusic.shared.setup(withFileNames: SwiftyMusic.FileName.all)
