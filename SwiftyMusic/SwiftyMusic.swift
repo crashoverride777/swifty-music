@@ -37,7 +37,7 @@ public class SwiftyMusic: NSObject {
     // MARK: - Properties
     
     /// File Names
-    public struct FileName: RawRepresentable {
+    public struct FileName: RawRepresentable, Equatable {
         public let rawValue: String
         
         public init(rawValue: String) {
@@ -52,17 +52,15 @@ public class SwiftyMusic: NSObject {
     
     /// Is muted
     public var isMuted: Bool {
-        get { return UserDefaults.standard.bool(forKey: .mutedKey) }
+        get { return UserDefaults.standard.bool(forKey: "SwiftyMusicMuteKey") }
         set {
-            UserDefaults.standard.set(newValue, forKey: .mutedKey)
+            UserDefaults.standard.set(newValue, forKey: "SwiftyMusicMuteKey")
             players.forEach { $1.volume = newValue ? 0 : currentVolume }
         }
     }
     
-    /// Currently playing
-    public private(set) var currentlyPlaying: FileName = .none
-    
     /// Private
+    private var currentlyPlaying: FileName = .none
     private var currentVolume: Float = 1.0
     private var players = [String: AVAudioPlayer]()
     private var isPaused = false
@@ -70,7 +68,6 @@ public class SwiftyMusic: NSObject {
     
     // MARK: - Init
     
-    /// Init
     private override init() { }
     
     // MARK: - Setup
@@ -152,18 +149,16 @@ public class SwiftyMusic: NSObject {
     }
 }
 
-// MARK: - AVAudioPlayerDelegate
+// MARK: - AV Audio Player Delegate
 
 /// AVAudioPlayerDelegate
 extension SwiftyMusic: AVAudioPlayerDelegate {
     
-    /// Did finish
     public func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         print("Audio player \(player) did finish playing \(flag)")
         // Finish means when music ended not when stopped
     }
     
-    /// Decoding error
     public func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
         if let error = error {
             print(error.localizedDescription)
@@ -209,21 +204,4 @@ private extension SwiftyMusic {
         avPlayer.numberOfLoops = -1
         avPlayer.prepareToPlay()
     }
-}
-
-// MARK: - Print
-
-private extension SwiftyMusic {
-
-    func print(_ items: Any...) {
-        #if DEBUG /// Overrides the default print method so it print statements only show when in DEBUG mode
-            Swift.print(items)
-        #endif
-    }
-}
-
-// MARK: - Keys
-
-private extension String {
-     static let mutedKey = "SwiftyMusicMuteKey"
 }
