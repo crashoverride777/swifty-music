@@ -1,6 +1,6 @@
 # SwiftyMusic
 
-[![Swift 4.2](https://img.shields.io/badge/swift-4.2-ED523F.svg?style=flat)](https://swift.org/download/)
+[![Swift 5.0](https://img.shields.io/badge/swift-5.0-ED523F.svg?style=flat)](https://swift.org/download/)
 [![Platform](https://img.shields.io/cocoapods/p/SwiftyMusic.svg?style=flat)]()
 [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/SwiftyMusic.svg)](https://img.shields.io/cocoapods/v/SwiftyMusic.svg)
 
@@ -8,8 +8,8 @@ A Swift helper to handle music playback using AVFoundation.
 
 ## Requirements
 
-- iOS 9.3+
-- Swift 4.0+
+- iOS 10.3+
+- Swift 5.0+
 
 ## Installation
 
