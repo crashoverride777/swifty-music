@@ -8,6 +8,7 @@ s.homepage = 'https://github.com/crashoverride777/swifty-music'
 s.social_media_url = 'http://twitter.com/overrideiactive'
 s.authors = { 'Dominik' => 'overrideinteractive@icloud.com' }
 
+s.swift_version = '5.0'
 s.requires_arc = true
 s.ios.deployment_target = '10.3'
     
