@@ -13,6 +13,8 @@ A Swift helper to handle music playback using AVFoundation.
 
 ## Installation
 
+### Cocoa Pods
+
 [CocoaPods](https://developers.google.com/admob/ios/quick-start#streamlined_using_cocoapods) is a dependency manager for Cocoa projects. Simply install the pod by adding the following line to your pod file
 
 
@@ -22,7 +24,23 @@ pod 'SwiftyMusic'
 
 There is now an [app](https://cocoapods.org/app) which makes handling pods much easier
 
-Altenatively you can drag the swift file(s) manually into your project.
+### Swift Package Manager
+
+The Swift Package Manager is a tool for automating the distribution of Swift code and is integrated into the swift compiler.
+
+To add a swift package to your project simple open your project in xCode and click File > Swift Packages > Add Package Dependency.
+Than enter `https://github.com/crashoverride777/swifty-music` as the repository URL and finish the setup wizard.
+
+Alternatively if you have a Framwork that requires adding SwiftyMusic as a dependency is as easy as adding it to the dependencies value of your Package.swift.
+```swift
+dependencies: [
+.package(url: "https://github.com/crashoverride777/swifty-music.git", from: "4.4.0")
+]
+```
+
+### Manually 
+
+Altenatively you can drag the `SwiftyMusic.swift` file into your project.
 
 ## Usage
 
@@ -30,7 +48,7 @@ Altenatively you can drag the swift file(s) manually into your project.
 
 SwiftyMusic supports the following file formats: mp3, wav, aac, ac3, m4a, caf
 
-- Add the import statements to your .swift file(s) if you installed via cocoa pods.
+- Add the import statements to your .swift file(s) if you installed via cocoa pods or swift package manager.
 
 ```swift
 import SwiftyMusic 

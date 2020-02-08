@@ -12,6 +12,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6A436BB223EEFB9400D5F5EA /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
+		6A436BB323EEFB9400D5F5EA /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		B4533F1A1DA2BD0F00440CC0 /* SwiftyMusic.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftyMusic.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4533F1D1DA2BD0F00440CC0 /* SwiftyMusic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftyMusic.h; sourceTree = "<group>"; };
 		B4533F1E1DA2BD0F00440CC0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -32,6 +34,8 @@
 		B4533F101DA2BD0F00440CC0 = {
 			isa = PBXGroup;
 			children = (
+				6A436BB323EEFB9400D5F5EA /* README.md */,
+				6A436BB223EEFB9400D5F5EA /* Package.swift */,
 				B4533F1C1DA2BD0F00440CC0 /* SwiftyMusic */,
 				B4533F1B1DA2BD0F00440CC0 /* Products */,
 			);
@@ -269,7 +273,7 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
-				CURRENT_PROJECT_VERSION = 602;
+				CURRENT_PROJECT_VERSION = 603;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -279,7 +283,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MARKETING_VERSION = 4.3.2;
+				MARKETING_VERSION = 4.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.swiftymusic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -294,7 +298,7 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
-				CURRENT_PROJECT_VERSION = 602;
+				CURRENT_PROJECT_VERSION = 603;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -304,7 +308,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MARKETING_VERSION = 4.3.2;
+				MARKETING_VERSION = 4.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.swiftymusic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
