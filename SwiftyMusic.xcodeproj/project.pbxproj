@@ -31,11 +31,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6A494E7E2402C21700203B0C /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				B4533F251DA2BD2400440CC0 /* SwiftyMusic.swift */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
 		B4533F101DA2BD0F00440CC0 = {
 			isa = PBXGroup;
 			children = (
 				6A436BB323EEFB9400D5F5EA /* README.md */,
 				6A436BB223EEFB9400D5F5EA /* Package.swift */,
+				6A494E7E2402C21700203B0C /* Source */,
 				B4533F1C1DA2BD0F00440CC0 /* SwiftyMusic */,
 				B4533F1B1DA2BD0F00440CC0 /* Products */,
 			);
@@ -52,7 +61,6 @@
 		B4533F1C1DA2BD0F00440CC0 /* SwiftyMusic */ = {
 			isa = PBXGroup;
 			children = (
-				B4533F251DA2BD2400440CC0 /* SwiftyMusic.swift */,
 				B4533F1D1DA2BD0F00440CC0 /* SwiftyMusic.h */,
 				B4533F1E1DA2BD0F00440CC0 /* Info.plist */,
 			);
@@ -273,7 +281,7 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
-				CURRENT_PROJECT_VERSION = 604;
+				CURRENT_PROJECT_VERSION = 605;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -283,7 +291,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MARKETING_VERSION = 4.4.0;
+				MARKETING_VERSION = 4.4.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.swiftymusic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -298,7 +306,7 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
-				CURRENT_PROJECT_VERSION = 604;
+				CURRENT_PROJECT_VERSION = 605;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -308,7 +316,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MARKETING_VERSION = 4.4.0;
+				MARKETING_VERSION = 4.4.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.swiftymusic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

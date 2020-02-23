@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
 s.name = 'SwiftyMusic'
-s.version = '4.4.0'
+s.version = '4.4.1'
 s.license = 'MIT'
 s.summary = 'A swift helper to play music with AVFoundation.'
 s.homepage = 'https://github.com/crashoverride777/swifty-music'
@@ -17,6 +17,6 @@ s.source = {
     :tag => s.version
 }
 
-s.source_files = "SwiftyMusic/**/*.{swift}"
+s.source_files = 'Source/**/*.{swift}'
 
 end
