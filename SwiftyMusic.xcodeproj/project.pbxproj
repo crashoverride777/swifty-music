@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6A453E5B2411991100A37B4C /* SwiftyMusicFileName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A453E5A2411991100A37B4C /* SwiftyMusicFileName.swift */; };
 		B4533F1F1DA2BD0F00440CC0 /* SwiftyMusic.h in Headers */ = {isa = PBXBuildFile; fileRef = B4533F1D1DA2BD0F00440CC0 /* SwiftyMusic.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B4533F261DA2BD2400440CC0 /* SwiftyMusic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4533F251DA2BD2400440CC0 /* SwiftyMusic.swift */; };
 /* End PBXBuildFile section */
@@ -14,6 +15,7 @@
 /* Begin PBXFileReference section */
 		6A436BB223EEFB9400D5F5EA /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		6A436BB323EEFB9400D5F5EA /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		6A453E5A2411991100A37B4C /* SwiftyMusicFileName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftyMusicFileName.swift; sourceTree = "<group>"; };
 		B4533F1A1DA2BD0F00440CC0 /* SwiftyMusic.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftyMusic.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4533F1D1DA2BD0F00440CC0 /* SwiftyMusic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftyMusic.h; sourceTree = "<group>"; };
 		B4533F1E1DA2BD0F00440CC0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -34,6 +36,7 @@
 		6A494E7E2402C21700203B0C /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				6A453E5A2411991100A37B4C /* SwiftyMusicFileName.swift */,
 				B4533F251DA2BD2400440CC0 /* SwiftyMusic.swift */,
 			);
 			path = Sources;
@@ -148,6 +151,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A453E5B2411991100A37B4C /* SwiftyMusicFileName.swift in Sources */,
 				B4533F261DA2BD2400440CC0 /* SwiftyMusic.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
