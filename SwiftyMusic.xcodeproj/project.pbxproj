@@ -31,12 +31,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6A494E7E2402C21700203B0C /* Source */ = {
+		6A494E7E2402C21700203B0C /* Sources */ = {
 			isa = PBXGroup;
 			children = (
 				B4533F251DA2BD2400440CC0 /* SwiftyMusic.swift */,
 			);
-			path = Source;
+			path = Sources;
 			sourceTree = "<group>";
 		};
 		B4533F101DA2BD0F00440CC0 = {
@@ -44,7 +44,7 @@
 			children = (
 				6A436BB323EEFB9400D5F5EA /* README.md */,
 				6A436BB223EEFB9400D5F5EA /* Package.swift */,
-				6A494E7E2402C21700203B0C /* Source */,
+				6A494E7E2402C21700203B0C /* Sources */,
 				B4533F1C1DA2BD0F00440CC0 /* SwiftyMusic */,
 				B4533F1B1DA2BD0F00440CC0 /* Products */,
 			);
