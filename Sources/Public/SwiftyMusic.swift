@@ -42,7 +42,6 @@ public class SwiftyMusic: NSObject {
     
     // MARK: - Static Properties
     
-    /// Shared instance
     public static let shared = SwiftyMusic()
     
     // MARK: - Properties
@@ -102,12 +101,12 @@ extension SwiftyMusic: SwiftyMusicType {
     ///
     /// - parameter fileName: The player fileName of the music file to play.
     public func play(_ fileName: SwiftyMusicFileName) {
-        guard let avPlayer = players[fileName.rawValue], !avPlayer.isPlaying else { return }
         guard !isPaused else { return }
+        guard let player = players[fileName.rawValue], !player.isPlaying else { return }
         
         players.forEach { $1.pause() }
-        avPlayer.volume = isMuted ? 0 : currentVolume
-        avPlayer.play()
+        player.volume = isMuted ? 0 : currentVolume
+        player.play()
     }
     
     // MARK: Adjust Volume

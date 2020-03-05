@@ -30,16 +30,6 @@ class SwiftyMusicPlayerBuilderTests: XCTestCase {
 
     // MARK: - Tests
     
-    func test() {
-        
-        let sut = makeSUT()
-        let player = sut.build(forFileName: "Sample", delegate: self)
-        player?.play()
-        //player?.pause()
-        XCTAssertTrue(player!.isPlaying)
-        
-    }
-    
     func test_invalidURL_returnsNil() {
         let sut = makeSUT()
         let player = sut.build(forFileName: "invalid", delegate: self)
