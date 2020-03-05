@@ -27,6 +27,7 @@ public protocol SwiftyMusicType: AnyObject {
     func play(_ fileName: SwiftyMusicFileName)
     func setVolume(to value: Float)
     func resetVolume()
+    func setMuted(_ isMuted: Bool)
     func pause()
     func resume()
     func stopAndResetAll()
@@ -46,8 +47,7 @@ public class SwiftyMusic: NSObject {
     
     // MARK: - Properties
 
-    /// Is muted
-    public var isMuted: Bool {
+    private var isMuted: Bool {
         get { return userDefaults.bool(forKey: "SwiftyMusicMuteKey") }
         set {
             userDefaults.set(newValue, forKey: "SwiftyMusicMuteKey")
@@ -55,21 +55,24 @@ public class SwiftyMusic: NSObject {
         }
     }
     
-    /// Private
+    private let playerBuilder: SwiftyMusicPlayerBuilderType
     private var currentlyPlaying: SwiftyMusicFileName = .none
-    private var currentVolume: Float = 1.0
     private var players = [String: AVAudioPlayer]()
+    private var currentVolume: Float = 1.0
     private var isPaused = false
-    private let fileExtensions = ["mp3", "wav", "aac", "ac3", "m4a", "caf"]
     private let userDefaults: UserDefaults
     
     // MARK: - Init
     
     private override convenience init() {
-        self.init(userDefaults: .standard)
+        self.init(
+            playerBuilder: SwiftyMusicPlayerBuilder(bundle: .main),
+            userDefaults: .standard
+        )
     }
     
-    init(userDefaults: UserDefaults) {
+    init(playerBuilder: SwiftyMusicPlayerBuilderType, userDefaults: UserDefaults) {
+        self.playerBuilder = playerBuilder
         self.userDefaults = userDefaults
     }
 }
@@ -87,7 +90,8 @@ extension SwiftyMusic: SwiftyMusicType {
     /// - parameter fileNames: An array of file names to prepare.
     public func setup(withFileNames fileNames: [SwiftyMusicFileName]) {
         fileNames.forEach {
-            guard let player = prepare(withFileName: $0) else { return }
+            guard let player = playerBuilder.build(forFileName: $0.rawValue, delegate: self) else { return }
+            player.volume = isMuted ? 0 : 1
             players[$0.rawValue] = player
         }
     }
@@ -98,10 +102,7 @@ extension SwiftyMusic: SwiftyMusicType {
     ///
     /// - parameter fileName: The player fileName of the music file to play.
     public func play(_ fileName: SwiftyMusicFileName) {
-        guard currentlyPlaying != fileName, let avPlayer = players[fileName.rawValue] else { return }
-        
-        currentlyPlaying = fileName
-        
+        guard let avPlayer = players[fileName.rawValue], !avPlayer.isPlaying else { return }
         guard !isPaused else { return }
         
         players.forEach { $1.pause() }
@@ -124,6 +125,13 @@ extension SwiftyMusic: SwiftyMusicType {
         setVolume(to: 1)
     }
     
+    // MARK: Mute
+    
+    /// Mute/Unmut music
+    public func setMuted(_ isMuted: Bool) {
+        self.isMuted = isMuted
+    }
+    
     // MARK: Pause / Resume
     
     /// Pause music
@@ -135,11 +143,8 @@ extension SwiftyMusic: SwiftyMusicType {
     /// Resume music
     public func resume() {
         isPaused = false
-        
-        players.forEach {
-            guard $0 == currentlyPlaying.rawValue && !$1.isPlaying else { return }
-            $1.play()
-        }
+        let player = players.first(where: { $0 == currentlyPlaying.rawValue && !$1.isPlaying })
+        player?.value.play()
     }
     
     // MARK: Stop
@@ -152,7 +157,8 @@ extension SwiftyMusic: SwiftyMusicType {
         players.forEach {
             $1.stop()
             $1.currentTime = 0
-            loadDefaultProperties(forPlayer: $1)
+            $1.volume = isMuted ? 0 : 1
+            $1.prepareToPlay()
         }
     }
 }
@@ -170,40 +176,5 @@ extension SwiftyMusic: AVAudioPlayerDelegate {
         if let error = error {
             print(error.localizedDescription)
         }
-    }
-}
-
-// MARK: - Private Methods
-
-private extension SwiftyMusic {
-    
-    func prepare(withFileName fileName: SwiftyMusicFileName) -> AVAudioPlayer? {
-        var bundleURL: URL?
-        
-        for fileExtension in fileExtensions {
-            guard let url = Bundle.main.url(forResource: fileName.rawValue, withExtension: fileExtension) else { continue }
-            bundleURL = url
-            break
-        }
-        
-        guard let url = bundleURL else { return nil }
-        
-        do {
-            let avPlayer = try AVAudioPlayer(contentsOf: url)
-            avPlayer.delegate = self
-            loadDefaultProperties(forPlayer: avPlayer)
-            return avPlayer
-        }
-            
-        catch let error {
-            print(error)
-            return nil
-        }
-    }
-    
-    func loadDefaultProperties(forPlayer avPlayer: AVAudioPlayer) {
-        avPlayer.volume = isMuted ? 0 : 1
-        avPlayer.numberOfLoops = -1
-        avPlayer.prepareToPlay()
     }
 }

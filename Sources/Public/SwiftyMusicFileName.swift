@@ -14,6 +14,7 @@ public struct SwiftyMusicFileName: RawRepresentable, Equatable {
     public init(rawValue: String) {
         self.rawValue = rawValue
     }
+    
     public init(_ rawValue: String) {
         self.rawValue = rawValue
     }
