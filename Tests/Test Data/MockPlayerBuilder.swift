@@ -12,7 +12,7 @@ import AVFoundation
 
 final class MockPlayerBuilder {
     struct Stub {
-        var build: (String, AVAudioPlayerDelegate) -> AVAudioPlayer? = { (_, _) in nil }
+        var build: (String, AVAudioPlayerDelegate?) -> AVAudioPlayer? = { (_, _) in nil }
     }
     
     var stub = Stub()
@@ -20,7 +20,7 @@ final class MockPlayerBuilder {
 
 extension MockPlayerBuilder: SwiftyMusicPlayerBuilderType {
     
-    func build(forFileName fileName: String, delegate: AVAudioPlayerDelegate) -> AVAudioPlayer? {
+    func build(forFileName fileName: String, delegate: AVAudioPlayerDelegate?) -> AVAudioPlayer? {
         stub.build(fileName, delegate)
     }
 }

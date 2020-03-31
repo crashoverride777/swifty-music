@@ -33,7 +33,3 @@ public struct SwiftyMusicFileName: RawRepresentable, Equatable {
         self.rawValue = rawValue
     }
 }
-
-extension SwiftyMusicFileName {
-    static let none = SwiftyMusicFileName("None")
-}

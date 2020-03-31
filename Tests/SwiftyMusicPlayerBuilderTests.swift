@@ -32,13 +32,13 @@ class SwiftyMusicPlayerBuilderTests: XCTestCase {
     
     func test_invalidURL_returnsNil() {
         let sut = makeSUT()
-        let player = sut.build(forFileName: "invalid", delegate: self)
+        let player = sut.build(forFileName: "invalid", delegate: nil)
         XCTAssertNil(player)
     }
     
     func test_validURL_returnsPlayer() {
         let sut = makeSUT()
-        let player = sut.build(forFileName: "Sample", delegate: self)
+        let player = sut.build(forFileName: "Sample", delegate: nil)
         XCTAssertNotNil(player)
     }
     
@@ -50,7 +50,7 @@ class SwiftyMusicPlayerBuilderTests: XCTestCase {
     
     func test_validURL_setsCorrectPlayerLoops() {
         let sut = makeSUT()
-        let player = sut.build(forFileName: "Sample", delegate: self)
+        let player = sut.build(forFileName: "Sample", delegate: nil)
         XCTAssertEqual(player?.numberOfLoops, -1)
     }
 }

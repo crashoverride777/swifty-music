@@ -8,6 +8,7 @@
 
 import XCTest
 @testable import SwiftyMusic
+import AVFoundation
 
 class SwiftyMusicTests: XCTestCase {
 
@@ -15,7 +16,7 @@ class SwiftyMusicTests: XCTestCase {
     
     private var playerBuilder: MockPlayerBuilder!
     private var userDefaults: MockUserDefaults!
-    
+
     // MARK: - Life Cycle
     
     override func setUp() {
@@ -31,6 +32,16 @@ class SwiftyMusicTests: XCTestCase {
     }
 
     // MARK: - Tests
+    
+    func test() {
+        let fileName: SwiftyMusicFileName = .init("Sample")
+        playerBuilder.stub.build = { _, _ in .mock() }
+        let sut = makeSUT()
+        sut.setup(withFileNames: [fileName])
+        sut.play(fileName)
+        sut.setVolume(to: 0.5)
+    }
+    
     
     // MARK: Volume
     
@@ -56,7 +67,7 @@ class SwiftyMusicTests: XCTestCase {
     
     func test_setMuted_true_updatesUserDefaults() {
         let sut = makeSUT()
-        sut.setMuted(false)
+        sut.setMuted(true)
         XCTAssertTrue(userDefaults.bool(forKey: "SwiftyMusicMuteKey"))
     }
     
@@ -83,7 +94,7 @@ private extension SwiftyMusicTests {
     
     func makeSUT() -> SwiftyMusic {
         SwiftyMusic(
-            playerBuilder: playerBuilder,
+            playerBuilder: playerBuilder,//SwiftyMusicPlayerBuilder(bundle: Bundle(for: SwiftyMusicTests.self)),
             userDefaults: userDefaults
         )
     }

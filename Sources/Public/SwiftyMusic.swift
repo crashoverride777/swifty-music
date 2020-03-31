@@ -23,14 +23,14 @@
 import AVFoundation
 
 public protocol SwiftyMusicType: AnyObject {
+    var isMuted: Bool { get }
     func setup(withFileNames fileNames: [SwiftyMusicFileName])
     func play(_ fileName: SwiftyMusicFileName)
     func setVolume(to value: Float)
-    func resetVolume()
     func setMuted(_ isMuted: Bool)
     func pause()
     func resume()
-    func stopAndResetAll()
+    func reset()
 }
 
 /**
@@ -46,20 +46,18 @@ public class SwiftyMusic: NSObject {
     
     // MARK: - Properties
 
-    private var isMuted: Bool {
-        get { return userDefaults.bool(forKey: "SwiftyMusicMuteKey") }
-        set {
-            userDefaults.set(newValue, forKey: "SwiftyMusicMuteKey")
-            players.forEach { $1.volume = newValue ? 0 : currentVolume }
-        }
-    }
-    
     private let playerBuilder: SwiftyMusicPlayerBuilderType
-    private var currentlyPlaying: SwiftyMusicFileName = .none
-    private var players = [String: AVAudioPlayer]()
+    private var players = Set<AVAudioPlayer>()
+    private var currentPlayer: AVAudioPlayer?
     private var currentVolume: Float = 1.0
     private var isPaused = false
     private let userDefaults: UserDefaults
+    private let mutedKey = "SwiftyMusicMuteKey"
+    
+    private var muted: Bool {
+        get { userDefaults.bool(forKey: mutedKey) }
+        set { userDefaults.set(newValue, forKey: mutedKey) }
+    }
     
     // MARK: - Init
     
@@ -80,6 +78,13 @@ public class SwiftyMusic: NSObject {
 
 extension SwiftyMusic: SwiftyMusicType {
     
+    // MARK: Booleans
+    
+    /// Check muted state (persistant)
+    public var isMuted: Bool {
+        muted
+    }
+    
     // MARK: Setup
     
     /// Setup music players
@@ -90,8 +95,8 @@ extension SwiftyMusic: SwiftyMusicType {
     public func setup(withFileNames fileNames: [SwiftyMusicFileName]) {
         fileNames.forEach {
             guard let player = playerBuilder.build(forFileName: $0.rawValue, delegate: self) else { return }
-            player.volume = isMuted ? 0 : 1
-            players[$0.rawValue] = player
+            player.volume = muted ? 0 : 1
+            players.insert(player)
         }
     }
     
@@ -99,36 +104,31 @@ extension SwiftyMusic: SwiftyMusicType {
     
     /// Play music
     ///
-    /// - parameter fileName: The player fileName of the music file to play.
+    /// - parameter fileName: The player file name to play.
     public func play(_ fileName: SwiftyMusicFileName) {
         guard !isPaused else { return }
-        guard let player = players[fileName.rawValue], !player.isPlaying else { return }
-        
-        players.forEach { $1.pause() }
-        player.volume = isMuted ? 0 : currentVolume
+        let player = getPlayer(for: fileName)
+        guard !player.isPlaying else { return }
+        players.forEach { $0.pause() }
         player.play()
+        currentPlayer = player
     }
     
-    // MARK: Adjust Volume
+    // MARK: Volume
     
     /// Set volume to a level between 0 and 1
     public func setVolume(to value: Float) {
-        guard !isMuted else { return }
-        
+        guard !muted else { return }
         currentVolume = value
-        players.forEach { $1.volume = value }
-    }
-    
-    /// Reset volume to 1
-    public func resetVolume() {
-        setVolume(to: 1)
+        players.forEach { $0.volume = value }
     }
     
     // MARK: Mute
     
-    /// Mute/Unmut music
+    /// Mute/Unmute music
     public func setMuted(_ isMuted: Bool) {
-        self.isMuted = isMuted
+        self.muted = isMuted
+        players.forEach { $0.volume = isMuted ? 0 : currentVolume }
     }
     
     // MARK: Pause / Resume
@@ -136,28 +136,26 @@ extension SwiftyMusic: SwiftyMusicType {
     /// Pause music
     public func pause() {
         isPaused = true
-        players.forEach { $1.pause() }
+        players.forEach { $0.pause() }
     }
     
     /// Resume music
     public func resume() {
         isPaused = false
-        let player = players.first(where: { $0 == currentlyPlaying.rawValue && !$1.isPlaying })
-        player?.value.play()
+        currentPlayer?.play()
     }
     
-    // MARK: Stop
+    // MARK: Reset
     
-    /// Stop and reset all music
-    public func stopAndResetAll() {
-        currentlyPlaying = .none
+    /// Stop and reset all music players to initial settings
+    public func reset() {
+        currentPlayer = .none
         currentVolume = 1
-        
         players.forEach {
-            $1.stop()
-            $1.currentTime = 0
-            $1.volume = isMuted ? 0 : 1
-            $1.prepareToPlay()
+            $0.stop()
+            $0.currentTime = 0
+            $0.volume = muted ? 0 : 1
+            $0.prepareToPlay()
         }
     }
 }
@@ -175,5 +173,19 @@ extension SwiftyMusic: AVAudioPlayerDelegate {
         if let error = error {
             print(error.localizedDescription)
         }
+    }
+}
+
+// MARK: - Private Methods
+
+private extension SwiftyMusic {
+    
+    func getPlayer(for fileName: SwiftyMusicFileName) -> AVAudioPlayer {
+        guard let player = players.first(where: {
+            $0.url?.lastPathComponent.components(separatedBy: ".").first == fileName.rawValue
+        }) else {
+            fatalError("SwiftyMusic did not find player for fileName \(fileName.rawValue). Call setup method with valid file names.")
+        }
+        return player
     }
 }
