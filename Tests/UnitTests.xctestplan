@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "65C050B3-3A2F-4C22-9472-A311ED3BFCF8",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:SwiftyMusic.xcodeproj",
+        "identifier" : "6A453E5F24119AF800A37B4C",
+        "name" : "SwiftyMusicTests"
+      }
+    }
+  ],
+  "version" : 1
+}

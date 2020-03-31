@@ -45,6 +45,7 @@
 		6A453E7B2411A59100A37B4C /* URL+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Mock.swift"; sourceTree = "<group>"; };
 		6A453E7D2411A79600A37B4C /* Sample.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Sample.mp3; sourceTree = "<group>"; };
 		6A453E7F2411C17B00A37B4C /* AVAudioPlayer+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVAudioPlayer+Mock.swift"; sourceTree = "<group>"; };
+		6ACB3871243391B300D2126E /* UnitTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = UnitTests.xctestplan; sourceTree = "<group>"; };
 		B4533F1A1DA2BD0F00440CC0 /* SwiftyMusic.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftyMusic.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4533F1D1DA2BD0F00440CC0 /* SwiftyMusic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftyMusic.h; sourceTree = "<group>"; };
 		B4533F1E1DA2BD0F00440CC0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -114,6 +115,7 @@
 				6A453E6B24119BAD00A37B4C /* Test Data */,
 				6A453E6224119AF900A37B4C /* SwiftyMusicTests.swift */,
 				6A453E732411A25100A37B4C /* SwiftyMusicPlayerBuilderTests.swift */,
+				6ACB3871243391B300D2126E /* UnitTests.xctestplan */,
 				6A453E6424119AF900A37B4C /* Info.plist */,
 			);
 			path = Tests;
