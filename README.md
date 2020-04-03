@@ -54,21 +54,21 @@ SwiftyMusic supports the following file formats: mp3, wav, aac, ac3, m4a, caf
 import SwiftyMusic 
 ```
 
-- Anywhere in your project create an extension of `FileName` to add the file names of the music tracks that you will use. These must be the same as the actual filename of the music file.
+- Anywhere in your project create an extension of `SwiftyMusicFileName` to add the file names of the music tracks that you will use. These must be the same as the actual filename of the music file.
 
 ```swift
-extension SwiftyMusic.FileName {
-    static let menu = SwiftyMusic.FileName("MenuMusic")
-    static let game = SwiftyMusic.FileName("GameMusic")
+extension SwiftyMusicFileName {
+    static let menu = SwiftyMusicFileName("MenuMusic")
+    static let game = SwiftyMusicFileName("GameMusic")
     
-    static var all: [SwiftyMusic.FileName] = [.menu, .game]
+    static var all: [SwiftyMusicFileName] = [.menu, .game]
 }
 ```
 
 - Than setup the helper as soon as your app launches. 
 
 ```swift
-SwiftyMusic.shared.setup(withFileNames: SwiftyMusic.FileName.all)
+SwiftyMusic.shared.setup(withFileNames: SwiftyMusicFileName.all)
 ```
 
 - To play music call the play method with the corresponding Music URL you created above. This will automatically pause (not stop and reset) any previously playing music
@@ -100,6 +100,7 @@ SwiftyMusic.shared.reset()
 - Mute
 ```swift
 SwiftyMusic.shared.setMuted(true)
+
 if SwiftyMusic.shared.isMuted {
     // music is muted, show unmute button
 } else {
