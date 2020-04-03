@@ -92,28 +92,14 @@ SwiftyMusic.shared.resume()
 SwiftyMusic.shared.setVolume(to: 0.5)
 ```
 
-- To reset volume (e.g game resumed)
-```swift
-SwiftyMusic.shared.resetVolume()
-```
-
 - To stop and reset all music players, eg gameover
 ```swift
-SwiftyMusic.shared.stopAndResetAll()
+SwiftyMusic.shared.reset()
 ```
 
-- To mute music
+- Mute
 ```swift
-SwiftyMusic.shared.isMuted = true
-```
-
-- To unmute music
-```swift
-SwiftyMusic.shared.isMuted = false
-```
-
-- To check if music is muted, eg when setting up your mute music button
-```swift
+SwiftyMusic.shared.setMuted(true)
 if SwiftyMusic.shared.isMuted {
     // music is muted, show unmute button
 } else {
