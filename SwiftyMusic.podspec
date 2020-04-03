@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
 s.name = 'SwiftyMusic'
-s.version = '4.4.1'
+s.version = '4.4.2'
 s.license = 'MIT'
 s.summary = 'A swift helper to play music with AVFoundation.'
 s.homepage = 'https://github.com/crashoverride777/swifty-music'
@@ -10,7 +10,7 @@ s.authors = { 'Dominik' => 'overrideinteractive@icloud.com' }
 
 s.swift_version = '5.0'
 s.requires_arc = true
-s.ios.deployment_target = '10.3'
+s.ios.deployment_target = '11.4'
     
 s.source = {
     :git => 'https://github.com/crashoverride777/swifty-music.git',
