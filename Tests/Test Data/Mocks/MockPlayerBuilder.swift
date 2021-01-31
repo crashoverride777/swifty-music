@@ -20,7 +20,7 @@ final class MockPlayerBuilder {
 
 extension MockPlayerBuilder: SwiftyMusicPlayerBuilderType {
     
-    func build(forFileName fileName: String, delegate: AVAudioPlayerDelegate?) -> AVAudioPlayer? {
+    func build(forFileName fileName: String, delegate: AVAudioPlayerDelegate) -> AVAudioPlayer? {
         stub.build(fileName, delegate)
     }
 }

@@ -126,6 +126,22 @@ extension SwiftyMusic: SwiftyMusicType {
         player.play()
         currentPlayer = player
     }
+
+    // MARK: Pause
+
+    /// Pause music
+    public func pause() {
+        isPaused = true
+        players.forEach { $0.pause() }
+    }
+
+    // MARK: Resume
+
+    /// Resume music
+    public func resume() {
+        isPaused = false
+        currentPlayer?.play()
+    }
     
     // MARK: Volume
     
@@ -142,20 +158,6 @@ extension SwiftyMusic: SwiftyMusicType {
     public func setMuted(_ isMuted: Bool) {
         self.muted = isMuted
         players.forEach { $0.volume = isMuted ? 0 : currentVolume }
-    }
-    
-    // MARK: Pause / Resume
-    
-    /// Pause music
-    public func pause() {
-        isPaused = true
-        players.forEach { $0.pause() }
-    }
-    
-    /// Resume music
-    public func resume() {
-        isPaused = false
-        currentPlayer?.play()
     }
     
     // MARK: Reset
