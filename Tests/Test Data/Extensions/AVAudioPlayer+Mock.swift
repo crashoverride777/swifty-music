@@ -12,8 +12,7 @@ private final class TestBundle { }
 extension AVAudioPlayer {
     
     static func mock() -> AVAudioPlayer {
-        let bundle = Bundle(for: TestBundle.self)
-        let path = bundle.path(forResource: "Sample", ofType: "mp3")!
+        let path =  Bundle.module.path(forResource: "Sample", ofType: "mp3")!
         return try! AVAudioPlayer(contentsOf: URL(string: path)!)
     }
 }

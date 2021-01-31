@@ -1,6 +1,6 @@
 //    The MIT License (MIT)
 //
-//    Copyright (c) 2016-2020 Dominik Ringler
+//    Copyright (c) 2016-2021 Dominik Ringler
 //
 //    Permission is hereby granted, free of charge, to any person obtaining a copy
 //    of this software and associated documentation files (the "Software"), to deal
@@ -22,6 +22,18 @@
 
 import AVFoundation
 
+public struct SwiftyMusicFileName: RawRepresentable, Equatable {
+    public let rawValue: String
+
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
+    public init(_ rawValue: String) {
+        self.rawValue = rawValue
+    }
+}
+
 public protocol SwiftyMusicType: AnyObject {
     var isMuted: Bool { get }
     func setup(withFileNames fileNames: [SwiftyMusicFileName])
@@ -41,7 +53,8 @@ public protocol SwiftyMusicType: AnyObject {
 public class SwiftyMusic: NSObject {
     
     // MARK: - Static Properties
-    
+
+    /// The shared SwiftyMusic instance.
     public static let shared = SwiftyMusic()
     
     // MARK: - Properties

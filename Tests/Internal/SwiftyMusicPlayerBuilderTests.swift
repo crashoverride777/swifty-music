@@ -12,22 +12,6 @@ import AVFoundation
 
 class SwiftyMusicPlayerBuilderTests: XCTestCase {
 
-    // MARK: - Properties
-    
-    private var bundle: Bundle!
-    
-    // MARK: - Life Cycle
-    
-    override func setUp() {
-        super.setUp()
-        bundle = Bundle(for: SwiftyMusicPlayerBuilderTests.self)
-    }
-    
-    override func tearDown() {
-        bundle = nil
-        super.tearDown()
-    }
-
     // MARK: - Tests
     
     func test_invalidURL_returnsNil() {
@@ -57,15 +41,13 @@ class SwiftyMusicPlayerBuilderTests: XCTestCase {
 
 // MARK: - AVAudioPlayerDelegate
 
-extension SwiftyMusicPlayerBuilderTests: AVAudioPlayerDelegate {
-    
-}
+extension SwiftyMusicPlayerBuilderTests: AVAudioPlayerDelegate {}
 
 // MARK: - Private Methods
 
 private extension SwiftyMusicPlayerBuilderTests {
     
     func makeSUT() -> SwiftyMusicPlayerBuilder {
-        SwiftyMusicPlayerBuilder(bundle: bundle)
+        SwiftyMusicPlayerBuilder(bundle: .module)
     }
 }

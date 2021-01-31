@@ -8,44 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		6A453E5B2411991100A37B4C /* SwiftyMusicFileName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A453E5A2411991100A37B4C /* SwiftyMusicFileName.swift */; };
-		6A453E6324119AF900A37B4C /* SwiftyMusicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A453E6224119AF900A37B4C /* SwiftyMusicTests.swift */; };
-		6A453E6524119AF900A37B4C /* SwiftyMusic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4533F1A1DA2BD0F00440CC0 /* SwiftyMusic.framework */; };
-		6A453E6D24119BC200A37B4C /* MockUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A453E6C24119BC200A37B4C /* MockUserDefaults.swift */; };
 		6A453E7224119EF800A37B4C /* SwiftyMusicPlayerBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A453E6E24119E8500A37B4C /* SwiftyMusicPlayerBuilder.swift */; };
-		6A453E742411A25100A37B4C /* SwiftyMusicPlayerBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A453E732411A25100A37B4C /* SwiftyMusicPlayerBuilderTests.swift */; };
-		6A453E762411A28D00A37B4C /* MockPlayerBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A453E752411A28D00A37B4C /* MockPlayerBuilder.swift */; };
-		6A453E7C2411A59100A37B4C /* URL+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A453E7B2411A59100A37B4C /* URL+Mock.swift */; };
-		6A453E7E2411A79600A37B4C /* Sample.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6A453E7D2411A79600A37B4C /* Sample.mp3 */; };
-		6A453E802411C17B00A37B4C /* AVAudioPlayer+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A453E7F2411C17B00A37B4C /* AVAudioPlayer+Mock.swift */; };
 		B4533F1F1DA2BD0F00440CC0 /* SwiftyMusic.h in Headers */ = {isa = PBXBuildFile; fileRef = B4533F1D1DA2BD0F00440CC0 /* SwiftyMusic.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B4533F261DA2BD2400440CC0 /* SwiftyMusic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4533F251DA2BD2400440CC0 /* SwiftyMusic.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		6A453E6624119AF900A37B4C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B4533F111DA2BD0F00440CC0 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = B4533F191DA2BD0F00440CC0;
-			remoteInfo = SwiftyMusic;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		6A436BB223EEFB9400D5F5EA /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		6A436BB323EEFB9400D5F5EA /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		6A453E5A2411991100A37B4C /* SwiftyMusicFileName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftyMusicFileName.swift; sourceTree = "<group>"; };
-		6A453E6024119AF900A37B4C /* SwiftyMusicTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftyMusicTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		6A453E6224119AF900A37B4C /* SwiftyMusicTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftyMusicTests.swift; sourceTree = "<group>"; };
-		6A453E6424119AF900A37B4C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6A453E6C24119BC200A37B4C /* MockUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUserDefaults.swift; sourceTree = "<group>"; };
 		6A453E6E24119E8500A37B4C /* SwiftyMusicPlayerBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftyMusicPlayerBuilder.swift; sourceTree = "<group>"; };
-		6A453E732411A25100A37B4C /* SwiftyMusicPlayerBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftyMusicPlayerBuilderTests.swift; sourceTree = "<group>"; };
-		6A453E752411A28D00A37B4C /* MockPlayerBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPlayerBuilder.swift; sourceTree = "<group>"; };
-		6A453E7B2411A59100A37B4C /* URL+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Mock.swift"; sourceTree = "<group>"; };
-		6A453E7D2411A79600A37B4C /* Sample.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Sample.mp3; sourceTree = "<group>"; };
-		6A453E7F2411C17B00A37B4C /* AVAudioPlayer+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVAudioPlayer+Mock.swift"; sourceTree = "<group>"; };
-		6ACB3871243391B300D2126E /* UnitTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = UnitTests.xctestplan; sourceTree = "<group>"; };
 		B4533F1A1DA2BD0F00440CC0 /* SwiftyMusic.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftyMusic.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4533F1D1DA2BD0F00440CC0 /* SwiftyMusic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftyMusic.h; sourceTree = "<group>"; };
 		B4533F1E1DA2BD0F00440CC0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -53,14 +25,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		6A453E5D24119AF800A37B4C /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6A453E6524119AF900A37B4C /* SwiftyMusic.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		B4533F161DA2BD0F00440CC0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -71,18 +35,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6A453E6B24119BAD00A37B4C /* Test Data */ = {
-			isa = PBXGroup;
-			children = (
-				6A453E7D2411A79600A37B4C /* Sample.mp3 */,
-				6A453E7F2411C17B00A37B4C /* AVAudioPlayer+Mock.swift */,
-				6A453E7B2411A59100A37B4C /* URL+Mock.swift */,
-				6A453E6C24119BC200A37B4C /* MockUserDefaults.swift */,
-				6A453E752411A28D00A37B4C /* MockPlayerBuilder.swift */,
-			);
-			path = "Test Data";
-			sourceTree = "<group>";
-		};
 		6A453E7024119E8900A37B4C /* Public */ = {
 			isa = PBXGroup;
 			children = (
@@ -109,18 +61,6 @@
 			path = Sources;
 			sourceTree = "<group>";
 		};
-		6ACB386C2433912800D2126E /* Tests */ = {
-			isa = PBXGroup;
-			children = (
-				6A453E6B24119BAD00A37B4C /* Test Data */,
-				6A453E6224119AF900A37B4C /* SwiftyMusicTests.swift */,
-				6A453E732411A25100A37B4C /* SwiftyMusicPlayerBuilderTests.swift */,
-				6ACB3871243391B300D2126E /* UnitTests.xctestplan */,
-				6A453E6424119AF900A37B4C /* Info.plist */,
-			);
-			path = Tests;
-			sourceTree = "<group>";
-		};
 		B4533F101DA2BD0F00440CC0 = {
 			isa = PBXGroup;
 			children = (
@@ -128,7 +68,6 @@
 				6A436BB223EEFB9400D5F5EA /* Package.swift */,
 				B4533F1C1DA2BD0F00440CC0 /* SwiftyMusic */,
 				6A494E7E2402C21700203B0C /* Sources */,
-				6ACB386C2433912800D2126E /* Tests */,
 				B4533F1B1DA2BD0F00440CC0 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -137,7 +76,6 @@
 			isa = PBXGroup;
 			children = (
 				B4533F1A1DA2BD0F00440CC0 /* SwiftyMusic.framework */,
-				6A453E6024119AF900A37B4C /* SwiftyMusicTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -165,24 +103,6 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		6A453E5F24119AF800A37B4C /* SwiftyMusicTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 6A453E6A24119AF900A37B4C /* Build configuration list for PBXNativeTarget "SwiftyMusicTests" */;
-			buildPhases = (
-				6A453E5C24119AF800A37B4C /* Sources */,
-				6A453E5D24119AF800A37B4C /* Frameworks */,
-				6A453E5E24119AF800A37B4C /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				6A453E6724119AF900A37B4C /* PBXTargetDependency */,
-			);
-			name = SwiftyMusicTests;
-			productName = SwiftyMusicTests;
-			productReference = 6A453E6024119AF900A37B4C /* SwiftyMusicTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		B4533F191DA2BD0F00440CC0 /* SwiftyMusic */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = B4533F221DA2BD0F00440CC0 /* Build configuration list for PBXNativeTarget "SwiftyMusic" */;
@@ -211,11 +131,6 @@
 				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = Dominik;
 				TargetAttributes = {
-					6A453E5F24119AF800A37B4C = {
-						CreatedOnToolsVersion = 11.3.1;
-						DevelopmentTeam = DK88YZ475Z;
-						ProvisioningStyle = Automatic;
-					};
 					B4533F191DA2BD0F00440CC0 = {
 						CreatedOnToolsVersion = 8.0;
 						LastSwiftMigration = 1020;
@@ -237,20 +152,11 @@
 			projectRoot = "";
 			targets = (
 				B4533F191DA2BD0F00440CC0 /* SwiftyMusic */,
-				6A453E5F24119AF800A37B4C /* SwiftyMusicTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		6A453E5E24119AF800A37B4C /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6A453E7E2411A79600A37B4C /* Sample.mp3 in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		B4533F181DA2BD0F00440CC0 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -261,19 +167,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		6A453E5C24119AF800A37B4C /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6A453E762411A28D00A37B4C /* MockPlayerBuilder.swift in Sources */,
-				6A453E742411A25100A37B4C /* SwiftyMusicPlayerBuilderTests.swift in Sources */,
-				6A453E6D24119BC200A37B4C /* MockUserDefaults.swift in Sources */,
-				6A453E7C2411A59100A37B4C /* URL+Mock.swift in Sources */,
-				6A453E802411C17B00A37B4C /* AVAudioPlayer+Mock.swift in Sources */,
-				6A453E6324119AF900A37B4C /* SwiftyMusicTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		B4533F151DA2BD0F00440CC0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -286,58 +179,7 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		6A453E6724119AF900A37B4C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = B4533F191DA2BD0F00440CC0 /* SwiftyMusic */;
-			targetProxy = 6A453E6624119AF900A37B4C /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin XCBuildConfiguration section */
-		6A453E6824119AF900A37B4C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = DK88YZ475Z;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = Tests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.dominik.SwiftyMusicTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		6A453E6924119AF900A37B4C /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = DK88YZ475Z;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = Tests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.dominik.SwiftyMusicTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
 		B4533F201DA2BD0F00440CC0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -513,15 +355,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6A453E6A24119AF900A37B4C /* Build configuration list for PBXNativeTarget "SwiftyMusicTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				6A453E6824119AF900A37B4C /* Debug */,
-				6A453E6924119AF900A37B4C /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		B4533F141DA2BD0F00440CC0 /* Build configuration list for PBXProject "SwiftyMusic" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

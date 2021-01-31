@@ -9,7 +9,7 @@
 import XCTest
 @testable import SwiftyMusic
 import AVFoundation
-
+#warning("add remaining tests")
 class SwiftyMusicTests: XCTestCase {
 
     // MARK: - Properties
@@ -74,7 +74,7 @@ class SwiftyMusicTests: XCTestCase {
     // MARK: Pause/Resume
     
     func test_pause() {
-        
+
     }
     
     func test_resume() {
@@ -94,7 +94,7 @@ private extension SwiftyMusicTests {
     
     func makeSUT() -> SwiftyMusic {
         SwiftyMusic(
-            playerBuilder: playerBuilder,//SwiftyMusicPlayerBuilder(bundle: Bundle(for: SwiftyMusicTests.self)),
+            playerBuilder: playerBuilder,
             userDefaults: userDefaults
         )
     }
