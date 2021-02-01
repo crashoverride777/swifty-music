@@ -22,8 +22,6 @@ A Swift helper to handle music playback using AVFoundation.
 pod 'SwiftyMusic'
 ```
 
-There is now an [app](https://cocoapods.org/app) which makes handling pods much easier
-
 ### Swift Package Manager
 
 The Swift Package Manager is a tool for automating the distribution of Swift code and is integrated into the swift compiler.
@@ -31,7 +29,7 @@ The Swift Package Manager is a tool for automating the distribution of Swift cod
 To add a swift package to your project simple open your project in xCode and click File > Swift Packages > Add Package Dependency.
 Than enter `https://github.com/crashoverride777/swifty-music` as the repository URL and finish the setup wizard.
 
-Alternatively if you have a Framwork that requires adding SwiftyMusic as a dependency is as easy as adding it to the dependencies value of your Package.swift.
+Alternatively if you have a Swift package that requires adding SwiftyMusic as a dependency it is as easy as adding it to the dependencies value of your Package.swift.
 ```swift
 dependencies: [
 .package(url: "https://github.com/crashoverride777/swifty-music.git", from: "4.4.0")
@@ -40,13 +38,13 @@ dependencies: [
 
 ### Manually 
 
-Altenatively you can drag the `SwiftyMusic.swift` file into your project.
+Altenatively you can drag the `Sources` folder and its containing files into your project.
 
 ## Usage
 
 - Add your music tracks to your project. 
 
-SwiftyMusic supports the following file formats: mp3, wav, aac, ac3, m4a, caf
+SwiftyMusic supports the following file formats: `mp3, wav, aac, ac3, m4a, caf`
 
 - Add the import statements to your .swift file(s) if you installed via cocoa pods or swift package manager.
 
@@ -71,28 +69,28 @@ extension SwiftyMusicFileName {
 SwiftyMusic.shared.setup(withFileNames: SwiftyMusicFileName.all)
 ```
 
-- To play music call the play method with the corresponding Music URL you created above. This will automatically pause (not stop and reset) any previously playing music
+- To play music call the play method with the corresponding Music URL you have created above. This will automatically pause any previously playing music
 ```swift
 SwiftyMusic.shared.play(.menu)
 SwiftyMusic.shared.play(.game)
 ```
 
-- To pause music manually, eg game paused, advertising etc
+- Pause music
 ```swift
 SwiftyMusic.shared.pause()
 ```
 
-- To resume paused music
+- Resume paused music
 ```swift
 SwiftyMusic.shared.resume()
 ```
 
-- To adjust volume (e.g game paused)
+- Adjust volume
 ```swift
 SwiftyMusic.shared.setVolume(to: 0.5)
 ```
 
-- To stop and reset all music players, eg gameover
+- Stop and reset all music players
 ```swift
 SwiftyMusic.shared.reset()
 ```
