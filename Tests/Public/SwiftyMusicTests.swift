@@ -217,7 +217,7 @@ class SwiftyMusicTests: XCTestCase {
 
         let sut = makeSUT()
         sut.setup(withFileNames: [fileName])
-        sut.setMuted(false)
+        userDefaults.set(false, forKey: "SwiftyMusicMuteKey")
         sut.reset()
 
         XCTAssertEqual(expectedPlayer.volume, 1.0)
@@ -229,7 +229,7 @@ class SwiftyMusicTests: XCTestCase {
 
         let sut = makeSUT()
         sut.setup(withFileNames: [fileName])
-        sut.setMuted(true)
+        userDefaults.set(true, forKey: "SwiftyMusicMuteKey")
         sut.reset()
 
         XCTAssertEqual(expectedPlayer.volume, 0.0)
@@ -241,7 +241,6 @@ class SwiftyMusicTests: XCTestCase {
 
         let sut = makeSUT()
         sut.setup(withFileNames: [fileName])
-        sut.setMuted(true)
         sut.reset()
 
         XCTAssertTrue(expectedPlayer.mock.prepareToPlayCalled)

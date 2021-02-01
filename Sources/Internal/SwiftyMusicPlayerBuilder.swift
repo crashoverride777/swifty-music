@@ -23,7 +23,7 @@
 import AVFoundation
 
 protocol SwiftyMusicPlayerBuilderType: AnyObject {
-    func build(forFileName fileName: String, delegate: AVAudioPlayerDelegate) -> AVAudioPlayer?
+    func build(withFileName fileName: String, delegate: AVAudioPlayerDelegate) -> AVAudioPlayer?
 }
 
 final class SwiftyMusicPlayerBuilder {
@@ -37,13 +37,11 @@ final class SwiftyMusicPlayerBuilder {
 
 extension SwiftyMusicPlayerBuilder: SwiftyMusicPlayerBuilderType {
     
-    func build(forFileName fileName: String, delegate: AVAudioPlayerDelegate) -> AVAudioPlayer? {
-        let urls = fileExtensions.compactMap { bundle.url(forResource: fileName, withExtension: $0) }
-        
-        guard let url = urls.first else {
+    func build(withFileName fileName: String, delegate: AVAudioPlayerDelegate) -> AVAudioPlayer? {
+        guard let url = fileExtensions.compactMap({ bundle.url(forResource: fileName, withExtension: $0) }).first else {
             return nil
         }
-        
+
         do {
             let avPlayer = try AVAudioPlayer(contentsOf: url)
             avPlayer.delegate = delegate

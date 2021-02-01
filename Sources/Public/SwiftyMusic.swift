@@ -107,7 +107,7 @@ extension SwiftyMusic: SwiftyMusicType {
     /// - parameter fileNames: An array of file names to prepare.
     public func setup(withFileNames fileNames: [SwiftyMusicFileName]) {
         fileNames.forEach {
-            guard let player = playerBuilder.build(forFileName: $0.rawValue, delegate: self) else { return }
+            guard let player = playerBuilder.build(withFileName: $0.rawValue, delegate: self) else { return }
             player.volume = muted ? 0 : 1
             players.insert(player)
         }
