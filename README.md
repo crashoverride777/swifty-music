@@ -9,7 +9,7 @@ A Swift helper to handle music playback using AVFoundation.
 
 ## Requirements
 
-- iOS 10.3+
+- iOS 11.4+
 - Swift 5.0+
 
 ## Installation
