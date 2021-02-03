@@ -106,3 +106,29 @@ if SwiftyMusic.shared.isMuted {
     // music not muted, show mute button
 }
 ```
+
+- Testing
+To test your classes using SwiftyMusic you can inject the `SwiftyMusicType` protocol
+
+```swift
+class SomeClass {
+    private let swiftyMusic: SwiftyMusicType
+    
+    init(swiftyMusic: SwiftyMusicType = SwiftyMusic.shared) {
+        self.swiftyMusic = swiftyMusic
+    }
+}
+```
+
+and than provide a mock implementation when testing
+
+```swift
+class MockSwiftyMusic { }
+extension MockSwiftyMusic: SwiftyMusicType { ... }
+
+class SomeClassTests {
+    func test() {
+        let sut = SomeClass(swiftyMusic: MockSwiftyMusic())
+    }
+}
+```
