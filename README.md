@@ -33,7 +33,7 @@ Than enter `https://github.com/crashoverride777/swifty-music.git` as the reposit
 Alternatively if you have a Swift package that requires adding SwiftyMusic as a dependency it is as easy as adding it to the dependencies value of your Package.swift.
 ```swift
 dependencies: [
-.package(url: "https://github.com/crashoverride777/swifty-music.git", from: "4.4.0")
+    .package(url: "https://github.com/crashoverride777/swifty-music.git", from: "4.4.0")
 ]
 ```
 
@@ -107,7 +107,8 @@ if SwiftyMusic.shared.isMuted {
 }
 ```
 
-- Testing
+## Testing
+
 To test your classes using SwiftyMusic you can inject the `SwiftyMusicType` protocol
 
 ```swift
