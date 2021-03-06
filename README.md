@@ -1,11 +1,17 @@
-# SwiftyMusic
-
 [![Swift 5.0](https://img.shields.io/badge/swift-5.0-ED523F.svg?style=flat)](https://swift.org/download/)
 [![Platform](https://img.shields.io/cocoapods/p/SwiftyMusic.svg?style=flat)]()
 [![SPM supported](https://img.shields.io/badge/SPM-supported-DE5C43.svg?style=flat)](https://swift.org/package-manager)
 [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/SwiftyMusic.svg)](https://img.shields.io/cocoapods/v/SwiftyMusic.svg)
 
-A Swift helper to handle music playback using AVFoundation.
+# SwiftyMusic
+
+A Swift library to handle music playback using AVFoundation.
+
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Testing](#testing)
+- [License](#license)
 
 ## Requirements
 
@@ -133,3 +139,7 @@ class SomeClassTests {
     }
 }
 ```
+
+## License
+
+SwiftyMusic is released under the MIT license. [See LICENSE](https://github.com/crashoverride777/swifty-music/blob/master/LICENSE) for details.
