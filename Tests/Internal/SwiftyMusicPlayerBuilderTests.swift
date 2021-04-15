@@ -22,19 +22,19 @@ class SwiftyMusicPlayerBuilderTests: XCTestCase {
     
     func test_validURL_returnsPlayer() {
         let sut = makeSUT()
-        let player = sut.build(withFileName: "Sample", delegate: self)
+        let player = sut.build(withFileName: "Sample.mp3", delegate: self)
         XCTAssertNotNil(player)
     }
     
     func test_validURL_setsPlayerDelegate() {
         let sut = makeSUT()
-        let player = sut.build(withFileName: "Sample", delegate: self)
+        let player = sut.build(withFileName: "Sample.mp3", delegate: self)
         XCTAssertTrue(player?.delegate is SwiftyMusicPlayerBuilderTests)
     }
     
     func test_validURL_setsCorrectPlayerLoops() {
         let sut = makeSUT()
-        let player = sut.build(withFileName: "Sample", delegate: self)
+        let player = sut.build(withFileName: "Sample.mp3", delegate: self)
         XCTAssertEqual(player?.numberOfLoops, -1)
     }
 }
