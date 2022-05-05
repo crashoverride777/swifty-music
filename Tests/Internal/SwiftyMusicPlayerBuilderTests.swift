@@ -1,16 +1,8 @@
-//
-//  SwiftyMusicPlayerBuilderTests.swift
-//  SwiftyMusicTests
-//
-//  Created by Dominik Ringler on 05/03/2020.
-//  Copyright © 2020 Dominik. All rights reserved.
-//
-
 import XCTest
 import AVFoundation
 @testable import SwiftyMusic
 
-class SwiftyMusicPlayerBuilderTests: XCTestCase {
+final class SwiftyMusicPlayerBuilderTests: XCTestCase {
 
     // MARK: - Tests
     
@@ -22,19 +14,19 @@ class SwiftyMusicPlayerBuilderTests: XCTestCase {
     
     func test_validURL_returnsPlayer() {
         let sut = makeSUT()
-        let player = sut.build(withFileName: "Sample", delegate: self)
+        let player = sut.build(withFileName: "Sample.mp3", delegate: self)
         XCTAssertNotNil(player)
     }
     
     func test_validURL_setsPlayerDelegate() {
         let sut = makeSUT()
-        let player = sut.build(withFileName: "Sample", delegate: self)
+        let player = sut.build(withFileName: "Sample.mp3", delegate: self)
         XCTAssertTrue(player?.delegate is SwiftyMusicPlayerBuilderTests)
     }
     
     func test_validURL_setsCorrectPlayerLoops() {
         let sut = makeSUT()
-        let player = sut.build(withFileName: "Sample", delegate: self)
+        let player = sut.build(withFileName: "Sample.mp3", delegate: self)
         XCTAssertEqual(player?.numberOfLoops, -1)
     }
 }
@@ -46,7 +38,6 @@ extension SwiftyMusicPlayerBuilderTests: AVAudioPlayerDelegate {}
 // MARK: - Private Methods
 
 private extension SwiftyMusicPlayerBuilderTests {
-    
     func makeSUT() -> SwiftyMusicPlayerBuilder {
         SwiftyMusicPlayerBuilder(bundle: .module)
     }

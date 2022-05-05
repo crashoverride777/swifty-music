@@ -1,4 +1,4 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.6
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -7,7 +7,7 @@ private let packageName = "SwiftyMusic"
 
 let package = Package(
     name: packageName,
-    platforms: [.iOS(.v11), .tvOS(.v11), .macOS(.v10_15)],
+    platforms: [.iOS(.v12), .tvOS(.v12), .macOS(.v10_15)],
     products: [.library(name: packageName, targets: [packageName])],
     targets: [
         .target(

@@ -1,6 +1,6 @@
 //    The MIT License (MIT)
 //
-//    Copyright (c) 2016-2021 Dominik Ringler
+//    Copyright (c) 2016-2022 Dominik Ringler
 //
 //    Permission is hereby granted, free of charge, to any person obtaining a copy
 //    of this software and associated documentation files (the "Software"), to deal
@@ -72,13 +72,10 @@ public class SwiftyMusic: NSObject {
         set { userDefaults.set(newValue, forKey: mutedKey) }
     }
     
-    // MARK: - Init
+    // MARK: - Initialization
     
     private override convenience init() {
-        self.init(
-            playerBuilder: SwiftyMusicPlayerBuilder(bundle: .main),
-            userDefaults: .standard
-        )
+        self.init(playerBuilder: SwiftyMusicPlayerBuilder(bundle: .main), userDefaults: .standard)
     }
     
     init(playerBuilder: SwiftyMusicPlayerBuilderType, userDefaults: UserDefaults) {
@@ -90,15 +87,10 @@ public class SwiftyMusic: NSObject {
 // MARK: - SwiftyMusicType
 
 extension SwiftyMusic: SwiftyMusicType {
-    
-    // MARK: Booleans
-    
     /// Check muted state (persistant)
     public var isMuted: Bool {
         muted
     }
-    
-    // MARK: Setup
     
     /// Setup music players
     ///
@@ -113,8 +105,6 @@ extension SwiftyMusic: SwiftyMusicType {
         }
     }
     
-    // MARK: Play
-    
     /// Play music
     ///
     /// - parameter fileName: The player file name to play.
@@ -127,23 +117,17 @@ extension SwiftyMusic: SwiftyMusicType {
         currentPlayer = player
     }
 
-    // MARK: Pause
-
     /// Pause music
     public func pause() {
         isPaused = true
         players.forEach { $0.pause() }
     }
 
-    // MARK: Resume
-
     /// Resume music
     public func resume() {
         isPaused = false
         currentPlayer?.play()
     }
-    
-    // MARK: Volume
     
     /// Set volume to a level between 0 and 1
     public func setVolume(to value: Float) {
@@ -152,15 +136,11 @@ extension SwiftyMusic: SwiftyMusicType {
         players.forEach { $0.volume = value }
     }
     
-    // MARK: Mute
-    
     /// Mute/Unmute music
     public func setMuted(_ isMuted: Bool) {
         self.muted = isMuted
         players.forEach { $0.volume = isMuted ? 0 : currentVolume }
     }
-    
-    // MARK: Reset
     
     /// Stop and reset all music players to initial settings
     public func reset() {
@@ -178,15 +158,14 @@ extension SwiftyMusic: SwiftyMusicType {
 // MARK: - AVAudioPlayerDelegate
 
 extension SwiftyMusic: AVAudioPlayerDelegate {
-    
     public func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        print("Audio player \(player) did finish playing \(flag)")
+        print("SwiftyMusic audio player \(player) did finish playing \(flag)")
         // Finish means when music ended not when stopped
     }
     
     public func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
         if let error = error {
-            print(error.localizedDescription)
+            print("SwiftyMusic audio player error:", error.localizedDescription)
         }
     }
 }
@@ -194,7 +173,6 @@ extension SwiftyMusic: AVAudioPlayerDelegate {
 // MARK: - Private Methods
 
 private extension SwiftyMusic {
-    
     func getPlayer(for fileName: SwiftyMusicFileName) -> AVAudioPlayer {
         guard let player = players.first(where: {
             $0.url?.lastPathComponent.components(separatedBy: ".").first == fileName.rawValue

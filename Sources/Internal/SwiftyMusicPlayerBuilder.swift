@@ -1,6 +1,6 @@
 //    The MIT License (MIT)
 //
-//    Copyright (c) 2016-2021 Dominik Ringler
+//    Copyright (c) 2016-2022 Dominik Ringler
 //
 //    Permission is hereby granted, free of charge, to any person obtaining a copy
 //    of this software and associated documentation files (the "Software"), to deal
@@ -28,17 +28,19 @@ protocol SwiftyMusicPlayerBuilderType: AnyObject {
 
 final class SwiftyMusicPlayerBuilder {
     private let bundle: Bundle
-    private let fileExtensions = ["mp3", "wav", "aac", "ac3", "m4a", "caf"]
-    
+   
     init(bundle: Bundle) {
         self.bundle = bundle
     }
 }
 
 extension SwiftyMusicPlayerBuilder: SwiftyMusicPlayerBuilderType {
-    
     func build(withFileName fileName: String, delegate: AVAudioPlayerDelegate) -> AVAudioPlayer? {
-        guard let url = fileExtensions.compactMap({ bundle.url(forResource: fileName, withExtension: $0) }).first else {
+        let fileNameURL = URL(fileURLWithPath: fileName)
+        let fileResource = fileNameURL.deletingPathExtension().lastPathComponent
+        let fileExtension = fileNameURL.pathExtension
+        
+        guard let url = bundle.url(forResource: fileResource, withExtension: fileExtension) else {
             return nil
         }
 

@@ -15,19 +15,10 @@ A Swift library to handle music playback using AVFoundation.
 
 ## Requirements
 
-- iOS 11.4+
+- iOS 12.0+
 - Swift 5.0+
 
 ## Installation
-
-### Cocoa Pods
-
-[CocoaPods](https://developers.google.com/admob/ios/quick-start#streamlined_using_cocoapods) is a dependency manager for Cocoa projects. Simply install the pod by adding the following line to your pod file
-
-
-```swift
-pod 'SwiftyMusic'
-```
 
 ### Swift Package Manager
 
@@ -39,8 +30,17 @@ Than enter `https://github.com/crashoverride777/swifty-music.git` as the reposit
 Alternatively if you have a Swift package that requires adding SwiftyMusic as a dependency it is as easy as adding it to the dependencies value of your Package.swift.
 ```swift
 dependencies: [
-    .package(url: "https://github.com/crashoverride777/swifty-music.git", from: "4.4.0")
+    .package(url: "https://github.com/crashoverride777/swifty-music.git", from: "4.0.0")
 ]
+```
+
+### Cocoa Pods
+
+[CocoaPods](https://developers.google.com/admob/ios/quick-start#streamlined_using_cocoapods) is a dependency manager for Cocoa projects. Simply install the pod by adding the following line to your pod file
+
+
+```swift
+pod 'SwiftyMusic'
 ```
 
 ### Manually 
@@ -51,7 +51,7 @@ Alternatively you can drag the `Sources` folder and its containing files into yo
 
 - Add your music tracks to your project. 
 
-SwiftyMusic supports the following file formats: `mp3, wav, aac, ac3, m4a, caf`
+SwiftyMusic supports all file formats supported by AVFoundation.
 
 - Add the import statements to your .swift file(s) if you installed via cocoa pods or swift package manager.
 
@@ -63,8 +63,8 @@ import SwiftyMusic
 
 ```swift
 extension SwiftyMusicFileName {
-    static let menu = SwiftyMusicFileName("MenuMusic")
-    static let game = SwiftyMusicFileName("GameMusic")
+    static let menu = SwiftyMusicFileName("MenuMusic.mp3")
+    static let game = SwiftyMusicFileName("GameMusic.mp3")
     
     static var all: [SwiftyMusicFileName] = [.menu, .game]
 }
