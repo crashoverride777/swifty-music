@@ -1,16 +1,8 @@
-//
-//  SwiftyMusicPlayerBuilderTests.swift
-//  SwiftyMusicTests
-//
-//  Created by Dominik Ringler on 05/03/2020.
-//  Copyright © 2020 Dominik. All rights reserved.
-//
-
 import XCTest
 import AVFoundation
 @testable import SwiftyMusic
 
-class SwiftyMusicPlayerBuilderTests: XCTestCase {
+final class SwiftyMusicPlayerBuilderTests: XCTestCase {
 
     // MARK: - Tests
     
@@ -46,7 +38,6 @@ extension SwiftyMusicPlayerBuilderTests: AVAudioPlayerDelegate {}
 // MARK: - Private Methods
 
 private extension SwiftyMusicPlayerBuilderTests {
-    
     func makeSUT() -> SwiftyMusicPlayerBuilder {
         SwiftyMusicPlayerBuilder(bundle: .module)
     }
